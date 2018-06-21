@@ -257,103 +257,62 @@
 // ←[[#2]] Расшифровка второй цифровой сноски
 // → {type: 'womFootnoteDefinition', identifier: '2', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй цифровой сноски'}]}]}
 
-〉Пример 1: без параметров
-←%%(python)
-←@requires_authorization
-←def somefunc(param1, param2):
-←    r'''A docstring'''
-←    if param1 > param2: # interesting
-←        print 'Gre\'ater'
-←        print ''
-←    return (param2 - param1 + 1) or None
-←
-←class SomeClass:
-←    pass
-←%%
-→ {type: 'code', lang: 'python', flags: [], value: '...'}
-
 〉Пример 2: nomark
 ←%%(python nomark)
 ←@requires_authorization
 ←def somefunc(param1, param2):
 ←    r'''A docstring'''
-←    if param1 > param2: # interesting
-←        print 'Gre\'ater'
-←        print ''
-←    return (param2 - param1 + 1) or None
-←
-←class SomeClass:
-←    pass
 ←%%
-→ {type: 'code', lang: 'python', flags: ['nomark'], value: '...'}
-
-〉Пример 3: nohighlight
-←%%(code nohighlight)
-←@requires_authorization
-←def somefunc(param1, param2):
-←    r'''A docstring'''
-←    if param1 > param2: # interesting
-←        print 'Gre\'ater'
-←        print ''
-←    return (param2 - param1 + 1) or None
-←
-←class SomeClass:
-←    pass
-←%%
-→ {type: 'code', lang: null, flags: ['nohighlight'], value: '...'}
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: 'python',
+→     attributes: {nomark: null},
+→     value: `\n@requires_authorization\ndef somefunc(param1, param2):\n    r'''A docstring'''\n`
+→   } ] }
 
 〉Cut с питон функцией
 ←<{код функции
-←%%(python)
-←def is_pretty_num(n):
-←    if len(n) > 4:
-←        i = n[0]
-←        for l in n[1:]:
-←            if l != i:
-←                i = 0
-←                break
-←        if i != 0:
-←            return 1
-←        i = int(n[0])
-←        for l in n[1:]:
-←            if int(l) == i + 1:
-←                i += 1
-←            else:
-←                i = 0
-←                break
-←        if i != 0:
-←            return 1
-←    i = int(n[-1])
-←    for l in n[::-1][1:]:
-←        if int(l) == i + 1:
-←            i += 1
-←        else:
-←            i = 0
-←            break
-←    if i != 0:
-←        return 1
+←%%(js)
+←function is_pretty_num(n) { return 1; }
 ←%%
 ←}>
-→ {type: 'cut', title: [{type: 'text', value: 'код функции'}], children: [{type: 'code', lang: 'python', flags: [], value: '...'}]}
+→ { type: 'root', children: [ { type: 'womCut',
+→   title: [{type: 'paragraph', children: [{type: 'text', value: 'код функции'}]}],
+→   children: [
+→     { type: 'womFormatter',
+→       format: 'js',
+→       attributes: {},
+→       value: `\nfunction is_pretty_num(n) { return 1; }\n`
+→     } ] } ] }
 
-〉Списки
-←Списки:
-←  Отступ
-←    Двойной отступ
-→ {type: 'list', ordered: false, children: [{type: 'item', children: [
-→   {type: 'text', value: 'Отступ'},
-→   {type: 'list', children: [{type: 'item', children: [{type: 'text', value: 'Двойной отступ'}]}]}
+// 〉Списки
+// ←Списки:
+// ←  Отступ
+// ←    Двойной отступ
+// → {type: 'list', ordered: false, children: [{type: 'item', children: [
+// →   {type: 'text', value: 'Отступ'},
+// →   {type: 'list', children: [{type: 'item', children: [{type: 'text', value: 'Двойной отступ'}]}]}
+// → ]}]}
+
+〉Ненумерованный список
+←* ненумерованный список
+←* ненумерованный список-2
+→ {type: 'root', children: [{type: 'list', ordered: false, start: null, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'ненумерованный список'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'ненумерованный список-2'}]}]}
 → ]}]}
 
 〉Нумерованный список
-←* ненумерованный список
-←* ненумерованный список-2
-→ {type: 'list', ordered: false, children: [{type: 'item', value: 'ненумерованный список'}, {type: 'item', value: 'ненумерованный список-2'}]}
-
-// 1. нумерованный список
-// 1. нумерованный список-2
-// 1.#8 нумерованный список-2, с пропуском пунктов
-// 3. это девятый пункт
+←1. нумерованный список
+←1. нумерованный список-2
+←3. это девятый пункт
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'это девятый пункт'}]}]},
+→ ]}]}
+// ←1.#8 нумерованный список-2, с пропуском пунктов
+// →   {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
 
 // A. Верхний регистр
 // A. Верхний регистр-2
@@ -379,99 +338,95 @@
 //       * Скрытый пункт списка
 // 2. список-2
 
-〉css formatter wrapper
-←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
-←.d { font-size:70% }
-←%%
-→ {type: 'code', lang: 'css', flags: ['nomark', ['wrapper', 'box'], ['align', 'left'], {width: 270, border: 0}], value: '.d { font-size:70% }'}
+// 〉css formatter wrapper
+// ←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
+// ←.d { font-size:70% }
+// ←%%
+// → {type: 'root', {type: 'womFormatter', lang: 'css', flags: ['nomark', ['wrapper', 'box'], ['align', 'left'], {width: 270, border: 0}], value: '.d { font-size:70% }'}
 
-// // Как мы видим, обёртка ##box## позволяет формировать удобные "меню", обтекаемые текстом. Кстати, есть специальный форматтер (box), который не делает ничего, кроме как оборачивает текст в эту обёртку.
+// 〉javascript formatter
+// ←%%(javascript nomark wrapper=box border="5px dashed red")
+// ←alert("hooray!");
+// ←%%
+// → {type: 'code', lang: 'javascript', flags: ['nomark', ['wrapper', 'box'], ['border', '5px dashed red"']], value: '\n.d { font-size:70% }\n'}
 
-〉javascript formatter
-←%%(javascript nomark wrapper=box border="5px dashed red")
-←alert("hooray!");
-←%%
-→ {type: 'code', lang: 'javascript', flags: ['nomark', ['wrapper', 'box'], ['border', '5px dashed red"']], value: '\n.d { font-size:70% }\n'}
-
-〉css formatter
-←%%(css nomark wrapper=shade)
-←.d2 { font-size:70% }
-←%%
-→ {type: 'code', lang: 'css', flags: [{type: 'attribute', name: 'nomark'}, {type: 'attribute', name: 'wrapper', value: 'shade'}],
-→   value: '\n.d { font-size:70% }\n'}
+// 〉css formatter
+// ←%%(css nomark wrapper=shade)
+// ←.d2 { font-size:70% }
+// ←%%
+// → {type: 'code', lang: 'css', flags: [{type: 'attribute', name: 'nomark'}, {type: 'attribute', name: 'wrapper', value: 'shade'}],
+// →   value: '\n.d { font-size:70% }\n'}
 
 〉wacko text aligned
 ←%%(wacko wrapper=text align=center) текст по центру %%
-→ {type: 'womacko', attributes: [{type: 'attribute', name: 'wrapper', value: 'text'}, {type: 'attribute', name: 'align', value: 'center'}],
-→   value: ' текст по центру '}
+→ {type: 'root', children: [{type: 'womFormatter', format: 'wacko', attributes: {wrapper: 'text', align: 'center'},
+→   value: ' текст по центру '}]}
 
-〉wacko page wrapper
-←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
-→ {type: 'womacko', attributes: [{type: 'attribute', name: 'wrapper', value: 'page'}, {type: 'attribute', name: 'wrapper_width', value: '200'}],
-→   value: ' этот текст не может быть шире двухсот пикселей'}
+// 〉wacko page wrapper
+// ←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
+// → {type: 'womacko', attributes: [{type: 'attribute', name: 'wrapper', value: 'page'}, {type: 'attribute', name: 'wrapper_width', value: '200'}],
+// →   value: ' этот текст не может быть шире двухсот пикселей'}
 
 〉Тикет в help
 ←help#:200912039020818
 → {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
 
 // 〉Обычный тикет
-// ←https://st.woofmd-team.ru/WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
+// ←https://jira.woofmd-team.ru/WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
 // → null
 
-〉WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic ) → null
-←q
-→ []
+// 〉
+// ←WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
+// → []
 
-〉Несуществующие тикеты
-←WIKI-123456
-→ null
+// WIKIWIKI-123456 → null
 
-WIKIWIKI-123456 → null
+// 〉нагрузочные тикеты:
+// ←http://lunapark.woofmd-team.ru/MAPSRENDER-308
+// → null
 
-〉нагрузочные тикеты:
-←http://lunapark.woofmd-team.ru/MAPSRENDER-308
-→ null
+// IEX-300[ --Инстанс IEX для проверки конфигов-- ]( kohen ) → null
 
-IEX-300[ --Инстанс IEX для проверки конфигов-- ]( kohen ) → null
+// http://lunapark.woofmd-team.ru/100 → null
 
-http://lunapark.woofmd-team.ru/100 → null
+кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
+кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
+кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}
+кем:egorova   → {type: 'womStaff', value: 'egorova', case: 'кем',   at: null}
+оком:egorova  → {type: 'womStaff', value: 'egorova', case: 'оком',  at: null}
+staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
+egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
+@egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}
 
-кто:egorova   → {type: 'womStaff', staff: 'egorova', case: 'кто',   at: null}
-кого:egorova  → {type: 'womStaff', staff: 'egorova', case: 'кого',  at: null}
-кому:egorova  → {type: 'womStaff', staff: 'egorova', case: 'кому',  at: null}
-кем:egorova   → {type: 'womStaff', staff: 'egorova', case: 'кем',   at: null}
-оком:egorova  → {type: 'womStaff', staff: 'egorova', case: 'оком',  at: null}
-staff:egorova → {type: 'womStaff', staff: 'egorova', case: 'staff', at: null}
-egorova@      → {type: 'womStaff', staff: 'egorova', case: null,    at: 'suffix'}
-@egorova      → {type: 'womStaff', staff: 'egorova', case: null,    at: 'prefix'}
+// 〉Почта полная
+// ←((mailto:mail@woofmd-team.ru mail@))
+// → {type: 'link', href: 'mailto:mail@woofmd-team.ru', children: [{type: 'text', value: 'mail@'}]}
 
-〉Почта полная
-←((mailto:mail@woofmd-team.ru mail@))
-→ {type: 'link', href: 'mailto:mail@woofmd-team.ru', children: [{type: 'text', value: 'mail@'}]}
+// 〉Почта короткая
+// ←mail@
+// → {type: 'staff', staff: '', value: 'mail'}
 
-〉Почта короткая
-←mail@
-→ {type: 'staff', staff: '', value: 'mail'}
+// 〉Этушка:
+// ←https://clubs.at.woofmd-team.ru/extdata
+// → null
 
-〉Этушка:
-←https://clubs.at.woofmd-team.ru/extdata
-→ null
+// 〉math outline 1
+// ←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
+// → null
 
-〉math outline 1
-←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
-→ null
-
-〉math outline 1
-←%%(math outline)\sqrt[\frac{p+q}{m}]{\int\limits_{a^2+1}^{b^4-1} e^{-ikt} dt + \int\limits_{\min\limits_{f(a)=0} a}^{\infty}t^{\frac{1}{\alpha}}dt}
-←%%
-→ {type: 'womFormatter', value: null}
+// 〉math outline 1
+// ←%%(math outline)\sqrt[\frac{p+q}{m}]{\int\limits_{a^2+1}^{b^4-1} e^{-ikt} dt + \int\limits_{\min\limits_{f(a)=0} a}^{\infty}t^{\frac{1}{\alpha}}dt}
+// ←%%
+// → {type: 'womFormatter', value: null}
 
 〉Греческие буквы
 ←%%(math outline)
 ←\alpha, \beta, \gamma, \lambda, \mu, \omega, \Gamma, \Lambda, \Omega
 ←%%
-→ {type: 'womFormatter', attributes: [{type: 'attribute', name: 'outline', value: null, quotes: null}],
-→   value: '\n\\alpha, \\beta, \\gamma, \\lambda, \\mu, \\omega, \\Gamma, \\Lambda, \\Omega\n'}
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
+→     value: '\n\\alpha, \\beta, \\gamma, \\lambda, \\mu, \\omega, \\Gamma, \\Lambda, \\Omega\n'}
+→ ]}
 
 〉CSV formatter
 ←%%(csv delimiter=; head='1')
@@ -479,12 +434,12 @@ egorova@      → {type: 'womStaff', staff: 'egorova', case: null,    at: 'suff
 ←Пучеглазость; 0,5; Показывает степень удивления
 ←Красноносость; средняя; Показывает температуру за дверью;ой
 ←%%
-→ {type: 'womFormatter', format: 'csv', attribues: [{type: 'attribute', name: 'delimiter', value: ';', quotes: null}, {type: 'attribute', name: 'delimiter', value: '1', quotes: 'single'}],
-→   value: '\n←Параметр;Значение;Описание;Ага!\nПучеглазость; 0,5; Показывает степень удивления\nКрасноносость; средняя; Показывает температуру за дверью;ой\n'}
+→ {type: 'root', children: [{type: 'womFormatter', format: 'csv', attributes: {delimiter: ';', head: '1'},
+→   value: '\nПараметр;Значение;Описание;Ага!\nПучеглазость; 0,5; Показывает степень удивления\nКрасноносость; средняя; Показывает температуру за дверью;ой\n'}]}
 
 〉Тоблица из html
 ←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
-→ {type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}
+→ {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
 
 〉Таблица из разметки
 ←#|
@@ -507,7 +462,7 @@ egorova@      → {type: 'womStaff', staff: 'egorova', case: null,    at: 'suff
 → ]}
 
 ((http://www.woofmd.ru)) или [[http://www.woofmd.ru]] → null
-((http://www.woofmd.ru Яндекс с круглыми скобками)) или [[http://www.woofmd.ru Яндекс с квадратными скобками]]
+((http://www.woofmd.ru WoofMD с круглыми скобками)) или [[http://www.woofmd.ru WoofMD с квадратными скобками]]
 [[Устафф]] или ((Устафф)) → null
 ((Устафф Страница про устав)) или [[Устафф Страница про устафф]] → null
 http://www.ya.ru и https://www.ya.ru → null
@@ -609,42 +564,42 @@ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
 // многострочныйбезпробелов%%какой-то другой текст
 
 
-〉XML
-←text text text %%(xml)codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode%% text text text text text text text text text text text text text text text text text text text text text text text text text text
-→ {type: 'paragraph', children: [{type: 'text', value: 'text text text '}, {type: 'womFormatter', value: 'codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode'}, {type: 'text', value: ' text text text text text text text text text text text text text text text text text text text text text text text text text text'}]}
+// 〉XML
+// ←text text text %%(xml)codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode%% text text text text text text text text text text text text text text text text text text text text text text text text text text
+// → {type: 'paragraph', children: [{type: 'text', value: 'text text text '}, {type: 'womFormatter', value: 'codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode'}, {type: 'text', value: ' text text text text text text text text text text text text text text text text text text text text text text text text text text'}]}
 
-〉Список
-←1. Ordered List
-←2. text %%code%% text
-←3. text %%code code code
-←code code code code code code code code code code
-←code code code code code code code code code code code code code code code code code code%% text
-←4. text
-←5. %%(cs)
-←codecodecodecodecodecodecodecodecode
-←codecodecodecodecode
-←code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code
-←%%
-←6. вложенный список
-←    2.+ вложенный список, свёртнутый пункт
-←      * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
-←        * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
-←      * Скрытый пункт %%списка%%
-→ {type: 'list', children: [
-→
-→ ]}
+// 〉Список
+// ←1. Ordered List
+// ←2. text %%code%% text
+// ←3. text %%code code code
+// ←code code code code code code code code code code
+// ←code code code code code code code code code code code code code code code code code code%% text
+// ←4. text
+// ←5. %%(cs)
+// ←codecodecodecodecodecodecodecodecode
+// ←codecodecodecodecode
+// ←code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code
+// ←%%
+// ←6. вложенный список
+// ←    2.+ вложенный список, свёртнутый пункт
+// ←      * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
+// ←        * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
+// ←      * Скрытый пункт %%списка%%
+// → {type: 'list', children: [
+// →
+// → ]}
 
-〉обычный кат
-←<{обычный кат
-←текст}>
-→ {type: 'womCut', title: [{type: 'text', value: 'обычный кат'}], children: [{type: 'text', value: 'текст'}]}
+// 〉обычный кат
+// ←<{обычный кат
+// ←текст}>
+// → {type: 'womCut', title: [{type: 'text', value: 'обычный кат'}], children: [{type: 'text', value: 'текст'}]}
 
-〉пустой кат
-←<{пустой кат
-←}>
-→ {type: 'womCut', title: [{type: 'text', value: 'пустой кат'}], children: []}
+// 〉пустой кат
+// ←<{пустой кат
+// ←}>
+// → {type: 'womCut', title: [{type: 'text', value: 'пустой кат'}], children: []}
 
 〉кат без заголовка
 ←<{
 ←}>
-→ {type: 'womCut', title: [], children: []}
+→ {type: 'root', children: [{type: 'womCut', title: [], children: []}]}

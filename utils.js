@@ -9,10 +9,16 @@ function vis(node, indent = 0) {
         JSON.stringify(node.value) : ''} ${draw('title')} ${draw('children')}`;
 
     function draw(field) {
-        return field in node && Array.isArray(node[field])?
-            ('\n' + (field !== 'children' ? field + ': ' : '')
-                + (node[field].map(child => vis(child, indent + 1)).join('\n') || `${'  '.repeat(indent + 1)}—`))
-            : '';
+        const hasField = field in node && Array.isArray(node[field]);
+        const hasTitle = 'title' in node && Array.isArray(node.title);
+        if (!hasField) {
+            return '';
+        }
+
+        return '\n'
+            + (hasTitle ? ('  '.repeat(++indent)) + '@' + field + ':\n' : '')
+            + (node[field].map(child => vis(child, indent + 1)).join('\n') || `${'  '.repeat(indent + 1)}—`)
+            + (hasTitle && --indent, '');
     }
 }
 
@@ -21,6 +27,9 @@ function cleanup(node) {
     delete res.type;
     delete res.children;
     delete res.value;
+    if (Array.isArray(res.title)) {
+        delete res.title;
+    }
     delete res.position;
     return res;
 }

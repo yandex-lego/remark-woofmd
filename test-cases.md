@@ -398,6 +398,14 @@ staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
 egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
 @egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}
 
+〉Checking for false-positives
+←Perfecto is real! Right, staff:johnson?
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Perfecto is real! Right, '},
+→   {type: 'womStaff', value: 'johnson', case: 'staff', at: null},
+→   {type: 'text', value: '?'}
+→ ]}
+
 // 〉Почта полная
 // ←((mailto:mail@woofmd-team.ru mail@))
 // → {type: 'link', href: 'mailto:mail@woofmd-team.ru', children: [{type: 'text', value: 'mail@'}]}

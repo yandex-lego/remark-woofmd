@@ -189,29 +189,49 @@
 →   {type: 'color', raw: '#F00', value: 'f00'}
 → ]}
 
-// 〉 Большой заголовок
-// ←== Большой заголовок
-// → {type: 'womHeading', depth: 1, children: [{type: 'text', value: 'Большой заголовок'}]}
+〉Один знак равно это не заголовок
+←= Не заголовок
+→ {type: 'text', value: '= Не заголовок'}
 
-// 〉 Заголовок поменьше
-// ←=== Заголовок поменьше
-// → {type: 'womHeading', depth: 2, children: [{type: 'text', value: 'Заголовок поменьше'}]}
+〉Большой заголовок
+←== Большой заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, expandable: false, children: [{type: 'text', value: 'Большой заголовок'}]}]}
 
-// 〉 Средний заголовок
-// ←==== Средний заголовок
-// → {type: 'womHeading', depth: 3, children: [{type: 'text', value: 'Средний заголовок'}]}
+〉Большой заголовок
+←==+ Большой раскрывающийся заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, expandable: true, children: [{type: 'text', value: 'Большой раскрывающийся заголовок'}]}]}
 
-// 〉 Маленький заголовок
-// ←===== Маленький заголовок
-// → {type: 'womHeading', depth: 4, children: [{type: 'text', value: 'Маленький заголовок'}]}
+〉Заголовок поменьше
+←=== Заголовок поменьше
+→ {type: 'root', children: [{type: 'womHeading', depth: 2, expandable: false, children: [{type: 'text', value: 'Заголовок поменьше'}]}]}
 
-// 〉 Ну совсем маленький заголовок
-// ←====== Ну совсем маленький заголовок
-// → {type: 'womHeading', depth: 5, children: [{type: 'text', value: 'Ну совсем маленький заголовок'}]}
+〉Средний заголовок
+←==== Средний заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 3, expandable: false, children: [{type: 'text', value: 'Средний заголовок'}]}]}
 
-// 〉 Меньше некуда заголовок
-// ←======= Меньше некуда заголовок
-// → {type: 'womHeading', depth: 6, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}
+〉Маленький заголовок
+←===== Маленький заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 4, expandable: false, children: [{type: 'text', value: 'Маленький заголовок'}]}]}
+
+〉Ну совсем маленький заголовок
+←====== Ну совсем маленький заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 5, expandable: false, children: [{type: 'text', value: 'Ну совсем маленький заголовок'}]}]}
+
+〉Меньше некуда заголовок
+←======= Меньше некуда заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
+
+〉Меньше некуда заголовок с равно на конце
+←======= Меньше некуда заголовок ====================
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
+
+〉Меньше некуда заголовок с раскрывашкой
+←=======+ Меньше некуда раскрывающийся заголовок
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: true, children: [{type: 'text', value: 'Меньше некуда раскрывающийся заголовок'}]}]}
+
+〉Много знаков равно это тоже не заголовок
+←======== Не заголовок
+→ {type: 'text', value: '======== Не заголовок'}
 
 // 〉Сноски
 // ←Текст, потом сноска[[*]] и вторая[[**]]
@@ -628,12 +648,3 @@ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
 ←<{
 ←}>
 → {type: 'womCut', title: [], children: []}
-
-〉свернутый заголовок
-←=====+свернутый заголовок
-←текст
-→ {type: 'heading', level: 5, expandable: true, children: [{type: 'text', value: 'свернутый заголовок'}]}
-
-〉пустой свернутый заголовок
-←=====+пустой свернутый заголовок
-→ {type: 'heading', level: 5, expandable: true, children: [{type: 'text', value: 'пустой свернутый заголовок'}]}

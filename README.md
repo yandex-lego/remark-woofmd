@@ -4,14 +4,14 @@
 
 ```js
 const remark = require('remark');
-const { vis, remark: remarkWoofmd } = require('.');
+const { vis, remark: remarkWoofmd } = require('remark-woofmd');
 const processor = remark().use(remarkWoofmd);
 const go = s => vis(processor.parse(s));
 
 go(`
 # Best addon for your pluphone
 
-Perfecto is real!
+Perfecto is real! Right, staff:johnston
 
 Text Before formatter block.
 %%(prettify align=center)

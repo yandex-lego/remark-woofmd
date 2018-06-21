@@ -8,6 +8,9 @@ const injectBefore = (target, afterMethod, ...objects) => {
     [].splice.apply(target, [target.indexOf(afterMethod), 0, ...flatten(objects)]);
 };
 
+const womHeading = require('./lib/tokenizers/heading-wom');
+const womStaff = require('./lib/tokenizers/staff');
+
 function plugin() {
     // this.Parser.prototype.wom = {};
 
@@ -30,7 +33,9 @@ function plugin() {
 
         ['womBreak', womBreak],
         ['womHelp', womHelp],
-        ['womColor', womColor]
+        ['womColor', womColor],
+
+        ['womStaff', womStaff],
     ]);
 
     for (const [key, fn] of myInlineTokenizers) {
@@ -54,6 +59,8 @@ function plugin() {
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
 
         ['womHtml', womBlockGenerator('womHtml', '<#', '#>', { rawContents: true })],
+
+        ['womHeading', womHeading],
     ]);
 
     for (const [key, fn] of myBlockTokenizers) {
@@ -62,7 +69,14 @@ function plugin() {
     // console.log(blockMethods);
     injectBefore(blockMethods, 'html', Array.from(myBlockTokenizers.keys()));
 
-    interruptParagraph.push(['womBlockquote', 'womDefinition']);
+    interruptParagraph.push(
+        ['womFormatter'],
+        ['womCut'],
+        ['womBlockquote'],
+        ['womDefinition'],
+        ['womHtml'],
+        ['womHeading'],
+    );
 
     // blockTokenizers.womFormatter = womFormatter;
     // injectBefore(blockMethods, 'text', 'womFormatter');
@@ -302,6 +316,7 @@ function inlinePairedText(charPair, type, colorful = false) {
         let res = value.indexOf(charPair, i);
         if (res === -1) return -1;
 
+        const lineBreak = value.indexOf('\n', i + 1);
         let nextWhitespace = res;
         while (!isWS(value.charAt(nextWhitespace + 1)) && nextWhitespace < value.length) {
             nextWhitespace += 1;
@@ -313,6 +328,10 @@ function inlinePairedText(charPair, type, colorful = false) {
                 break;
             }
             i = nextPair;
+        }
+
+        if (lineBreak !== -1 && lineBreak < i) {
+            return -1;
         }
 
         return i;
@@ -409,11 +428,6 @@ function womColor(eat, value, silent) {
     return eat(raw)({ type: 'color', value: color.toLowerCase(), raw });
 }
 
-womHeading.onlyAtStart = true;
-function womHeading(eat, value, silent) {
-
-}
-
 function eatFormatterProps(ctx) {
     const { index, value } = ctx;
 
@@ -452,11 +466,20 @@ function eatFormatterProps(ctx) {
             const eqPos = raw.indexOf('=');
             const hasEq = eqPos !== -1;
             const name = hasEq ? raw.slice(0, eqPos) : raw;
-            const value = hasEq ? raw.slice(eqPos + 1) : null;
+            const value = hasEq ? stripQuotes(raw.slice(eqPos + 1)) : null;
             res[name] = value;
             return res;
         }, {})
     };
+
+    function stripQuotes(v) {
+        const firstChar = v.charAt(0);
+        const lastChar = v.charAt(v.length - 1);
+        if (firstChar !== lastChar || (firstChar !== '\'' && firstChar !== '"')) {
+            return v;
+        }
+        return v.slice(1, -1); // TODO: UNESCAPE
+    }
 }
 
 function eatDefinitionTitle(ctx) {

@@ -185,7 +185,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
     return ctx => {
         const v = ctx.value;
         // startSeq
-        let index = ctx.index + openSeq.length;
+        let index = ctx.index;
         let depth = 0;
         while (true) {
             const openIndex = v.indexOf(openSeq, index);
@@ -250,7 +250,6 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
         const lastIndex = endSeq(ctx);
 
         const inner = ctx.cut(lastIndex - ctx.index, isWS);
-        // console.log({ lastIndex, inner });
 
         ctx.cut(endSeqLen);
 
@@ -485,8 +484,9 @@ function eatFormatterProps(ctx) {
 function eatDefinitionTitle(ctx) {
     const { index, value } = ctx;
 
+    const closePos = value.indexOf('?)', index);
     const eqPos = value.indexOf('==', index);
-    const hasEq = eqPos !== -1;
+    const hasEq = eqPos !== -1 && closePos > eqPos;
 
     const title = value.slice(index, hasEq ? eqPos : ctx.lookAhead(isWS, index));
 
@@ -501,12 +501,16 @@ function eatDefinitionTitle(ctx) {
 function eatCutTitle(ctx) {
     const { index, value } = ctx;
 
-    const title = ctx.cut(value.indexOf('\n', index) - index);
+    const closePos = value.indexOf('}>', index);
+    const eolPos = value.indexOf('\n', index);
+    const cutPos = Math.min(closePos === -1 ? Infinity : closePos, eolPos === -1 ? Infinity : eolPos);
 
-    ctx.cut(1);
+    const title = ctx.cut(cutPos - index);
+
+    ctx.cut(cutPos === closePos ? 0 : 1); // \n or nothing
 
     const now = ctx.eat_.now();
-    now.offset += ctx.index;
+    now.offset += index;
     now.column += 1;
     now.line += 1;
 

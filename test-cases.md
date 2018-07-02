@@ -139,6 +139,18 @@
 →   {type: 'paragraph', children: [{type: 'text', value: 'И тут тоже всплыло развернутое определение термина с пробелами'}]}
 → ]}]}
 
+〉Термины подряд разные
+←(?Термин Описалово?)(?Еще==Еще описалово?)
+↑ LDEFINITION TEXT WS TEXT RDEFINITION
+→ {type: 'root', children: [
+→   {type: 'womDefinition', title: 'Термин', equals: false, children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'Описалово'}]}
+→   ]},
+→   {type: 'womDefinition', title: 'Еще', equals: true, children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'Еще описалово'}]}
+→   ]}
+→ ]}
+
 〉Врезка (кат)
 ←<{ Прочитать !!red!! целиком
 ←Этот текст можно увидеть, кликнув по ссылке "прочитать целиком".
@@ -152,6 +164,10 @@
 →   ]}],
 →   children: [{type: 'paragraph', children: [{type: 'text', value: 'Этот текст можно увидеть, кликнув по ссылке "прочитать целиком".'}]}]
 → }]}
+
+〉Однострочная врезка
+←<{ One-line quote }>
+→ {type: 'root', children: [{type: 'womCut', title: [{type: 'paragraph', children: [{type: 'text', value: ' One-line quote '}]}], children: []}]}
 
 〉Вывод HTML как есть
 ←<# <input type="text"> #>

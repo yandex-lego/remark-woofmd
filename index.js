@@ -89,7 +89,7 @@ function plugin() {
     // console.log(blockMethods);
 }
 
-const MINUS_CODE = '-'.charCodeAt(0);
+const CH_MINUS = '-'.charCodeAt(0);
 function womBreak(eat, value, silent) {
     if (womBreak.locator(value, 0)) {
         return false;
@@ -97,7 +97,7 @@ function womBreak(eat, value, silent) {
 
     let end;
     for (end = 2; end < value.length; end += 1) {
-        if (value.charCodeAt(end) !== MINUS_CODE) {
+        if (value.charCodeAt(end) !== CH_MINUS) {
             break;
         }
     }

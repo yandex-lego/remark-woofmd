@@ -354,34 +354,40 @@
 //       * Скрытый пункт списка
 // 2. список-2
 
-// 〉css formatter wrapper
-// ←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
-// ←.d { font-size:70% }
-// ←%%
-// → {type: 'root', {type: 'womFormatter', lang: 'css', flags: ['nomark', ['wrapper', 'box'], ['align', 'left'], {width: 270, border: 0}], value: '.d { font-size:70% }'}
+〉css formatter wrapper
+←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
+←.d { font-size:70% }
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', format: 'css', attributes: {nomark: null, wrapper: 'box', align: 'left', width: '270', border: '0'}, value: '\n.d { font-size:70% }\n'}]}
 
-// 〉javascript formatter
-// ←%%(javascript nomark wrapper=box border="5px dashed red")
-// ←alert("hooray!");
-// ←%%
-// → {type: 'code', lang: 'javascript', flags: ['nomark', ['wrapper', 'box'], ['border', '5px dashed red"']], value: '\n.d { font-size:70% }\n'}
+〉javascript formatter
+←%%(javascript nomark wrapper=box border="5px dashed red")
+←alert("hooray!");
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', format: 'javascript', attributes: {nomark: null, wrapper: 'box', border: '5px dashed red'}, value: '\nalert("hooray!");\n'}]}
 
-// 〉css formatter
-// ←%%(css nomark wrapper=shade)
-// ←.d2 { font-size:70% }
-// ←%%
-// → {type: 'code', lang: 'css', flags: [{type: 'attribute', name: 'nomark'}, {type: 'attribute', name: 'wrapper', value: 'shade'}],
-// →   value: '\n.d { font-size:70% }\n'}
+〉css formatter
+←%%(css nomark wrapper=shade)
+←.d2 { font-size:70% }
+←%%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'css',
+→     attributes: {nomark: null, wrapper: 'shade'},
+→     value: '\n.d2 { font-size:70% }\n'}]}
 
 〉wacko text aligned
 ←%%(wacko wrapper=text align=center) текст по центру %%
-→ {type: 'root', children: [{type: 'womFormatter', format: 'wacko', attributes: {wrapper: 'text', align: 'center'},
-→   value: ' текст по центру '}]}
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'wacko',
+→     attributes: {wrapper: 'text', align: 'center'},
+→     value: ' текст по центру '}]}
 
-// 〉wacko page wrapper
-// ←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
-// → {type: 'womacko', attributes: [{type: 'attribute', name: 'wrapper', value: 'page'}, {type: 'attribute', name: 'wrapper_width', value: '200'}],
-// →   value: ' этот текст не может быть шире двухсот пикселей'}
+〉wacko page wrapper
+←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'wacko',
+→     attributes: {wrapper: 'page', wrapper_width: '200'},
+→     value: ' этот текст не может быть шире двухсот пикселей'}]}
 
 〉Тикет в help
 ←help#:200912039020818

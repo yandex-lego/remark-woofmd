@@ -111,8 +111,11 @@ womBreak.locator = (value, fromIndex) => value.indexOf('---', fromIndex);
 const isDigit = c => { const cc = c.charCodeAt(0); return cc >= 48 && cc <= 57; };
 const HELP_PREFIX = 'help#:';
 function womHelp(eat, value, silent) {
-    if (womHelp.locator(value, 0)) {
+    if (womHelp.locator(value, 0) !== 0 || !isDigit(value.charAt(HELP_PREFIX.length))) {
         return false;
+    }
+    if (silent) {
+        return true;
     }
 
     const end = lookAhead(value, v => !isDigit(v), HELP_PREFIX.length);
@@ -434,50 +437,45 @@ function eatFormatterProps(ctx) {
         return null;
     }
 
+    const keyValueRE = /([a-z]\w+)(?:=\s*('[^']+'|"[^"]+"|[^\s\)]+))?\s*/;
     const chunks = [];
-    let i = index;
+    let i = index + 1;
     while (i < value.length) {
-        i += 1;
+        const kvm = value.slice(i).match(keyValueRE);
 
-        // Skip whitespaces
-        let j = ctx.lookAhead((ch) => isWS(ch), ctx.lookAhead(isNotWS, i));
+        let q = ctx.lookAhead(ch => ch === '=');
 
-        const isLast = value.charAt(j - 1) === ')';
-        const raw = value.slice(i, j - (isLast ? 1 : 0));
+        chunks.push({ raw: kvm[0], name: kvm[1], value: kvm[2] ? stripQuotes(kvm[2]) : null });
 
-        if (raw.trim()) {
-            chunks.push({ raw });
-        }
+        i += kvm[0].length;
 
-        i = j;
-
-        if (isLast) {
+        // the last one
+        if (value.charAt(i) === ')') {
+            i += 1;
             break;
         }
     }
 
     ctx.cut(i - index);
 
+    const format = chunks[0] && (!chunks[0].value && chunks.shift().name) || null;
+
     return {
-        format: chunks.shift().raw,
-        attributes: chunks.reduce((res, chunk) => {
-            const raw = chunk.raw;
-            const eqPos = raw.indexOf('=');
-            const hasEq = eqPos !== -1;
-            const name = hasEq ? raw.slice(0, eqPos) : raw;
-            const value = hasEq ? stripQuotes(raw.slice(eqPos + 1)) : null;
+        format,
+        attributes: chunks.reduce((res, { name, value }) => {
             res[name] = value;
             return res;
         }, {})
     };
 
     function stripQuotes(v) {
+        v = v.trim();
         const firstChar = v.charAt(0);
         const lastChar = v.charAt(v.length - 1);
         if (firstChar !== lastChar || (firstChar !== '\'' && firstChar !== '"')) {
             return v;
         }
-        return v.slice(1, -1); // TODO: UNESCAPE
+        return v.slice(1, -1);
     }
 }
 

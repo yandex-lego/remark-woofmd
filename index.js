@@ -10,6 +10,7 @@ const injectBefore = (target, afterMethod, ...objects) => {
 
 const womHeading = require('./lib/tokenizers/heading-wom');
 const womStaff = require('./lib/tokenizers/staff');
+const womTable = require('./lib/tokenizers/table-wom');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
@@ -60,6 +61,8 @@ function plugin() {
 
         ['womHtml', womBlockGenerator('womHtml', '<#', '#>', { rawContents: true })],
 
+        ['womTable', womTable],
+
         ['womHeading', womHeading],
     ]);
 
@@ -76,6 +79,7 @@ function plugin() {
         ['womDefinition'],
         ['womHtml'],
         ['womHeading'],
+        ['womTable']
     );
 
     // blockTokenizers.womFormatter = womFormatter;

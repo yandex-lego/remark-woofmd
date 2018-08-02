@@ -481,14 +481,49 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
 → {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
 
+〉Однострочная таблица
+←#| ||cell11|| ||cell21|| |#
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]}
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]}
+→     ]}
+→   ]}
+→ ]}
+
 〉Таблица из разметки
 ←#|
 ←||cell11|cell12|cell13||
 ←||cell21|cell22||
 ←|#
-→ {type: 'table', align: null, kind: 'wiki', children: [
-→   {type: 'tableRow', children: [{type: 'tableCell', children: [{type: 'text', value: 'cell11'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell12'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell13'}]}]},
-→   {type: 'tableRow', children: [{type: 'tableCell', children: [{type: 'text', value: 'cell21'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell22'}]}]}
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell13'}]}]}
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]}]},
+→     ]}
+→   ]}
+→ ]}
+
+〉Однострочная раскладка
+←#|| ||cell11|| ||cell21|| ||#
+→ {type: 'root', children: [
+→   {type: 'womTable', kind: 'layout', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]}
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]}
+→     ]}
+→   ]}
 → ]}
 
 〉Ракладка из разметки
@@ -496,9 +531,18 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←||cell11|cell12|cell13||
 ←||cell21|cell22||
 ←||#
-→ {type: 'table', align: null, kind: 'layout', children: [
-→   {type: 'tableRow', children: [{type: 'tableCell', children: [{type: 'text', value: 'cell11'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell12'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell13'}]}]},
-→   {type: 'tableRow', children: [{type: 'tableCell', children: [{type: 'text', value: 'cell21'}]}, {type: 'tableCell', children: [{type: 'text', value: 'cell22'}]}]}
+→ {type: 'root', children: [
+→   {type: 'womTable', kind: 'layout', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell13'}]}]}
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]}]},
+→     ]}
+→   ]}
 → ]}
 
 ((http://www.woofmd.ru)) или [[http://www.woofmd.ru]] → null

@@ -526,21 +526,43 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   ]}
 → ]}
 
-〉Ракладка из разметки
+〉Вложенная таблица
+←#| ||  #| || xxx || |#  || |#
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
+→     ]} ]} ]} ]} ]} ]}
+
+〉Вложенные таблицы
 ←#||
-←||cell11|cell12|cell13||
-←||cell21|cell22||
+←|| #| ||cell11|| |# | #| ||cell12|| |# ||
+←|| #| ||cell21|| |# | #| ||cell22|| |# ||
 ←||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
 →     {type: 'womTableRow', children: [
-→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]},
-→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]}]},
-→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell13'}]}]}
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
+→       ]}
 →     ]},
-→     {type: 'womTableRow', children: [
-→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]},
-→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]}]},
+→     {type: 'womTableRow', children: [,
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
+→       ]}
 →     ]}
 →   ]}
 → ]}

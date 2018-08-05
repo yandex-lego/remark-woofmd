@@ -1,6 +1,6 @@
 {
   "name": "remark-woofmd",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Wiki OO formatter",
   "main": "index.js",
   "scripts": {

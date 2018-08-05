@@ -1,15 +1,14 @@
 const { readFileSync } = require('fs');
 
 const safeEval = require('node-eval');
-const vis = require('./utils').vis;
+const vis = require('../utils').vis;
 const { describe, it } = require('mocha');
 const { expect, use } = require('chai');
 use(require('chai-subset'));
 
 const content = readFileSync('./test-cases.md', 'utf-8');
 
-const parseMd = require('.').parse;
-const tokens = require('./tokens');
+const parseMd = require('..').parse;
 
 describe('test-cases', () => {
     for (const subj of parseCases(content)) {
@@ -25,7 +24,9 @@ describe('test-cases', () => {
         if (subj.valid) {
             (subj.skip ? it.skip : it)(subj.title, function () {
                 const rawExpected = subj.expected();
-                if (rawExpected === null) return this.skip();
+                if (rawExpected === null) {
+                    return this.skip();
+                }
 
                 const expected = buildup(rawExpected);
                 const actual = parseMd(subj.input);
@@ -61,9 +62,9 @@ function buildup(obj) {
     return obj;
 }
 
-function* parseCases(content) {
+function* parseCases(s) {
     // TODO: read lines one by one?
-    const lines = content.split('\n');
+    const lines = s.split('\n');
 
     let cursor = null, lineNumber;
     const cases = [];
@@ -71,7 +72,7 @@ function* parseCases(content) {
     for (lineNumber = 0; lineNumber < lines.length; lineNumber++) {
         const line = lines[lineNumber];
         if (!line || line.startsWith('// ') || line === '//') {
-            if (state = 3) {
+            if (state === 3) {
                 yield* reset();
             }
             continue;
@@ -126,7 +127,9 @@ function* parseCases(content) {
     }
 
     function validateCase(subject) {
-        if (!subject || subject.valid !== null) return;
+        if (!subject || subject.valid !== null) {
+            return;
+        }
         subject.valid = true;
 
         try {
@@ -147,9 +150,9 @@ function* parseCases(content) {
     function newCase(title, input = '', tokens = '', output = '') {
         const skip = String(title).indexOf('¡ ') === 0;
         skip && (title = title.slice(2));
-        const newCase = {title, skip, input, tokens, output, valid: null, line: lineNumber};
-        cases.push(newCase);
-        return newCase;
+        const newCase_ = {title, skip, input, tokens, output, valid: null, line: lineNumber};
+        cases.push(newCase_);
+        return newCase_;
     }
 }
 

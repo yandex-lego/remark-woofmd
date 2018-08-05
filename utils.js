@@ -36,12 +36,7 @@ function cleanup(node) {
 
 function dump(node, indent = 0) {
     const res = dump_(node);
-    return indent_(res);
-
-    // return `${}#${node.type} ${data.length>2?data:''} ${'value' in node?
-    //     JSON.stringify(node.value) : ''} ${'children' in node?
-    //         ('\n' + (node.children.map(child => vis(child, indent + 1)).join('\n') || `${'  '.repeat(indent + 1)}—`))
-    //         : ''}`;
+    return indent_(res, indent);
 }
 
 function dump_(node) {
@@ -57,7 +52,7 @@ function dump_(node) {
 
     } else if (typeof node === 'object') {
         res.push('{');
-        for (const k of Object.keys(node).filter(k => k !== 'position')) {
+        for (const k of Object.keys(node).filter(k_ => k_ !== 'position')) {
             res.push(k, ':');
             [].push.apply(res, dump_(node[k]));
             res.push(',');
@@ -72,14 +67,14 @@ function dump_(node) {
     return res;
 }
 
-function indent_(dump, indent = 0) {
+function indent_(s, indent = 0) {
     const res = [];
     let lineLength = 0;
     let lastOpen = 0;
-    let ctx = res;
+    // let ctx = res;
     let spaces = null;
-    for (let i = 0; i < dump.length; i += 1) {
-        const v = dump[i];
+    for (let i = 0; i < s.length; i += 1) {
+        const v = s[i];
 
         if (lineLength + v.length > 80) {
             lineLength = 0;

@@ -104,6 +104,9 @@ function womBreak(eat, value, silent) {
     if (womBreak.locator(value, 0)) {
         return false;
     }
+    if (silent) {
+        return true;
+    }
 
     let end;
     for (end = 2; end < value.length; end += 1) {
@@ -148,24 +151,20 @@ class Ctx {
         // console.log({ SAAAAAAAAAA: this.value.slice(0, this.index) });
     }
 
-    cut(size, skip = null) {
+    cut(size) {
         this.index += size;
         let since = this.index - size;
-        let pindex = this.index;
-        // console.log({ a: this.value.slice(since, this.index), b: this.value.slice(since, this.lookAhead(isWS, this.index)) });
-        // skip && (this.index = this.lookAhead(isWS, this.index));
-        // console.log({ since, pindex, z: this.index });
+        // let pindex = this.index;
         return this.value.slice(since, this.index);
     }
 
     chew(index = this.index) {
         assert(!this.add_, 'Something already eaten');
 
-        const toEat = this.value.slice(0, this.index);
+        const toEat = this.value.slice(0, index);
+        this.index = index;
 
         return this.eat_(toEat);
-
-        return toEat;
     }
 
     lookAhead(test, offset = this.index) {
@@ -200,7 +199,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
         // startSeq
         let index = ctx.index;
         let depth = 0;
-        while (true) {
+        while (true) { // eslint-disable-line
             const openIndex = v.indexOf(openSeq, index);
             const closeIndex = v.indexOf(closeSeq, index);
 
@@ -262,7 +261,7 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         const lastIndex = endSeq(ctx);
 
-        const inner = ctx.cut(lastIndex - ctx.index, isWS);
+        const inner = ctx.cut(lastIndex - ctx.index);
 
         ctx.cut(endSeqLen);
 
@@ -326,7 +325,9 @@ function inlinePairedText(charPair, type, colorful = false) {
 
     function findTheEnd(value, i) {
         let res = value.indexOf(charPair, i);
-        if (res === -1) return -1;
+        if (res === -1) {
+            return -1;
+        }
 
         const lineBreak = value.indexOf('\n', i + 1);
         let nextWhitespace = res;
@@ -334,7 +335,7 @@ function inlinePairedText(charPair, type, colorful = false) {
             nextWhitespace += 1;
         }
 
-        while(true) {
+        while(true) { // eslint-disable-line
             const nextPair = value.indexOf(charPair, i + 1);
             if (nextPair === -1 || nextPair > nextWhitespace) {
                 break;
@@ -447,13 +448,11 @@ function eatFormatterProps(ctx) {
         return null;
     }
 
-    const keyValueRE = /([a-z]\w+)(?:=\s*('[^']+'|"[^"]+"|[^\s\)]+))?\s*/;
+    const keyValueRE = /([a-z]\w+)(?:=\s*('[^']+'|"[^"]+"|[^\s)]+))?\s*/;
     const chunks = [];
     let i = index + 1;
     while (i < value.length) {
         const kvm = value.slice(i).match(keyValueRE);
-
-        let q = ctx.lookAhead(ch => ch === '=');
 
         chunks.push({ raw: kvm[0], name: kvm[1], value: kvm[2] ? stripQuotes(kvm[2]) : null });
 
@@ -472,7 +471,7 @@ function eatFormatterProps(ctx) {
 
     return {
         format,
-        attributes: chunks.reduce((res, { name, value }) => {
+        attributes: chunks.reduce((res, { name, value }) => { // eslint-disable-line no-shadow
             res[name] = value;
             return res;
         }, {})

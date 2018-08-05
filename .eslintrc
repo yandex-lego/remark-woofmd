@@ -1,0 +1,26 @@
+{
+  "extends": "pedant",
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+
+  "rules": {
+    "no-case-declarations": "off"
+  },
+
+  "overrides": [
+    {
+      "files": ["*.test.js","*.spec.js"],
+      "env": {
+        "mocha": true
+      },
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
+}

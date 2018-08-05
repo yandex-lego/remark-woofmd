@@ -537,59 +537,93 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
 →     ]} ]} ]} ]} ]} ]}
 
-〉Вложенные таблицы
-←#||
-←|| #| ||cell11|| |# | #| ||cell12|| |# ||
-←|| #| ||cell21|| |# | #| ||cell22|| |# ||
-←||#
-→ {type: 'root', children: [
-→   {type: 'womTable', kind: 'layout', children: [
-→     {type: 'womTableRow', children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
-→       ]},
-→       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
-→       ]}
-→     ]},
-→     {type: 'womTableRow', children: [,
-→       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
-→       ]},
-→       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
-→       ]}
-→     ]}
-→   ]}
-→ ]}
+// 〉Вложенные таблицы
+// ←#||
+// ←|| #| ||cell11|| |# | #| ||cell12|| |# ||
+// ←|| #| ||cell21|| |# | #| ||cell22|| |# ||
+// ←||#
+// → {type: 'root', children: [
+// →   {type: 'womTable', kind: 'layout', children: [
+// →     {type: 'womTableRow', children: [
+// →       {type: 'womTableCell', children: [
+// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
+// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
+// →       ]},
+// →       {type: 'womTableCell', children: [
+// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
+// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
+// →       ]}
+// →     ]},
+// →     {type: 'womTableRow', children: [,
+// →       {type: 'womTableCell', children: [
+// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
+// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
+// →       ]},
+// →       {type: 'womTableCell', children: [
+// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
+// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
+// →       ]}
+// →     ]}
+// →   ]}
+// → ]}
 
-((http://www.woofmd.ru)) или [[http://www.woofmd.ru]] → null
-((http://www.woofmd.ru WoofMD с круглыми скобками)) или [[http://www.woofmd.ru WoofMD с квадратными скобками]]
-[[Устафф]] или ((Устафф)) → null
-((Устафф Страница про устав)) или [[Устафф Страница про устафф]] → null
-http://www.ya.ru и https://www.ya.ru → null
+〉Одинокая ссылка в круглых скобках
+←((http://www.woofmd.ru))
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: []}
+
+〉Одинокая ссылка в квадратных скобках
+←[[http://www.woofmd.ru]]
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: []}
+
+〉Ссылка с текстом в круглых скобках
+←((http://www.woofmd.ru WoofMD в круглых скобках))
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: [{type: 'text', value: 'WoofMD в круглых скобках'}]}
+
+〉Ссылка с текстом в квадратных скобках
+←[[http://www.woofmd.ru WoofMD в квадратных скобках]]
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: [{type: 'text', value: 'WoofMD в квадратных скобках'}]}
+
+〉Относительная ссылка в круглых скобках
+←((Устафф))
+→ {type: 'womLink', url: 'Устафф', brackets: false, children: []}
+
+〉Относительная ссылка в квадратных скобках
+←[[Устафф]]
+→ {type: 'womLink', url: 'Устафф', brackets: true, children: []}
+
+〉Относительная ссылка c описанием в круглых скобках
+←((Устафф Страница про устав))
+→ {type: 'womLink', url: 'Устафф', brackets: false, children: [{type: 'text', value: 'Страница про устав'}]}
+
+〉Относительная ссылка с описанием в квадратных скобках
+←[[Устафф Страница про устафф]]
+→ {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
+
+// http://www.ya.ru и https://www.ya.ru → null
 
 〉Ссылки на якорь
 ←((#test)) и ((/HomePage#TOC_1))
-→ null
+→ {type: 'paragraph', children: [
+→   {type: 'womLink', url: '#test', brackets: false, children: []},
+→   {type: 'text', value: ' и '},
+→   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
+→ ]}
 
-""**Жирный текст**"" → {type: 'womEscape', value: '""**Жирный текст**""'}
-~**Жирный_текст** → {type: 'womEscape', value: '~**Жирный_текст**'}
+""**Жирный текст**"" → {type: 'womEscape', raw: '""**Жирный текст**""', value: '**Жирный текст**'}
+¡ ~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
 
-https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
-((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
+¡ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
+¡ ((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
 
 〉Прямая ссылка на картинку
 ←http://img.woofmd.net/i/logo95x37x8.png
-→ null
+→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', children: [
+→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}
+→ ]}
 
 〉Картинка с заданным размером
 ←100x100:https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg
-→ null
+→ {type: 'womImage', url: 'https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg', width: 100, height: 100}
 
 〉Картинка-ссылка
 ←((/HomePage http://img.woofmd.net/i/logo95x37x8.png))

@@ -23,8 +23,11 @@ describe('test-cases', () => {
         // }
         // {title, input, tokens, output, valid: null, line: lineNumber}
         if (subj.valid) {
-            it(subj.title, () => {
-                const expected = buildup(subj.expected());
+            (subj.skip ? it.skip : it)(subj.title, function () {
+                const rawExpected = subj.expected();
+                if (rawExpected === null) return this.skip();
+
+                const expected = buildup(rawExpected);
                 const actual = parseMd(subj.input);
                 traverse(actual, x => { delete x.position; });
 
@@ -43,6 +46,9 @@ describe('test-cases', () => {
 // console.log(cases);
 
 function buildup(obj) {
+    if (obj === null) {
+        return null;
+    }
     // if (Array.isArray(obj)) {
         // obj = {type: obj[0].type === 'paragraph' ? 'root' : 'paragraph', children: obj};
     // }
@@ -73,7 +79,7 @@ function* parseCases(content) {
 
         // legend:
         //   〉 — title
-        //   ← — input
+        //   ← — input
         //   →  — expectation
         if (line.startsWith('〉')) {
             yield* reset();
@@ -139,7 +145,9 @@ function* parseCases(content) {
     }
 
     function newCase(title, input = '', tokens = '', output = '') {
-        const newCase = {title, input, tokens, output, valid: null, line: lineNumber};
+        const skip = String(title).indexOf('¡ ') === 0;
+        skip && (title = title.slice(2));
+        const newCase = {title, skip, input, tokens, output, valid: null, line: lineNumber};
         cases.push(newCase);
         return newCase;
     }

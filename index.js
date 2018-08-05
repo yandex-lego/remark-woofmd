@@ -11,6 +11,8 @@ const injectBefore = (target, afterMethod, ...objects) => {
 const womHeading = require('./lib/tokenizers/heading-wom');
 const womStaff = require('./lib/tokenizers/staff');
 const womTable = require('./lib/tokenizers/table-wom');
+const womLink = require('./lib/tokenizers/link-wom');
+const womImage = require('./lib/tokenizers/image-wom');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
@@ -29,6 +31,10 @@ function plugin() {
 
         ['womQuestion', inlinePairedText('??', 'womQuestion')],
         ['womRemark', inlinePairedText('!!', 'womRemark', true)],
+
+        ['womLink', womLink],
+
+        ['womImage', womImage],
 
         ['womEscape', womEscape],
 

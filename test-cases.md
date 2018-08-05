@@ -174,6 +174,28 @@
 ↑ LHTML TEXT RHTML
 → {type: 'root', children: [{type: 'womHtml', value: ' <input type="text"> '}]}
 
+〉Inline HTML как препятствие
+←ABCDEFG: <# <span style='color:gray'> #>-0 (GRAY)<# </span> #>
+←++""[""<# <span style='color:auto'> #>v1<# </span> #>  <# <span style='color:auto'> #>Δ=0<# </span> #>]++
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'ABCDEFG: '},
+→   {type: 'womHtml', value: " <span style='color:gray'> "},
+→   {type: 'text', value: '-0 (GRAY)'},
+→   {type: 'womHtml', value: " </span> "},
+→   {type: 'text', value: '\n'},
+→   {type: 'womSmall', children: [
+→     {type: 'womEscape', raw: '""[""', value: '['},
+→     {type: 'womHtml', value: " <span style='color:auto'> "},
+→     {type: 'text', value: 'v1'},
+→     {type: 'womHtml', value: " </span> "},
+→     {type: 'text', value: '  '},
+→     {type: 'womHtml', value: " <span style='color:auto'> "},
+→     {type: 'text', value: 'Δ=0'},
+→     {type: 'womHtml', value: " </span> "},
+→     {type: 'text', value: ']'},
+→   ]},
+→ ]}
+
 〉Верхний индекс
 ←E=mc^^2^^
 ↑ TEXT CARETS TEXT CARETS

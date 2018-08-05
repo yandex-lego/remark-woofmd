@@ -19,6 +19,9 @@ function plugin() {
 
     const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph } = this.Parser.prototype;
 
+    const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, skipSpaces: false });
+    womHtml.locator = (s, i) => s.indexOf('<#', i);
+
     const myInlineTokenizers = new Map([
         ['womItalic', inlinePairedText('//', 'womItalic')],
         ['womUnderline', inlinePairedText('__', 'womUnderline')],
@@ -35,6 +38,8 @@ function plugin() {
         ['womLink', womLink],
 
         ['womImage', womImage],
+
+        ['womHtml', womHtml],
 
         ['womEscape', womEscape],
 
@@ -228,7 +233,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
     };
 }
 
-function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false } = {}) {
+function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, skipSpaces = true } = {}) {
     const startSeq = indexOfSeq(startSeq_);
     const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq;
 
@@ -248,6 +253,9 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         // console.log({ctx, value, silent, q: startSeq(ctx)});
         // console.log('YEAH', {value, silent}, startSeq(ctx));
+        if (!skipSpaces && ctx.index !== 0) {
+            return;
+        }
         if (startSeq(ctx) !== ctx.index) {
             return;
         }

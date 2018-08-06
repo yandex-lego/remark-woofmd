@@ -5,7 +5,7 @@
 ```js
 const remark = require('remark');
 const { vis, remark: remarkWoofmd } = require('remark-woofmd');
-const processor = remark().use(remarkWoofmd);
+const processor = remark().data('settings', { commonmark: true, footnotes: true }).use(remarkWoofmd);
 const go = s => vis(processor.parse(s));
 
 go(`

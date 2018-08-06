@@ -537,11 +537,3 @@ function eatCutTitle(ctx) {
 exports.remark = plugin;
 exports.vis = require('./utils').vis;
 exports.dump = require('./utils').dump;
-
-const remark = require('remark');
-
-// Tmp
-const processor = remark().use(plugin);
-const x = v => processor.parse(v);
-
-exports.parse = x;

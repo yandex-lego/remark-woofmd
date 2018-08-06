@@ -111,19 +111,21 @@
 →   {type: 'paragraph', children: [{type: 'text', value: /*'\n'*/ ' И низвоуровневое цитирование\n '}]}
 → ]}]}
 
-// 〉Однострочное цитирование
-// ←>> Однострочное цитирование
-// ←>Да, это оно
-// ←А это обычный текст
-// → {type: 'root', children: [
-// →   {type: 'blockquote', children: [
-// →     {type: 'blockquote', children: [
-// →       {type: 'paragraph', children: [{type: 'text', value: ' Однострочное цитирование'}]}
-// →     ]},
-// →     {type: 'paragraph', children: [{type: 'text', value: 'Да, это оно'}]}
-// →   ]},
-// →   {type: 'paragraph', children: [{type: 'text', value: 'А это обычный текст'}]}
-// → ]}
+〉Однострочное цитирование
+←>> Однострочное цитирование
+←>
+←> Да, это оно
+←
+←А это обычный текст
+→ {type: 'root', children: [
+→   {type: 'blockquote', children: [
+→     {type: 'blockquote', children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Однострочное цитирование'}]}
+→     ]},
+→     {type: 'paragraph', children: [{type: 'text', value: 'Да, это оно'}]}
+→   ]},
+→   {type: 'paragraph', children: [{type: 'text', value: 'А это обычный текст'}]}
+→ ]}
 
 〉Термин
 ←(?Термин Вот тут всплыло развернутое определение термина?)
@@ -271,29 +273,29 @@
 ←======== Не заголовок
 → {type: 'text', value: '======== Не заголовок'}
 
-// 〉Сноски
-// ←Текст, потом сноска[[*]] и вторая[[**]]
-// → {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '*'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '**'}]}
+〉¡ Сноски
+←Текст, потом сноска[[*]] и вторая[[**]]
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '*'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '**'}]}
 
-// 〉Еще сноски
-// ←Текст, потом цифровая сноска[[*1]] и вторая[[*2]]
-// → {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '*1'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*2'}]}
+〉¡ Еще сноски
+←Текст, потом цифровая сноска[[*1]] и вторая[[*2]]
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '*1'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*2'}]}
 
-// 〉Расшифровка первой сноски
-// ←[[#*]] Расшифровка первой сноски
-// → {type: 'womFootnoteDefinition', identifier: '*', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка первой сноски'}]}]}
+〉¡ Расшифровка первой сноски
+←[[#*]] Расшифровка первой сноски
+→ {type: 'womFootnoteDefinition', identifier: '*', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка первой сноски'}]}]}
 
-// 〉Расшифровка второй сноски
-// ←[[#**]] Расшифровка второй сноски
-// → {type: 'womFootnoteDefinition', identifier: '**', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй сноски'}]}]}
+〉¡ Расшифровка второй сноски
+←[[#**]] Расшифровка второй сноски
+→ {type: 'womFootnoteDefinition', identifier: '**', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй сноски'}]}]}
 
-// 〉Расшифровка цифровой сноски
-// ←[[#1]] Расшифровка цифровой сноски
-// → {type: 'womFootnoteDefinition', identifier: '1', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка цифровой сноски'}]}]}
+〉¡ Расшифровка цифровой сноски
+←[[#1]] Расшифровка цифровой сноски
+→ {type: 'womFootnoteDefinition', identifier: '1', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка цифровой сноски'}]}]}
 
-// 〉Расшифровка второй цифровой сноски
-// ←[[#2]] Расшифровка второй цифровой сноски
-// → {type: 'womFootnoteDefinition', identifier: '2', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй цифровой сноски'}]}]}
+〉¡ Расшифровка второй цифровой сноски
+←[[#2]] Расшифровка второй цифровой сноски
+→ {type: 'womFootnoteDefinition', identifier: '2', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй цифровой сноски'}]}]}
 
 〉Пример 2: nomark
 ←%%(python nomark)
@@ -323,14 +325,14 @@
 →       value: `\nfunction is_pretty_num(n) { return 1; }\n`
 →     } ] } ] }
 
-// 〉Списки
-// ←Списки:
-// ←  Отступ
-// ←    Двойной отступ
-// → {type: 'list', ordered: false, children: [{type: 'item', children: [
-// →   {type: 'text', value: 'Отступ'},
-// →   {type: 'list', children: [{type: 'item', children: [{type: 'text', value: 'Двойной отступ'}]}]}
-// → ]}]}
+〉¡ Списки
+←Списки:
+←  Отступ
+←    Двойной отступ
+→ {type: 'list', ordered: false, children: [{type: 'item', children: [
+→   {type: 'text', value: 'Отступ'},
+→   {type: 'list', children: [{type: 'item', children: [{type: 'text', value: 'Двойной отступ'}]}]}
+→ ]}]}
 
 〉Ненумерованный список
 ←* ненумерованный список
@@ -340,41 +342,72 @@
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'ненумерованный список-2'}]}]}
 → ]}]}
 
-〉Нумерованный список
+〉¡ Нумерованный список
 ←1. нумерованный список
 ←1. нумерованный список-2
+←1.#8 нумерованный список-2, с пропуском пунктов
 ←3. это девятый пункт
 → {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
+→   {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'это девятый пункт'}]}]},
 → ]}]}
-// ←1.#8 нумерованный список-2, с пропуском пунктов
-// →   {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
 
-// A. Верхний регистр
-// A. Верхний регистр-2
+〉¡ Нумерованный список ABC
+←A. Верхний регистр
+←A. Верхний регистр-2
+→ null
 
-// a. Нижний регистр
-// a. Нижний регистр-2
+〉¡ Нумерованный список abc
+←a. Нижний регистр
+←a. Нижний регистр-2
+→ null
 
-// I. Римские цифры
-// I. Римские цифры-2
+〉¡ Нумерованный список IVX
+←I. Римские цифры
+←I. Римские цифры-2
+→ null
 
-// 1. список
-//     1. вложенный список
-//       * ещё более вложенный список
-//     1. вложенный список-2
-// 2. список-2
+〉Списки с тудушками
+←- [x] Finish my changes
+←- [ ] Push my commits to GitHub
+←- [x] Open a pull request
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: true, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'Finish my changes'}
+→       ]}]},
+→     {type: 'listItem', loose: false, checked: false, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'Push my commits to GitHub'}
+→       ]}]},
+→     {type: 'listItem', loose: false, checked: true, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'Open a pull request'}
+→       ]}]},
+→   ]}
+→ ]}
 
-// 1. список
-//     1. Вложенный список
-//     1. вложенный список
-//     2.+ вложенный список, свернутый пункт
-//       * Скрытый пункт списка
-//         * Скрытый пункт списка
-//       * Скрытый пункт списка
-// 2. список-2
+〉¡ Вложенные списки
+←1. список
+←    1. вложенный список
+←      * ещё более вложенный список
+←    1. вложенный список-2
+←2. список-2
+→ null
+
+〉¡ Свернутые вложенные списки
+←1. список
+←    1. Вложенный список
+←    1. вложенный список
+←    2.+ вложенный список, свернутый пункт
+←      * Скрытый пункт списка
+←        * Скрытый пункт списка
+←      * Скрытый пункт списка
+←2. список-2
+→ null
 
 〉css formatter wrapper
 ←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
@@ -415,23 +448,17 @@
 ←help#:200912039020818
 → {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
 
-// 〉Обычный тикет
-// ←https://jira.woofmd-team.ru/WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
-// → null
+〉¡ Обычный тикет
+←https://jira.woofmd-team.ru/WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
+→ null
 
-// 〉
-// ←WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
-// → []
+〉¡ Ссылка на тикет с описаловом
+←WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
+→ null
 
 // WIKIWIKI-123456 → null
 
-// 〉нагрузочные тикеты:
-// ←http://lunapark.woofmd-team.ru/MAPSRENDER-308
-// → null
-
 // IEX-300[ --Инстанс IEX для проверки конфигов-- ]( kohen ) → null
-
-// http://lunapark.woofmd-team.ru/100 → null
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
@@ -460,26 +487,17 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'text', value: '?'}
 →  ]}]}
 
-// 〉Почта полная
-// ←((mailto:mail@woofmd-team.ru mail@))
-// → {type: 'link', href: 'mailto:mail@woofmd-team.ru', children: [{type: 'text', value: 'mail@'}]}
+〉Почта полная
+←((mailto:mail@woofmd-team.ru mail@))
+→ {type: 'womLink', url: 'mailto:mail@woofmd-team.ru', brackets: false, children: [
+→   {type: 'womStaff', case: null, at: 'suffix', value: 'mail'}]}
 
-// 〉Почта короткая
-// ←mail@
-// → {type: 'staff', staff: '', value: 'mail'}
-
-// 〉Этушка:
-// ←https://clubs.at.woofmd-team.ru/extdata
-// → null
-
-// 〉math outline 1
-// ←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
-// → null
-
-// 〉math outline 1
-// ←%%(math outline)\sqrt[\frac{p+q}{m}]{\int\limits_{a^2+1}^{b^4-1} e^{-ikt} dt + \int\limits_{\min\limits_{f(a)=0} a}^{\infty}t^{\frac{1}{\alpha}}dt}
-// ←%%
-// → {type: 'womFormatter', value: null}
+〉math outline 1
+←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
+→     value: '\\int\\limits_{-\\infty}^{+\\infty} e^{-x^2/2} \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} '}
+→ ]}
 
 〉Греческие буквы
 ←%%(math outline)
@@ -559,35 +577,35 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
 →     ]} ]} ]} ]} ]} ]}
 
-// 〉Вложенные таблицы
-// ←#||
-// ←|| #| ||cell11|| |# | #| ||cell12|| |# ||
-// ←|| #| ||cell21|| |# | #| ||cell22|| |# ||
-// ←||#
-// → {type: 'root', children: [
-// →   {type: 'womTable', kind: 'layout', children: [
-// →     {type: 'womTableRow', children: [
-// →       {type: 'womTableCell', children: [
-// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
-// →       ]},
-// →       {type: 'womTableCell', children: [
-// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
-// →       ]}
-// →     ]},
-// →     {type: 'womTableRow', children: [,
-// →       {type: 'womTableCell', children: [
-// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
-// →       ]},
-// →       {type: 'womTableCell', children: [
-// →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-// →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
-// →       ]}
-// →     ]}
-// →   ]}
-// → ]}
+〉¡ Вложенные таблицы
+←#||
+←|| #| ||cell11|| |# | #| ||cell12|| |# ||
+←|| #| ||cell21|| |# | #| ||cell22|| |# ||
+←||#
+→ {type: 'root', children: [
+→   {type: 'womTable', kind: 'layout', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
+→       ]}
+→     ]},
+→     {type: 'womTableRow', children: [,
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
+→       ]}
+→     ]}
+→   ]}
+→ ]}
 
 〉Одинокая ссылка в круглых скобках
 ←((http://www.woofmd.ru))
@@ -621,8 +639,6 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←[[Устафф Страница про устафф]]
 → {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
 
-// http://www.ya.ru и https://www.ya.ru → null
-
 〉Ссылки на якорь
 ←((#test)) и ((/HomePage#TOC_1))
 → {type: 'paragraph', children: [
@@ -655,113 +671,50 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←((http://img.woofmd.net/i/www/citylogos/gramota2-logo-ru.png http://img.woofmd.net/i/www/logo.png))
 → null
 
-〉Ref
+〉¡ Ref
 ←ref:http://img.woofmd.net/i/logo95x37x8.png
-→ null
+→ {type: 'womLink', url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: []}
 
-// 〉Formatter graphviz
-// ←%%(graphviz neato)
-// ←digraph A {
-// ←a -> b0
-// ←a -> b3
-// ←xb [label="hi",width=.1,style=invis]
-// ←a -> xb [style=invis]
-// ←a -> b1
-// ←{rank=same b0 -> xb -> b1 [style=invis]}
-// ←b0 -> c0
-// ←xc [label="bye",width=.1,style=invis]
-// ←b0 -> xc [style=invis]
-// ←b0 -> c1
-// ←{rank=same c0 -> xc -> c1 [style=invis]}
-// ←b0 -> c2
-// ←}
-// ←%%
-// → null
+〉¡ Сложненький список
+←1. Ordered List
+←2. text %%code%% text
+←3. text %%code code code
+←code code code code code code code code code code
+←code code code code code code code code code code code code code code code code code code%% text
+←4. text
+←5. %%(cs)
+←codecodecodecodecodecodecodecodecode
+←codecodecodecodecode
+←code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code
+←%%
+←6. вложенный список
+←    2.+ вложенный список, свёртнутый пункт
+←      * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
+←        * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
+←      * Скрытый пункт %%списка%%
+→ {type: 'list', children: [
+→
+→ ]}
 
-// %%(seqdiag)
-// {
-//   // normal edge and doted edge
-//   A -> B [label = "normal edge"];
-//   B --> C [label = "dotted edge"];
-//
-//   B <-- C [label = "return dotted edge"];
-//   A <- B [label = "return edge"];
-//
-//   // asynchronus edge
-//   A ->> B [label = "asynchronus edge"];
-//   B -->> C [label = "asynchronus dotted edge"];
-//
-//   B <<-- C [label = "return asynchronus doted edge"];
-//   A <<- B [label = "return asynchronus edge"];
-//
-//   // self referenced edge
-//   A -> A [label = "self reference edge"];
-// }
-// %%
+〉Обычный кат
+←<{обычный кат
+←текст}>
+→ {type: 'root', children: [
+→   {type: 'womCut',
+→     title: [{type: 'paragraph', children: [{type: 'text', value: 'обычный кат'}]}],
+→     children: [{type: 'paragraph', children: [{type: 'text', value: 'текст'}]}]
+→   }]}
 
-// ====Однострочный с пробелами
+〉Пустой кат
+←<{пустой кат
+←}>
+→ {type: 'root', children: [
+→   {type: 'womCut',
+→     title: [{type: 'paragraph', children: [{type: 'text', value: 'пустой кат'}]}],
+→     children: []
+→   }]}
 
-// %%однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами %%
-// какой-то другой текст %%однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами однострочный с пробелами%% какой-то другой текст
-
-// ====Многострочный с пробелами
-// %%многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами
-// многострочный с пробелами многострочный с пробелами
-// многострочный с пробелами%%
-// какой-то другой текст %%многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами многострочный с пробелами
-// многострочный с пробелами многострочный с пробелами
-// многострочный с пробелами %%какой-то другой текст
-
-// ====Однострочный без пробелов
-// %%однострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробелов%%
-// какой-то другой текст %%однострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробеловоднострочныйбезпробелов%% какой-то другой текст
-//
-
-// ====Многострочный без пробелов
-// %%многострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробелов
-// многострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробелов
-// многострочныйбезпробелов%%
-// какой-то другой текст %%многострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробелов
-// многострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробеловмногострочныйбезпробелов
-// многострочныйбезпробелов%%какой-то другой текст
-
-
-// 〉XML
-// ←text text text %%(xml)codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode%% text text text text text text text text text text text text text text text text text text text text text text text text text text
-// → {type: 'paragraph', children: [{type: 'text', value: 'text text text '}, {type: 'womFormatter', value: 'codecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecod ecodecodecodecodecodecodecodecodecodecode'}, {type: 'text', value: ' text text text text text text text text text text text text text text text text text text text text text text text text text text'}]}
-
-// 〉Список
-// ←1. Ordered List
-// ←2. text %%code%% text
-// ←3. text %%code code code
-// ←code code code code code code code code code code
-// ←code code code code code code code code code code code code code code code code code code%% text
-// ←4. text
-// ←5. %%(cs)
-// ←codecodecodecodecodecodecodecodecode
-// ←codecodecodecodecode
-// ←code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code
-// ←%%
-// ←6. вложенный список
-// ←    2.+ вложенный список, свёртнутый пункт
-// ←      * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
-// ←        * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
-// ←      * Скрытый пункт %%списка%%
-// → {type: 'list', children: [
-// →
-// → ]}
-
-// 〉обычный кат
-// ←<{обычный кат
-// ←текст}>
-// → {type: 'womCut', title: [{type: 'text', value: 'обычный кат'}], children: [{type: 'text', value: 'текст'}]}
-
-// 〉пустой кат
-// ←<{пустой кат
-// ←}>
-// → {type: 'womCut', title: [{type: 'text', value: 'пустой кат'}], children: []}
-
-〉кат без заголовка
+〉Кат без заголовка
 ←<{
 ←}>
 → {type: 'root', children: [{type: 'womCut', title: [], children: []}]}

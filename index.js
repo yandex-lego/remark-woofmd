@@ -13,6 +13,7 @@ const womStaff = require('./lib/tokenizers/staff');
 const womTable = require('./lib/tokenizers/table-wom');
 const womLink = require('./lib/tokenizers/link-wom');
 const womImage = require('./lib/tokenizers/image-wom');
+const womTicket = require('./lib/tokenizers/ticket-wom');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
@@ -45,6 +46,7 @@ function plugin() {
 
         ['womBreak', womBreak],
         ['womHelp', womHelp],
+        ['womTicket', womTicket],
         ['womColor', womColor],
 
         ['womStaff', womStaff],

@@ -449,16 +449,26 @@
 → {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
 
 〉¡ Обычный тикет
-←https://jira.woofmd-team.ru/WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
+←https://jira.woofmd-team.ru/QUEUE-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
 → null
 
-〉¡ Ссылка на тикет с описаловом
-←WIKI-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
-→ null
+〉Короткая ссылка на тикет
+←QUEUE-1234
+→ {type: 'womTicket',
+→   value: 'QUEUE-1234',
+→   title: null,
+→   assignee: null}
 
-// WIKIWIKI-123456 → null
-
-// IEX-300[ --Инстанс IEX для проверки конфигов-- ]( kohen ) → null
+〉Полная ссылка на тикет
+←QUEUE-1234[ --Важный тикет в очереди-- ]( mrtwister )
+→ {type: 'womTicket',
+→   value: 'QUEUE-1234',
+→   title: [
+→     {type: 'text', value: ' '},
+→     {type: 'womStrike', children: [{type: 'text', value: 'Важный тикет в очереди'}]},
+→     {type: 'text', value: ' '},
+→   ],
+→   assignee: 'mrtwister'}
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}

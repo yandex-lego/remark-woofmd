@@ -14,16 +14,22 @@ const womTable = require('./lib/tokenizers/table-wom');
 const womLink = require('./lib/tokenizers/link-wom');
 const womImage = require('./lib/tokenizers/image-wom');
 const womTicket = require('./lib/tokenizers/ticket-wom');
+const womBreak = require('./lib/tokenizers/break-wom');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
 
     const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph } = this.Parser.prototype;
 
-    const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, skipSpaces: false });
-    womHtml.locator = (s, i) => s.indexOf('<#', i);
+    const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, inline: true });
+    const womFormatter = womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, inline: true });
+    const womBlockquote = womBlockGenerator('womBlockquote', '<[', ']>', { inline: true });
+    const womDefinition = womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, inline: true });
+    const womCut = womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle, inline: true });
 
     const myInlineTokenizers = new Map([
+        ['womBreak', womBreak],
+
         ['womItalic', inlinePairedText('//', 'womItalic')],
         ['womUnderline', inlinePairedText('__', 'womUnderline')],
         ['womMonospace', inlinePairedText('##', 'womMonospace')],
@@ -41,10 +47,13 @@ function plugin() {
         ['womImage', womImage],
 
         ['womHtml', womHtml],
+        ['womFormatter', womFormatter],
+        ['womBlockquote', womBlockquote],
+        ['womDefinition', womDefinition],
+        ['womCut', womCut],
 
         ['womEscape', womEscape],
 
-        ['womBreak', womBreak],
         ['womHelp', womHelp],
         ['womTicket', womTicket],
         ['womColor', womColor],
@@ -67,12 +76,10 @@ function plugin() {
     // console.log(inlineTokenizers);
 
     const myBlockTokenizers = new Map([
-        ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
+        ['womFormatter', womBlockGenerator('?', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
         ['womBlockquote', womBlockGenerator('womBlockquote', '<[', ']>')],
         ['womDefinition', womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle })],
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
-
-        ['womHtml', womBlockGenerator('womHtml', '<#', '#>', { rawContents: true })],
 
         ['womTable', womTable],
 
@@ -90,7 +97,6 @@ function plugin() {
         ['womCut'],
         ['womBlockquote'],
         ['womDefinition'],
-        ['womHtml'],
         ['womHeading'],
         ['womTable']
     );
@@ -105,27 +111,6 @@ function plugin() {
     // blockTokenizers.womFormatter = womFormatter;
     // console.log(blockMethods);
 }
-
-const CH_MINUS = '-'.charCodeAt(0);
-function womBreak(eat, value, silent) {
-    if (womBreak.locator(value, 0)) {
-        return false;
-    }
-    if (silent) {
-        return true;
-    }
-
-    let end;
-    for (end = 2; end < value.length; end += 1) {
-        if (value.charCodeAt(end) !== CH_MINUS) {
-            break;
-        }
-    }
-
-    const raw = '-'.repeat(end);
-    return eat(raw)({ type: 'womBreak', raw });
-}
-womBreak.locator = (value, fromIndex) => value.indexOf('---', fromIndex);
 
 // help#:200912039020818
 const isDigit = c => { const cc = c.charCodeAt(0); return cc >= 48 && cc <= 57; };
@@ -235,7 +220,8 @@ function indexOfClosingSeq (closeSeq, openSeq) {
     };
 }
 
-function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, skipSpaces = true } = {}) {
+function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false } = {}) {
+    const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
     const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq;
 
@@ -244,11 +230,10 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
     eatFirst || (eatFirst = () => {});
 
-    // womBlock.locator = (value, index) => {
-    //     console.log('OKKKKKKKKKKKKK', {value, index});
-    //     return startSeq({ value, index });
-    // };
-    // womBlock.notInBlock = true;
+    if (inline) {
+        womBlock.locator = (value, index) => value.indexOf(startSeq_, index);
+    }
+
     return womBlock;
     function womBlock(eat, value, silent) {
         const ctx = Ctx.gen(eat, value);
@@ -268,6 +253,11 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
         ctx.cut(startSeqLen);
 
         const props = eatFirst.call(this, ctx);
+
+        if (props && 'parseContents' in props) {
+            rawContents = !props.parseContents;
+            delete props.parseContents;
+        }
 
         const lastIndex = endSeq(ctx);
 
@@ -291,6 +281,8 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         if (rawContents) {
             contentProps.value = inner;
+        } else if (inline) {
+            contentProps.children = this.tokenizeInline(inner, now);
         } else {
             const exit = this.enterBlock();
             contentProps.children = this.tokenizeBlock(inner, now);
@@ -340,14 +332,19 @@ function inlinePairedText(charPair, type, colorful = false) {
         }
 
         const lineBreak = value.indexOf('\n', i + 1);
-        let nextWhitespace = res;
-        while (!isWS(value.charAt(nextWhitespace + 1)) && nextWhitespace < value.length) {
-            nextWhitespace += 1;
+        let allowedEnd = res;
+        while (!isWS(value.charAt(allowedEnd + 1)) && allowedEnd < value.length) {
+            allowedEnd += 1;
+        }
+
+        // FIXME: Drop knowledge about --- womBreak
+        if (firstCharCode === '-'.charCodeAt(0) && value.indexOf('---', res) !== -1) {
+            allowedEnd = Math.min(value.indexOf('---', res) !== -1, allowedEnd);
         }
 
         while(true) { // eslint-disable-line
             const nextPair = value.indexOf(charPair, i + 1);
-            if (nextPair === -1 || nextPair > nextWhitespace) {
+            if (nextPair === -1 || nextPair > allowedEnd && value.charCodeAt(nextPair + 2) === firstCharCode) {
                 break;
             }
             i = nextPair;
@@ -478,8 +475,11 @@ function eatFormatterProps(ctx) {
     ctx.cut(i - index);
 
     const format = chunks[0] && (!chunks[0].value && chunks.shift().name) || null;
+    const isMarkdown = ['md', 'markdown', 'wacko'].indexOf(format) !== -1;
 
     return {
+        type: isMarkdown ? 'womMarkdown' : 'womFormatter',
+        parseContents: isMarkdown,
         format,
         attributes: chunks.reduce((res, { name, value }) => { // eslint-disable-line no-shadow
             res[name] = value;

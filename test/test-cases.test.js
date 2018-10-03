@@ -9,8 +9,6 @@ use(require('chai-subset'));
 const content = readFileSync('./test-cases.md', 'utf-8');
 
 const remark = require('remark');
-
-// Tmp
 const woofmd = require('..');
 const processor = remark().data('settings', { commonmark: true, footnotes: true }).use(woofmd.remark);
 const parseMd = v => processor.parse(v);

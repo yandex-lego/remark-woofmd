@@ -86,10 +86,41 @@
 ↑ TEXT HYPHENS TEXT
 → {type: 'paragraph', children: [{type: 'text', value: 'тест'}, {type: 'womBreak', raw: '---'}, {type: 'text', value: 'шмест'}]}
 
+〉Однострочные переводы пачкой
+←тест---шмест---гдест?---нигдест
+↑ TEXT HYPHENS TEXT HYPHENS TEXT HYPHENS TEXT
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'тест'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'шмест'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'гдест?'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'нигдест'},
+→ ]}
+
+〉Переводы пачкой с зачеркнутым
+←тест---шмест--зарезано--да---еще
+↑ TEXT HYPHENS TEXT HYPHENS TEXT HYPHENS TEXT
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'тест'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'шмест'},
+→   {type: 'womStrike', children: [
+→     {type: 'text', value: 'зарезано'}
+→   ]},
+→   {type: 'text', value: 'да'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'еще'},
+→ ]}
+
 〉Выравнивание
 ←%%(wacko wrapper=text align=center) текст по центру %%
 ↑ PERCENTS LPAREN CONST WS CONST EQUAL CONST WS CONST EQUAL CONST RPAREN TEXT PERCENTS
-→ {type: 'root', children: [{type: 'womFormatter', format: 'wacko', attributes: {wrapper: 'text', align: 'center'}, value: ' текст по центру '}]}
+→ {type: 'root', children: [{type: 'womMarkdown', format: 'wacko',
+→   attributes: {wrapper: 'text', align: 'center'},
+→   children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
+→ }]}
 
 〉Цитирование текста
 ←<[ Цитирование текста ,
@@ -153,6 +184,21 @@
 →   ]}
 → ]}
 
+〉Термины в тексте
+←Текст и тут (?Термин Описалово?), а потом еще текст и (?Еще термин==Еще описалово?). И текст в конце
+↑ LDEFINITION TEXT WS TEXT RDEFINITION
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Текст и тут '},
+→   {type: 'womDefinition', title: 'Термин', equals: false, children: [
+→     {type: 'text', value: 'Описалово'}
+→   ]},
+→   {type: 'text', value: ', а потом еще текст и '},
+→   {type: 'womDefinition', title: 'Еще термин', equals: true, children: [
+→     {type: 'text', value: 'Еще описалово'}
+→   ]},
+→   {type: 'text', value: '. И текст в конце'},
+→ ]}
+
 〉Врезка (кат)
 ←<{ Прочитать !!red!! целиком
 ←Этот текст можно увидеть, кликнув по ссылке "прочитать целиком".
@@ -174,7 +220,7 @@
 〉Вывод HTML как есть
 ←<# <input type="text"> #>
 ↑ LHTML TEXT RHTML
-→ {type: 'root', children: [{type: 'womHtml', value: ' <input type="text"> '}]}
+→ {type: 'womHtml', value: ' <input type="text"> '}
 
 〉Inline HTML как препятствие
 ←ABCDEFG: <# <span style='color:gray'> #>-0 (GRAY)<# </span> #>
@@ -433,16 +479,38 @@
 〉wacko text aligned
 ←%%(wacko wrapper=text align=center) текст по центру %%
 → {type: 'root', children: [
-→   {type: 'womFormatter', format: 'wacko',
+→   {type: 'womMarkdown', format: 'wacko',
 →     attributes: {wrapper: 'text', align: 'center'},
-→     value: ' текст по центру '}]}
+→     children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
+→   }]}
 
 〉wacko page wrapper
 ←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
 → {type: 'root', children: [
-→   {type: 'womFormatter', format: 'wacko',
+→   {type: 'womMarkdown', format: 'wacko',
 →     attributes: {wrapper: 'page', wrapper_width: '200'},
-→     value: ' этот текст не может быть шире двухсот пикселей'}]}
+→     children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: ' этот текст не может быть шире двухсот пикселей'}
+→       ]}
+→     ]
+→   }]}
+
+〉markdown page wrapper should parse inner markdown
+←%%(markdown) `code` and **bold** %%
+→ {type: 'root', children: [
+→   {type: 'womMarkdown', format: 'markdown',
+→     attributes: {},
+→     children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: ' '},
+→         {type: 'inlineCode', value: 'code'},
+→         {type: 'text', value: ' and '},
+→         {type: 'strong', children: [{type: 'text', value: 'bold'}]},
+→         {type: 'text', value: ' '},
+→       ]}
+→     ]
+→   }]}
 
 〉Тикет в help
 ←help#:200912039020818
@@ -509,6 +577,14 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 → {type: 'womLink', url: 'mailto:mail@woofmd-team.ru', brackets: false, children: [
 →   {type: 'womStaff', case: null, at: 'suffix', value: 'mail'}]}
 
+〉Почта текстом
+←mail@mail.ru
+→ {type: 'text', value: 'mail@mail.ru'}
+
+〉Почта текстом
+←mailto:mail@mail.ru
+→ {type: 'link', title: null, url: 'mailto:mail@mail.ru', children: [{type: 'text', value: 'mail@mail.ru'}]}
+
 〉math outline 1
 ←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
 → {type: 'root', children: [
@@ -536,7 +612,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 
 〉Тоблица из html
 ←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
-→ {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
+→ {type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}
 
 〉Однострочная таблица
 ←#| ||cell11|| ||cell21|| |#
@@ -596,30 +672,42 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 
 〉¡ Вложенные таблицы
 ←#||
-←|| #| ||cell11|| |# | #| ||cell12|| |# ||
-←|| #| ||cell21|| |# | #| ||cell22|| |# ||
+←|| cell10 | #| ||cell11.0|| |# | #| ||cell12.0|| |# | cell13 ||
+←|| cell20 | #| ||cell21.0|| |# | #| ||cell22.0|| |# | cell13 ||
 ←||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
 →     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]} ]}]}]}
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell10 '}]}
 →       ]},
 →       {type: 'womTableCell', children: [
 →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]} ]}]}]}
-→       ]}
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11.0'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12.0'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell13 '}]}
+→       ]},
 →     ]},
 →     {type: 'womTableRow', children: [,
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]} ]}]}]}
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell20 '}]}
 →       ]},
 →       {type: 'womTableCell', children: [
 →         {type: 'womTable', children: [{type: 'womTableRow', children: [
-→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]} ]}]}]}
-→       ]}
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21.0'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22.0'}]} ]}]}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell23 '}]}
+→       ]},
 →     ]}
 →   ]}
 → ]}

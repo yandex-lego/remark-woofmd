@@ -483,6 +483,8 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←Perfecto is real! Right, staff:johnson?
 ←
 ←Perfecto is real! Right, johnson@? Left, @sonjohn?
+←
+←johnson@ @sonjohn
 → {type: 'root', children: [
 →  {type: 'paragraph', children: [
 →   {type: 'text', value: 'Perfecto is real! Right, '},
@@ -495,6 +497,11 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'text', value: '? Left, '},
 →   {type: 'womStaff', value: 'sonjohn', case: null, at: 'prefix'},
 →   {type: 'text', value: '?'}
+→  ]},
+→  {type: 'paragraph', children: [
+→   {type: 'womStaff', value: 'johnson', case: null, at: 'suffix'},
+→   {type: 'text', value: ' '},
+→   {type: 'womStaff', value: 'sonjohn', case: null, at: 'prefix'}
 →  ]}]}
 
 〉Почта полная

@@ -71,6 +71,35 @@
 →       { type: 'womSmall', children: [
 →         { type: 'text', value: '??' }]}]}]}]}
 
+〉Множественные !!
+←Привет!!!!!!!!!!!
+→ {type: 'text', value: 'Привет!!!!!!!!!!!'}
+
+〉Множественные ##
+←Привет###########
+→ {type: 'text', value: 'Привет###########'}
+
+〉Множественные ??
+←Привет???????????
+→ {type: 'text', value: 'Привет???????????'}
+
+〉¡ Множественные **
+←Привет***********
+→ {type: 'text', value: 'Привет***********'}
+
+〉Множественные ++
+←Привет+++++++++++
+→ {type: 'text', value: 'Привет+++++++++++'}
+
+〉Множественные ^^
+←Привет^^^^^^^^^^^
+→ {type: 'text', value: 'Привет^^^^^^^^^^^'}
+
+〉Множественные vv
+←Приветvvvvvvvvvvv
+→ {type: 'text', value: 'Приветvvvvvvvvvvv'}
+
+
 〉Разделитель
 ←---
 ↑ HYPHENS
@@ -114,6 +143,18 @@
 →   {type: 'text', value: 'еще'},
 → ]}
 
+〉Переводы со всех сторон
+←---тест---шмест---квест---
+→ [
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'тест'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'шмест'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: 'квест'},
+→   {type: 'womBreak', raw: '---'},
+→ ]
+
 〉Выравнивание
 ←%%(wacko wrapper=text align=center) текст по центру %%
 ↑ PERCENTS LPAREN CONST WS CONST EQUAL CONST WS CONST EQUAL CONST RPAREN TEXT PERCENTS
@@ -122,6 +163,36 @@
 →   children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
 → }]}
 
+〉Инлайн вставки форматтера
+←Вообще-то для %%моноширинного%% текста %%есть другая%% конструкция.
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Вообще-то для '},
+→   {type: 'womFormatter', value: 'моноширинного'},
+→   {type: 'text', value: ' текста '},
+→   {type: 'womFormatter', value: 'есть другая'},
+→   {type: 'text', value: ' конструкция.'},
+→ ]}
+
+〉Форматтер битым куском
+←Начинаем %%(js) и не заканчиваем
+→ {type: 'text', value: 'Начинаем %%(js) и не заканчиваем'}
+
+〉Жирный форматтер
+←Жир **%%code%%** ?
+→ [{type: 'text', value: 'Жир '},
+→  {type: 'strong', children: [{type: 'womFormatter', value: 'code'}]},
+→  {type: 'text', value: ' ?'},
+→ ]
+
+〉¡ Форматтер с множественными %%
+←%%
+←Hello
+←%%%%%%%%%%%%%%%
+←World
+←%%%%%%%%%%%%%%%
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', value: '\nHello\n%%%%%%%%%%%%%%%\nWorld\n%%%%%%%%%%%%%%%\n'}]}
+
 〉Цитирование текста
 ←<[ Цитирование текста ,
 ←длинного,
@@ -129,6 +200,13 @@
 ← ]>
 ↑ LQUOTING TEXT RQUOTING
 → {type: 'root', children: [{type: 'womBlockquote', children: [{type: 'paragraph', children: [{type: 'text', value: ' Цитирование текста ,\nдлинного,\nс переносами\n '}]}]}]}
+
+〉Инлайн цитирование текста
+←Можно даже прямо внутри <[Процитировать Ницше]>. Да-да.
+→ [{type: 'text', value: 'Можно даже прямо внутри '},
+→  {type: 'womBlockquote', children: [{type: 'text', value: 'Процитировать Ницше'}]},
+→  {type: 'text', value: '. Да-да.'},
+→ ]
 
 〉Вложенное цитирование текста
 ←<[ Цитирование верхнего уровня ,
@@ -318,6 +396,14 @@
 〉Много знаков равно это тоже не заголовок
 ←======== Не заголовок
 → {type: 'text', value: '======== Не заголовок'}
+
+〉Заголовок с форматированием
+←== Библиотека %%глазировка%%
+→ {type: 'root', children: [
+→   {type: 'womHeading', depth: 1, expandable: false, children: [
+→     {type: 'text', value: 'Библиотека '},
+→     {type: 'womFormatter', value: 'глазировка'}
+→   ]}]}
 
 〉¡ Сноски
 ←Текст, потом сноска[[*]] и вторая[[**]]
@@ -537,6 +623,11 @@
 →     {type: 'text', value: ' '},
 →   ],
 →   assignee: 'mrtwister'}
+
+〉¡ Встроенный в текст номер тикета не должен парситься
+←//home/woofmd/SIDEBYSIDE-100500/yes-yes
+→ {type: 'text', value: '//home/woofmd/SIDEBYSIDE-100500/yes-yes'}
+
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
@@ -764,6 +855,18 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}
 → ]}
 
+〉¡ Ссылка с элементами форматирования не должна быть отформатирована
+←https://abc.woofmd-team.ru/services/_wiki_
+→ {type: 'link', title: null, url: 'https://abc.woofmd-team.ru/services/_wiki_', children: [
+→   {type: 'text', value: 'https://abc.woofmd-team.ru/services/_wiki_'}
+→ ]}
+
+〉¡ Не должен обрезаться ) от ссылки
+←https://awaps.yandex.ru/15/35819/(14400891/0)
+→ {type: 'link', title: null, url: 'https://awaps.yandex.ru/15/35819/(14400891/0)', children: [
+→   {type: 'text', value: 'https://awaps.yandex.ru/15/35819/(14400891/0)'}
+→ ]}
+
 〉Картинка с заданным размером
 ←100x100:https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg
 → {type: 'womImage', url: 'https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg', width: 100, height: 100}
@@ -778,7 +881,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 
 〉¡ Ref
 ←ref:http://img.woofmd.net/i/logo95x37x8.png
-→ {type: 'womLink', url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: []}
+→ {type: 'womRef', url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: []}
 
 〉¡ Сложненький список
 ←1. Ordered List

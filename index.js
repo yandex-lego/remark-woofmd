@@ -76,7 +76,7 @@ function plugin() {
     // console.log(inlineTokenizers);
 
     const myBlockTokenizers = new Map([
-        ['womFormatter', womBlockGenerator('?', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
+        ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
         ['womBlockquote', womBlockGenerator('womBlockquote', '<[', ']>')],
         ['womDefinition', womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle })],
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
@@ -185,6 +185,17 @@ function indexOfSeq (seq) {
     return ctx => ctx.value.indexOf(seq, ctx.index);
 }
 
+// function indexOfSameClosingSeq (seq) {
+//     const ch = seq.charAt(0);
+//     const closingRe = new RegExp('[^' + ch + ']' + ch + ch + '[^' + ch + ']');
+//     console.log(closingRe)
+
+//     return ctx => {
+//         console.log(ctx.value, ctx.value.indexOf(seq, ctx.value.search(closingRe)), ctx.value.search(closingRe));
+//         return ctx.value.indexOf(seq, ctx.value.search(closingRe));
+//     };
+// }
+
 function indexOfClosingSeq (closeSeq, openSeq) {
     return ctx => {
         const v = ctx.value;
@@ -223,7 +234,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
 function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false } = {}) {
     const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
-    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq;
+    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq; //indexOfSameClosingSeq(startSeq_);
 
     const startSeqLen = startSeq_.length;
     const endSeqLen = endSeq_ !== null ? endSeq_.length : startSeqLen;
@@ -254,12 +265,15 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         const props = eatFirst.call(this, ctx);
 
+        const lastIndex = endSeq(ctx);
+        if (lastIndex === -1) {
+            return;
+        }
+
         if (props && 'parseContents' in props) {
             rawContents = !props.parseContents;
             delete props.parseContents;
         }
-
-        const lastIndex = endSeq(ctx);
 
         const inner = ctx.cut(lastIndex - ctx.index);
 
@@ -281,7 +295,7 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         if (rawContents) {
             contentProps.value = inner;
-        } else if (inline) {
+        } else if (inline === true) {
             contentProps.children = this.tokenizeInline(inner, now);
         } else {
             const exit = this.enterBlock();
@@ -322,6 +336,7 @@ function womEscape(eat, value, silent) {
 
 function inlinePairedText(charPair, type, colorful = false) {
     const firstCharCode = charPair.charCodeAt(0);
+    const CH_MINUS = '-'.charCodeAt(0);
 
     womInlinePaired.locator = (value, fromIndex) => value.indexOf(charPair, fromIndex);
 
@@ -338,7 +353,7 @@ function inlinePairedText(charPair, type, colorful = false) {
         }
 
         // FIXME: Drop knowledge about --- womBreak
-        if (firstCharCode === '-'.charCodeAt(0) && value.indexOf('---', res) !== -1) {
+        if (firstCharCode === CH_MINUS && value.indexOf('---', res) !== -1) {
             allowedEnd = Math.min(value.indexOf('---', res) !== -1, allowedEnd);
         }
 
@@ -361,6 +376,10 @@ function inlinePairedText(charPair, type, colorful = false) {
         const nextPair = findTheEnd(value, 2);
 
         if (nextPair === -1 || value.charCodeAt(0) !== firstCharCode || value.indexOf(charPair) !== 0) {
+            return false;
+        }
+        // Fix multiples
+        if (value.charCodeAt(2) === firstCharCode) {
             return false;
         }
 

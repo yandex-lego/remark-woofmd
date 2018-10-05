@@ -1,4 +1,5 @@
 const assert = require('assert');
+const chalk = require('chalk');
 
 const isWS = require('is-whitespace-character');
 const isNotWS = (ch) => !isWS(ch);
@@ -15,6 +16,8 @@ const womLink = require('./lib/tokenizers/link-wom');
 const womImage = require('./lib/tokenizers/image-wom');
 const womTicket = require('./lib/tokenizers/ticket-wom');
 const womBreak = require('./lib/tokenizers/break-wom');
+
+const patchedUrl = require('./lib/tokenizers/url');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
@@ -65,15 +68,8 @@ function plugin() {
         inlineTokenizers[key] = fn;
     }
     injectBefore(inlineMethods, 'strong', Array.from(myInlineTokenizers.keys()));
-    // this.Parser.prototype.inlineTokenizers = {text: inlineTokenizers.text};
-    // this.Parser.prototype.inlineMethods = ['text'];
 
-    // const oldLinkLocator = inlineTokenizers.link.locator;
-    // inlineTokenizers.reference = () => {};
-    // inlineTokenizers.reference.locator = (value, index) => {
-    //     return -1; oldLinkLocator(value, index);
-    // };
-    // console.log(inlineTokenizers);
+    inlineTokenizers['url'] = patchedUrl;
 
     const myBlockTokenizers = new Map([
         ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
@@ -338,31 +334,54 @@ function inlinePairedText(charPair, type, colorful = false) {
     const firstCharCode = charPair.charCodeAt(0);
     const CH_MINUS = '-'.charCodeAt(0);
 
-    womInlinePaired.locator = (value, fromIndex) => value.indexOf(charPair, fromIndex);
+    const defaultLocator = (value, fromIndex) => value.indexOf(charPair, fromIndex);
+    const locator = (firstCharCode === CH_MINUS)
+        ? (value, fromIndex) => {
+            let res = fromIndex;
+            do {
+                res = defaultLocator(value, res);
+                if (res === -1 || value.charCodeAt(res + 2) !== firstCharCode) {
+                    return res;
+                }
+                res += 2;
+            } while (res > value.length);
+            return -1;
+        }
+        : defaultLocator;
+
+    womInlinePaired.locator = locator;
 
     function findTheEnd(value, i) {
-        let res = value.indexOf(charPair, i);
+        let res = locator(value, i);
         if (res === -1) {
             return -1;
         }
 
         const lineBreak = value.indexOf('\n', i + 1);
         let allowedEnd = res;
+        // console.log('Calculating allowedEnd for ', {charPair, value, i})
         while (!isWS(value.charAt(allowedEnd + 1)) && allowedEnd < value.length) {
             allowedEnd += 1;
+            // console.log(value.charAt(allowedEnd + 1), !isWS(value.charAt(allowedEnd + 1)), allowedEnd < value.length);
         }
 
-        // FIXME: Drop knowledge about --- womBreak
-        if (firstCharCode === CH_MINUS && value.indexOf('---', res) !== -1) {
-            allowedEnd = Math.min(value.indexOf('---', res) !== -1, allowedEnd);
-        }
-
-        while(true) { // eslint-disable-line
-            const nextPair = value.indexOf(charPair, i + 1);
-            if (nextPair === -1 || nextPair > allowedEnd && value.charCodeAt(nextPair + 2) === firstCharCode) {
+        while(i < allowedEnd) { // eslint-disable-line
+            // console.log('Ищем конец', nextPair);
+            const nextI = locator(value, i + 1);
+            // console.log(String(nextI).padStart(5), i, { allowedEnd }, i !== -1 ? value.slice(i, 20) + chalk.grey('←') : null);
+            if (nextI === -1 || nextI > allowedEnd) {
+                // console.log(value.charCodeAt(nextI + 2) === firstCharCode);
                 break;
             }
-            i = nextPair;
+            i = nextI;
+        }
+
+        if (value.slice(i, i + 2) !== charPair) {
+            // console.log('TROUBLES HERE MR JOHNSON');
+            // console.log({charPair, i, len: value.length, found: value.slice(i, i + 2), value});
+            // console.log(value);
+            // console.log('-'.repeat(i) + '^^');
+            return -1;
         }
 
         if (lineBreak !== -1 && lineBreak < i) {
@@ -373,15 +392,33 @@ function inlinePairedText(charPair, type, colorful = false) {
     }
 
     function womInlinePaired(eat, value, silent) {
-        const nextPair = findTheEnd(value, 2);
+        this.inInlinePairs || (this.inInlinePairs = new Set());
+        // Prevent nested inlines of the same type
+        if (this.inInlinePairs.has(type)) {
+            return;
+        }
 
+        const closestPos = locator(value, 0);
+        if (closestPos === -1) {
+            return;
+        }
+
+        const nextPair = findTheEnd(value, closestPos + 2);
         if (nextPair === -1 || value.charCodeAt(0) !== firstCharCode || value.indexOf(charPair) !== 0) {
             return false;
         }
-        // Fix multiples
-        if (value.charCodeAt(2) === firstCharCode) {
-            return false;
-        }
+
+        // Fix multiples, skip until WS or  and then decide to break or not
+        // for (let x = 2; x < value.length; x += 1) {
+        //     const cc = value.charCodeAt(x); // Character code
+        //     if (cc === firstCharCode) {
+        //         continue;
+        //     }
+        //     if (isWS(value.charAt(x))) {
+        //         return false;
+        //     }
+        //     break;
+        // }
 
         if (silent) {
             return true;
@@ -410,11 +447,17 @@ function inlinePairedText(charPair, type, colorful = false) {
             }
         }
 
-        return eat(outer)({
+        this.inInlinePairs.add(type);
+
+        const res = eat(outer)({
             type,
             ...dye,
             children: this.tokenizeInline(inner, now)
         });
+
+        this.inInlinePairs.delete(type);
+
+        return res;
     }
     return womInlinePaired;
 }

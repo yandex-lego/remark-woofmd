@@ -73,15 +73,15 @@
 
 〉Множественные !!
 ←Привет!!!!!!!!!!!
-→ {type: 'text', value: 'Привет!!!!!!!!!!!'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [{type: 'text', value: '!!!!!!!'}]}]
 
 〉Множественные ##
 ←Привет###########
-→ {type: 'text', value: 'Привет###########'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womMonospace', children: [{type: 'text', value: '#######'}]}]
 
 〉Множественные ??
 ←Привет???????????
-→ {type: 'text', value: 'Привет???????????'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womQuestion', children: [{type: 'text', value: '???????'}]}]
 
 〉¡ Множественные **
 ←Привет***********
@@ -89,16 +89,67 @@
 
 〉Множественные ++
 ←Привет+++++++++++
-→ {type: 'text', value: 'Привет+++++++++++'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womSmall', children: [{type: 'text', value: '+++++++'}]}]
 
 〉Множественные ^^
 ←Привет^^^^^^^^^^^
-→ {type: 'text', value: 'Привет^^^^^^^^^^^'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womSuperscript', children: [{type: 'text', value: '^^^^^^^'}]}]
 
 〉Множественные vv
 ←Приветvvvvvvvvvvv
-→ {type: 'text', value: 'Приветvvvvvvvvvvv'}
+→ [{type: 'text', value: 'Привет'}, {type: 'womSubscript', children: [{type: 'text', value: 'vvvvvvv'}]}]
 
+〉Начальные множественные ***
+←***Полужирный текст******
+→ {type: 'strong', children: [{type: 'text', value: '*Полужирный текст****'}]}
+
+〉Начальные множественные ///
+←///Курсивный текст/////
+→ {type: 'womItalic', children: [{type: 'text', value: '/Курсивный текст///'}]}
+
+〉Начальные множественные ___
+←___Подчеркнутый текст_____
+→ {type: 'womUnderline', children: [{type: 'text', value: '_Подчеркнутый текст___'}]}
+
+〉Начальные множественные ###
+←###Моноширинный текст#####
+→ {type: 'womMonospace', children: [{type: 'text', value: '#Моноширинный текст###'}]}
+
+〉Начальные множественные +++
+←+++Мелкий текст++++++
+→ {type: 'womSmall', children: [{type: 'text', value: '+Мелкий текст++++'}]}
+
+〉Начальные множественные ???
+←???Вопрос????????
+→ {type: 'womQuestion', children: [{type: 'text', value: '?Вопрос??????'}]}
+
+〉Начальные множественные !!!
+←!!!Замечание!!!!!
+→ {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [
+→   {type: 'text', value: '!Замечание!!!'}]}
+
+〉¡ Начальные множественные !!! с цветом
+←!!!(grey)Замечание!!!!!
+→ [{type: 'text', value: '!'}, {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [
+→   {type: 'text', value: 'Замечание'}]}]
+
+〉¡ Начальные множественные !!! с вложением и соседями
+←!! !!(green)Крас!! !! !!(grey)Замечание!!!!! !!(green)Зел!! !!(yellow)Жел!!
+→ [{type: 'womRemark', children: [{type: 'text', value: ' !!(grey)Замечание!!!'}]}]
+
+〉Последовательные !!
+←Короче: !!(red)Каждый!! охотник !!(yellow)желает!!! !!(green)знать!!! где !!(син)сидит!!! фазан, !!(grey)Вася!!!
+→ [{type: 'text', value: 'Короче: '},
+→  {type: 'womRemark', color: {type: 'color', value: '@red', raw: 'red'}, children: [{type: 'text', value: 'Каждый'}]},
+→  {type: 'text', value: ' охотник '},
+→  {type: 'womRemark', color: {type: 'color', value: '@yellow', raw: 'yellow'}, children: [{type: 'text', value: 'желает!'}]},
+→  {type: 'text', value: ' '},
+→  {type: 'womRemark', color: {type: 'color', value: '@green', raw: 'green'}, children: [{type: 'text', value: 'знать!'}]},
+→  {type: 'text', value: ' где '},
+→  {type: 'womRemark', color: {type: 'color', value: '@blue', raw: 'син'}, children: [{type: 'text', value: 'сидит!'}]},
+→  {type: 'text', value: ' фазан, '},
+→  {type: 'womRemark', color: {type: 'color', value: '@gray', raw: 'grey'}, children: [{type: 'text', value: 'Вася!'}]},
+→  ]
 
 〉Разделитель
 ←---
@@ -602,16 +653,51 @@
 ←help#:200912039020818
 → {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
 
-〉¡ Обычный тикет
+〉Сложная ссылка с тикетом
 ←https://jira.woofmd-team.ru/QUEUE-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
-→ null
+→ {type: 'womTicket', assignee: 'thasonic', realm: 'jira.woofmd-team.ru', protocol: 'https://',
+→   value: 'QUEUE-1234',
+→   url: 'https://jira.woofmd-team.ru/QUEUE-1234',
+→   title: [
+→     {type: 'text', value: ' '},
+→     {type: 'womStrike', children: [
+→       {type: 'text', value: 'На Вики в Тесте всегда показаываются комментарии'}]},
+→     {type: 'text', value: ' '},
+→   ]}
+
+〉URL cases from remark fixtures
+←This should be a link: http://example.com/hello-world.
+←
+←Also, subdomain should be a part of the link (http://foo.example.com/(hello[world])).
+←
+←So should this: mailto:foo@bar.com.
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [
+→     {type: 'text', value: 'This should be a link: '},
+→     {type: 'link', title: null, url: 'http://example.com/hello-world', children: [
+→       {type: 'text', value: 'http://example.com/hello-world'}]},
+→     {type: 'text', value: '.'},
+→   ]},
+→   {type: 'paragraph', children: [
+→     {type: 'text', value: 'Also, subdomain should be a part of the link ('},
+→     {type: 'link', title: null, url: 'http://foo.example.com/(hello[world])', children: [
+→       {type: 'text', value: 'http://foo.example.com/(hello[world])'}]},
+→     {type: 'text', value: ').'},
+→   ]},
+→   {type: 'paragraph', children: [
+→     {type: 'text', value: 'So should this: '},
+→     {type: 'link', title: null, url: 'mailto:foo@bar.com', children: [
+→       {type: 'text', value: 'foo@bar.com'}]},
+→     {type: 'text', value: '.'},
+→   ]}]}
 
 〉Короткая ссылка на тикет
 ←QUEUE-1234
 → {type: 'womTicket',
 →   value: 'QUEUE-1234',
 →   title: null,
-→   assignee: null}
+→   assignee: null,
+→   realm: null}
 
 〉Полная ссылка на тикет
 ←QUEUE-1234[ --Важный тикет в очереди-- ]( mrtwister )
@@ -622,9 +708,10 @@
 →     {type: 'womStrike', children: [{type: 'text', value: 'Важный тикет в очереди'}]},
 →     {type: 'text', value: ' '},
 →   ],
-→   assignee: 'mrtwister'}
+→   assignee: 'mrtwister',
+→   realm: null}
 
-〉¡ Встроенный в текст номер тикета не должен парситься
+〉Встроенный в текст номер тикета не должен парситься
 ←//home/woofmd/SIDEBYSIDE-100500/yes-yes
 → {type: 'text', value: '//home/woofmd/SIDEBYSIDE-100500/yes-yes'}
 
@@ -855,16 +942,16 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}
 → ]}
 
-〉¡ Ссылка с элементами форматирования не должна быть отформатирована
+〉Ссылка с элементами форматирования не должна быть отформатирована
 ←https://abc.woofmd-team.ru/services/_wiki_
 → {type: 'link', title: null, url: 'https://abc.woofmd-team.ru/services/_wiki_', children: [
 →   {type: 'text', value: 'https://abc.woofmd-team.ru/services/_wiki_'}
 → ]}
 
-〉¡ Не должен обрезаться ) от ссылки
-←https://awaps.yandex.ru/15/35819/(14400891/0)
-→ {type: 'link', title: null, url: 'https://awaps.yandex.ru/15/35819/(14400891/0)', children: [
-→   {type: 'text', value: 'https://awaps.yandex.ru/15/35819/(14400891/0)'}
+〉Не должен обрезаться ) от ссылки
+←https://awaps.woofmd.ru/15/35819/(14400891/0)
+→ {type: 'link', title: null, url: 'https://awaps.woofmd.ru/15/35819/(14400891/0)', children: [
+→   {type: 'text', value: 'https://awaps.woofmd.ru/15/35819/(14400891/0)'}
 → ]}
 
 〉Картинка с заданным размером
@@ -879,9 +966,10 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←((http://img.woofmd.net/i/www/citylogos/gramota2-logo-ru.png http://img.woofmd.net/i/www/logo.png))
 → null
 
-〉¡ Ref
+〉Ref
 ←ref:http://img.woofmd.net/i/logo95x37x8.png
-→ {type: 'womRef', url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: []}
+→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: [
+→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}]}
 
 〉¡ Сложненький список
 ←1. Ordered List

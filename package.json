@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "Wiki OO formatter",
   "main": "index.js",
+  "runkitExampleFilename": "runkit-example.js",
   "scripts": {
     "test": "mocha **/*.test.js",
     "posttest": "npm run lint",
@@ -23,6 +24,7 @@
     "is-whitespace-character": "^1.0.2"
   },
   "files": [
+    "runkit-example.js",
     "index.js",
     "utils.js",
     "lib"

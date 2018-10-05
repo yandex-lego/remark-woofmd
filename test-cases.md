@@ -224,6 +224,26 @@
 →   {type: 'text', value: ' конструкция.'},
 → ]}
 
+〉Выравнивание
+←%%(wacko wrapper=text align=center) текст по центру %%
+↑ PERCENTS LPAREN CONST WS CONST EQUAL CONST WS CONST EQUAL CONST RPAREN TEXT PERCENTS
+→ {type: 'root', children: [{type: 'womMarkdown', format: 'wacko',
+→   attributes: {wrapper: 'text', align: 'center'},
+→   children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
+→ }]}
+
+〉Инлайн вставки форматтера с выравниванием
+←So %%kusok%% then %%(wacko wrapper=right) wacko-shmako %% and %%this one%% at the end
+→ [
+→   {type: 'text', value: 'So '},
+→   {type: 'womFormatter', value: 'kusok'},
+→   {type: 'text', value: ' then '},
+→   {type: 'womMarkdown', format: 'wacko', attributes: {wrapper: 'right'}, children: [{type: 'text', value: ' wacko-shmako '}]},
+→   {type: 'text', value: ' and '},
+→   {type: 'womFormatter', value: 'this one'},
+→   {type: 'text', value: ' at the end'}
+→ ]
+
 〉Форматтер битым куском
 ←Начинаем %%(js) и не заканчиваем
 → {type: 'text', value: 'Начинаем %%(js) и не заканчиваем'}

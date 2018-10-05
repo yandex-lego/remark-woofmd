@@ -266,8 +266,9 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
             return;
         }
 
+        let requiresRawContents = rawContents;
         if (props && 'parseContents' in props) {
-            rawContents = !props.parseContents;
+            requiresRawContents = !props.parseContents;
             delete props.parseContents;
         }
 
@@ -289,7 +290,7 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         const contentProps = {};
 
-        if (rawContents) {
+        if (requiresRawContents) {
             contentProps.value = inner;
         } else if (inline === true) {
             contentProps.children = this.tokenizeInline(inner, now);

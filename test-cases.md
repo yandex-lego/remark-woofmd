@@ -310,27 +310,23 @@
 〉Термин
 ←(?Термин Вот тут всплыло развернутое определение термина?)
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
-→ {type: 'root', children: [{type: 'womDefinition', title: 'Термин', equals: false, children: [
-→   {type: 'paragraph', children: [{type: 'text', value: 'Вот тут всплыло развернутое определение термина'}]}
-→ ]}]}
+→ {type: 'root', children: [
+→   {type: 'womDefinition', title: 'Термин', equals: false, value: 'Вот тут всплыло развернутое определение термина'}
+→ ]}
 
 〉Термин с пробелами
 ←(?Термин с пробелами==И тут тоже всплыло развернутое определение термина с пробелами?)
 ↑ LDEFINITION TEXT EQUALS TEXT RDEFINITION
-→ {type: 'root', children: [{type: 'womDefinition', title: 'Термин с пробелами', equals: true, children: [
-→   {type: 'paragraph', children: [{type: 'text', value: 'И тут тоже всплыло развернутое определение термина с пробелами'}]}
-→ ]}]}
+→ {type: 'root', children: [
+→   {type: 'womDefinition', title: 'Термин с пробелами', equals: true, value: 'И тут тоже всплыло развернутое определение термина с пробелами'}
+→ ]}
 
 〉Термины подряд разные
 ←(?Термин Описалово?)(?Еще==Еще описалово?)
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
 → {type: 'root', children: [
-→   {type: 'womDefinition', title: 'Термин', equals: false, children: [
-→     {type: 'paragraph', children: [{type: 'text', value: 'Описалово'}]}
-→   ]},
-→   {type: 'womDefinition', title: 'Еще', equals: true, children: [
-→     {type: 'paragraph', children: [{type: 'text', value: 'Еще описалово'}]}
-→   ]}
+→   {type: 'womDefinition', title: 'Термин', equals: false, value: 'Описалово'},
+→   {type: 'womDefinition', title: 'Еще', equals: true, value: 'Еще описалово'}
 → ]}
 
 〉Термины в тексте
@@ -338,13 +334,9 @@
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
 → {type: 'paragraph', children: [
 →   {type: 'text', value: 'Текст и тут '},
-→   {type: 'womDefinition', title: 'Термин', equals: false, children: [
-→     {type: 'text', value: 'Описалово'}
-→   ]},
+→   {type: 'womDefinition', title: 'Термин', equals: false, value: 'Описалово'},
 →   {type: 'text', value: ', а потом еще текст и '},
-→   {type: 'womDefinition', title: 'Еще термин', equals: true, children: [
-→     {type: 'text', value: 'Еще описалово'}
-→   ]},
+→   {type: 'womDefinition', title: 'Еще термин', equals: true, value: 'Еще описалово'},
 →   {type: 'text', value: '. И текст в конце'},
 → ]}
 

@@ -27,7 +27,7 @@ function plugin() {
     const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, inline: true });
     const womFormatter = womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, inline: true });
     const womBlockquote = womBlockGenerator('womBlockquote', '<[', ']>', { inline: true });
-    const womDefinition = womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, inline: true });
+    const womDefinition = womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, rawContents: true, inline: true });
     const womCut = womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle, inline: true });
 
     const myInlineTokenizers = new Map([
@@ -74,7 +74,7 @@ function plugin() {
     const myBlockTokenizers = new Map([
         ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true })],
         ['womBlockquote', womBlockGenerator('womBlockquote', '<[', ']>')],
-        ['womDefinition', womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle })],
+        ['womDefinition', womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, rawContents: true })],
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
 
         ['womTable', womTable],

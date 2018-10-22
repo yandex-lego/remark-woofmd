@@ -69,6 +69,9 @@ function plugin() {
     }
     injectBefore(inlineMethods, 'strong', Array.from(myInlineTokenizers.keys()));
 
+    inlineTokenizers['womNoMarkup'] = womNoMarkup;
+    injectBefore(inlineMethods, 'code', 'womNoMarkup');
+
     inlineTokenizers['url'] = patchedUrl;
 
     const myBlockTokenizers = new Map([
@@ -328,6 +331,32 @@ function womEscape(eat, value, silent) {
         type: 'womEscape',
         raw,
         value: inner
+    });
+}
+
+const WOM_NOMARKUP_RE = /~(~|\S+)/;
+womNoMarkup.locator = (value, fromIndex) => value.indexOf('~', fromIndex);
+function womNoMarkup(eat, value, silent) {
+    let index = womNoMarkup.locator(value, 0);
+
+    if (index !== 0) {
+        return false;
+    }
+
+    if (silent) {
+        return true;
+    }
+
+    const [raw, val] = value.match(WOM_NOMARKUP_RE) || [];
+
+    if (!raw) {
+        return false;
+    }
+
+    return eat(raw)({
+        type: 'womEscape',
+        raw,
+        value: val
     });
 }
 

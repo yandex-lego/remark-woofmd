@@ -943,7 +943,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 → ]}
 
 ""**Жирный текст**"" → {type: 'womEscape', raw: '""**Жирный текст**""', value: '**Жирный текст**'}
-¡ ~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
+~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
 
 ¡ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
 ¡ ((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
@@ -1026,3 +1026,18 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←<{
 ←}>
 → {type: 'root', children: [{type: 'womCut', title: [], children: []}]}
+
+〉Код через ~
+←~~~
+←code
+←~~~
+→ {type: 'root', children: [{type: 'code', lang: null, value: 'code'}]}
+
+〉~~ ~~
+←~~ ~~
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [
+→     {type: 'womEscape', raw: '~~', value: '~'},
+→     {type: 'text', value: ' '},
+→     {type: 'womEscape', raw: '~~', value: '~'}
+→   ]}]}

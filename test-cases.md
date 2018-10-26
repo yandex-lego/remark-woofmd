@@ -468,29 +468,34 @@
 →     {type: 'womFormatter', value: 'глазировка'}
 →   ]}]}
 
-〉¡ Сноски
+〉Сноски
 ←Текст, потом сноска[[*]] и вторая[[**]]
-→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '*'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '**'}]}
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '', "label": null}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*', "label": null}]}
 
-〉¡ Еще сноски
+〉Еще сноски
 ←Текст, потом цифровая сноска[[*1]] и вторая[[*2]]
-→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '*1'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*2'}]}
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '1', "label": null}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '2', "label": null}]}
 
-〉¡ Расшифровка первой сноски
+〉Расшифровка первой сноски
 ←[[#*]] Расшифровка первой сноски
-→ {type: 'womFootnoteDefinition', identifier: '*', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка первой сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '*', "label": null},
+→   {type: 'text', value: ' Расшифровка первой сноски'}
+→ ]}
 
-〉¡ Расшифровка второй сноски
+〉Расшифровка второй сноски
 ←[[#**]] Расшифровка второй сноски
-→ {type: 'womFootnoteDefinition', identifier: '**', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '**', "label": null},
+→   {type: 'text', value: ' Расшифровка второй сноски'}
+→ ]}
 
-〉¡ Расшифровка цифровой сноски
+〉Расшифровка цифровой сноски
 ←[[#1]] Расшифровка цифровой сноски
-→ {type: 'womFootnoteDefinition', identifier: '1', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка цифровой сноски'}]}]}
-
-〉¡ Расшифровка второй цифровой сноски
-←[[#2]] Расшифровка второй цифровой сноски
-→ {type: 'womFootnoteDefinition', identifier: '2', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй цифровой сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '1', "label": null},
+→   {type: 'text', value: ' Расшифровка цифровой сноски'}
+→ ]}
 
 〉Пример 2: nomark
 ←%%(python nomark)
@@ -934,11 +939,9 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←[[Устафф Страница про устафф]]
 → {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
 
-〉Ссылки на якорь
-←((#test)) и ((/HomePage#TOC_1))
+〉Ссылка на якорь
+←((/HomePage#TOC_1))
 → {type: 'paragraph', children: [
-→   {type: 'womLink', url: '#test', brackets: false, children: []},
-→   {type: 'text', value: ' и '},
 →   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
 → ]}
 

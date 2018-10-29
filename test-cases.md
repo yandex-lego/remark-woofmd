@@ -666,10 +666,6 @@
 →     ]
 →   }]}
 
-〉Тикет в help
-←help#:200912039020818
-→ {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
-
 〉Сложная ссылка с тикетом
 ←https://jira.woofmd-team.ru/QUEUE-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
 → {type: 'womTicket', assignee: 'thasonic', realm: 'jira.woofmd-team.ru', protocol: 'https://',

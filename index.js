@@ -57,7 +57,6 @@ function plugin() {
 
         ['womEscape', womEscape],
 
-        ['womHelp', womHelp],
         ['womTicket', womTicket],
         ['womColor', womColor],
 
@@ -110,25 +109,6 @@ function plugin() {
     // blockTokenizers.womFormatter = womFormatter;
     // console.log(blockMethods);
 }
-
-// help#:200912039020818
-const isDigit = c => { const cc = c.charCodeAt(0); return cc >= 48 && cc <= 57; };
-const HELP_PREFIX = 'help#:';
-function womHelp(eat, value, silent) {
-    if (womHelp.locator(value, 0) !== 0 || !isDigit(value.charAt(HELP_PREFIX.length))) {
-        return false;
-    }
-    if (silent) {
-        return true;
-    }
-
-    const end = lookAhead(value, v => !isDigit(v), HELP_PREFIX.length);
-
-    const raw = value.slice(0, end);
-    // console.log(raw);
-    return eat(raw)({ type: 'womHelp', raw, value: raw.slice(6) });
-}
-womHelp.locator = (value, index) => value.indexOf(HELP_PREFIX, index);
 
 class Ctx {
     constructor(eat, value) {
@@ -542,7 +522,6 @@ function womColor(eat, value, silent) {
 
 function eatFormatterProps(ctx) {
     const { index, value } = ctx;
-
     if (value.charAt(index) !== '(') {
         return null;
     }

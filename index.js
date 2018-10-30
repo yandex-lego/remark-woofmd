@@ -164,16 +164,15 @@ function indexOfSeq (seq) {
     return ctx => ctx.value.indexOf(seq, ctx.index);
 }
 
-// function indexOfSameClosingSeq (seq) {
-//     const ch = seq.charAt(0);
-//     const closingRe = new RegExp('[^' + ch + ']' + ch + ch + '[^' + ch + ']');
-//     console.log(closingRe)
+function indexOfSameClosingSeq (seq) {
+    const ch = seq.charAt(0);
+    const closingRe = new RegExp('[^' + ch + ']' + ch + ch + '([^' + ch + ']|$)');
 
-//     return ctx => {
-//         console.log(ctx.value, ctx.value.indexOf(seq, ctx.value.search(closingRe)), ctx.value.search(closingRe));
-//         return ctx.value.indexOf(seq, ctx.value.search(closingRe));
-//     };
-// }
+    return ctx => {
+        const res = ctx.value.indexOf(seq, ctx.value.search(closingRe));
+        return ctx.index < res ? res : -1;
+    };
+}
 
 function indexOfClosingSeq (closeSeq, openSeq) {
     return ctx => {
@@ -213,7 +212,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
 function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false } = {}) {
     const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
-    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq; //indexOfSameClosingSeq(startSeq_);
+    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : indexOfSameClosingSeq(startSeq_);
 
     const startSeqLen = startSeq_.length;
     const endSeqLen = endSeq_ !== null ? endSeq_.length : startSeqLen;

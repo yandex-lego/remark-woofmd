@@ -476,6 +476,28 @@
 ←Текст, потом цифровая сноска[[*1]] и вторая[[*2]]
 → {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '1', "label": null}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '2', "label": null}]}
 
+〉Это [[*)) не сноска
+←Это [[*)) не сноска
+→ {type: 'paragraph', children: [{type: 'text', value: 'Это [[*)) не сноска'}]}
+
+〉Сноски в круглых скобках
+←Текст, потом сноска((*)) и цифровая сноска((*1))
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '', "label": null}, {type: 'text', value: ' и цифровая сноска'}, {type: 'womFootnoteReference', identifier: '1', "label": null}]}
+
+〉Cноска с ярлыком
+←[[*id label]] Cноска с ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteReference', identifier: 'id', "label": "label"},
+→   {type: 'text', value: ' Cноска с ярлыком'}
+→ ]}
+
+〉Cноска с ярлыком c пробелами
+←[[*id label with spaces]] Cноска с ярлыком c пробелами
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteReference', identifier: 'id', "label": "label with spaces"},
+→   {type: 'text', value: ' Cноска с ярлыком c пробелами'}
+→ ]}
+
 〉Расшифровка первой сноски
 ←[[#*]] Расшифровка первой сноски
 → { type: 'paragraph', children: [
@@ -495,6 +517,34 @@
 → { type: 'paragraph', children: [
 →   {type: 'womFootnoteDefinition', identifier: '1', "label": null},
 →   {type: 'text', value: ' Расшифровка цифровой сноски'}
+→ ]}
+
+〉Расшифровка сноски в круглых скобках
+←((#1)) Расшифровка сноски в круглых скобках
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '1', "label": null},
+→   {type: 'text', value: ' Расшифровка сноски в круглых скобках'}
+→ ]}
+
+〉Расшифровка сноски с ярлыком
+←[[#id label]] Расшифровка сноски с ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: 'id', "label": "label"},
+→   {type: 'text', value: ' Расшифровка сноски с ярлыком'}
+→ ]}
+
+〉Расшифровка сноски без id
+←[[#]] Расшифровка сноски без id
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '', "label": null},
+→   {type: 'text', value: ' Расшифровка сноски без id'}
+→ ]}
+
+〉Расшифровка сноски без id c ярлыком
+←[[# lab el]] Расшифровка сноски без id c ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '', "label": "lab el"},
+→   {type: 'text', value: ' Расшифровка сноски без id c ярлыком'}
 → ]}
 
 〉Пример 2: nomark

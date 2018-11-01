@@ -1082,11 +1082,44 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←~~~
 → {type: 'root', children: [{type: 'code', lang: null, value: 'code'}]}
 
+〉Тильда ~ внутри текста
+←Тильда ~ внутри текста
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Тильда ~ внутри текста'},
+→ ]}
+
+〉~~strike~~ some text ~~~ ~!!red!!
+←~~strike~~ some text ~~~ ~!!red!!
+→ {type: 'paragraph', children: [
+→   {type: 'delete', children: [{type: 'text', value: 'strike'}]},
+→   {type: 'text', value: ' some text '},
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: '~ '},
+→   {type: 'womEscape', raw: '~!!red!!', value: '!!red!!'}
+→ ]}
+
 〉~~ ~~
 ←~~ ~~
-→ {type: 'root', children: [
-→   {type: 'paragraph', children: [
-→     {type: 'womEscape', raw: '~~', value: '~'},
-→     {type: 'text', value: ' '},
-→     {type: 'womEscape', raw: '~~', value: '~'}
-→   ]}]}
+→ {type: 'paragraph', children: [
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: ' '},
+→   {type: 'womEscape', raw: '~~', value: '~'}
+→ ]}
+
+〉aa ~bb--- cc
+←aa ~bb--- cc
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'aa '},
+→   {type: 'womEscape', raw: '~bb---', value: 'bb---'},
+→   {type: 'text', value: ' cc'}
+→ ]}
+
+〉aa ~~bb--- cc
+←aa ~~bb--- cc
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'aa '},
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: 'bb'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: ' cc'}
+→ ]}

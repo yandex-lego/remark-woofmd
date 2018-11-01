@@ -16,6 +16,7 @@ const womLink = require('./lib/tokenizers/link-wom');
 const womImage = require('./lib/tokenizers/image-wom');
 const womTicket = require('./lib/tokenizers/ticket-wom');
 const womBreak = require('./lib/tokenizers/break-wom');
+const womEscapeTilde = require('./lib/tokenizers/escape-tilde-wom');
 
 const patchedUrl = require('./lib/tokenizers/url');
 
@@ -68,8 +69,8 @@ function plugin() {
     }
     injectBefore(inlineMethods, 'strong', Array.from(myInlineTokenizers.keys()));
 
-    inlineTokenizers['womNoMarkup'] = womNoMarkup;
-    injectBefore(inlineMethods, 'code', 'womNoMarkup');
+    inlineTokenizers['womEscapeTilde'] = womEscapeTilde;
+    injectBefore(inlineMethods, 'code', 'womEscapeTilde');
 
     inlineTokenizers['url'] = patchedUrl;
 
@@ -310,32 +311,6 @@ function womEscape(eat, value, silent) {
         type: 'womEscape',
         raw,
         value: inner
-    });
-}
-
-const WOM_NOMARKUP_RE = /~(~|\S+)/;
-womNoMarkup.locator = (value, fromIndex) => value.indexOf('~', fromIndex);
-function womNoMarkup(eat, value, silent) {
-    let index = womNoMarkup.locator(value, 0);
-
-    if (index !== 0) {
-        return false;
-    }
-
-    if (silent) {
-        return true;
-    }
-
-    const [raw, val] = value.match(WOM_NOMARKUP_RE) || [];
-
-    if (!raw) {
-        return false;
-    }
-
-    return eat(raw)({
-        type: 'womEscape',
-        raw,
-        value: val
     });
 }
 

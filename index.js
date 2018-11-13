@@ -19,6 +19,7 @@ const womBreak = require('./lib/tokenizers/break-wom');
 const womEscapeTilde = require('./lib/tokenizers/escape-tilde-wom');
 
 const patchedUrl = require('./lib/tokenizers/url');
+const list = require('./lib/tokenizers/list');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
@@ -88,6 +89,9 @@ function plugin() {
     for (const [key, fn] of myBlockTokenizers) {
         blockTokenizers[key] = fn;
     }
+
+    blockTokenizers['list'] = list;
+
     // console.log(blockMethods);
     injectBefore(blockMethods, 'html', Array.from(myBlockTokenizers.keys()));
 

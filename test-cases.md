@@ -584,40 +584,880 @@
 →   {type: 'list', children: [{type: 'item', children: [{type: 'text', value: 'Двойной отступ'}]}]}
 → ]}]}
 
-〉Ненумерованный список
-←* ненумерованный список
-←* ненумерованный список-2
+〉Ненумерованный пустой список
+←*
+←*
+←*
+←*
 → {type: 'root', children: [{type: 'list', ordered: false, start: null, loose: false, children: [
-→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'ненумерованный список'}]}]},
-→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'ненумерованный список-2'}]}]}
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
 → ]}]}
 
-〉¡ Нумерованный список
+〉Ненумерованный список +
+←+   One:
+←    +   Nested one;
+←    +   Nested two:
+←        +   Nested three.
+←+   Two;
+←+   Three.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'One:'}]},
+→       {type: 'list', ordered: false, start: null, loose: false, children: [
+→         {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested one;'}]}]},
+→         {type: 'listItem', loose: false, checked: null, children: [
+→           {type: 'paragraph', children: [{type: 'text', value: 'Nested two:'}]},
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested three.'}]}]}
+→           ]}
+→         ]}
+→       ]}
+→     ]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Two;'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Three.'}]}]},
+→ ]}]}
+
+〉Ненумерованный список -
+←-   One:
+←    -   Nested one;
+←    -   Nested two:
+←        -   Nested three.
+←-   Two;
+←-   Three.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'One:'}]},
+→       {type: 'list', ordered: false, start: null, loose: false, children: [
+→         {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested one;'}]}]},
+→         {type: 'listItem', loose: false, checked: null, children: [
+→           {type: 'paragraph', children: [{type: 'text', value: 'Nested two:'}]},
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested three.'}]}]}
+→           ]}
+→         ]}
+→       ]}
+→     ]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Two;'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Three.'}]}]},
+→ ]}]}
+
+〉Ненумерованный список *
+←* One:
+←    * Nested one;
+←    * Nested two:
+←        * Nested three.
+←* Two;
+←* Three.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'One:'}]},
+→       {type: 'list', ordered: false, start: null, loose: false, children: [
+→         {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested one;'}]}]},
+→         {type: 'listItem', loose: false, checked: null, children: [
+→           {type: 'paragraph', children: [{type: 'text', value: 'Nested two:'}]},
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Nested three.'}]}]}
+→           ]}
+→         ]}
+→       ]}
+→     ]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Two;'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Three.'}]}]},
+→ ]}]}
+
+〉Нумерованный пустой список
+←1.
+←2.
+←3.
+←4.
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→     {type: 'listItem', loose: false, checked: null, children: []},
+→ ]}]}
+
+〉Нумерованный список с инкрементом
+←2. foo;
+←3. bar;
+←4. baz.
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 2, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo;'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'bar;'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'baz.'}]}]}
+→ ]}]}
+
+〉Нумерованный список без инкремента
+←2. foo;
+←2. bar;
+←2. baz.
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 2, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo;'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'bar;'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'baz.'}]}]}
+→ ]}]}
+
+〉Нумерованный список 123
 ←1. нумерованный список
 ←1. нумерованный список-2
-←1.#8 нумерованный список-2, с пропуском пунктов
-←3. это девятый пункт
+←3. нумерованный список-3
+←999. нумерованный список-4
 → {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
-→   {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
-→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'это девятый пункт'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-3'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-4'}]}]},
+→ ]}]}
+
+〉Нумерованный список 123 начиная c 5
+←5. нумерованный список
+←1. нумерованный список-2
+←1. нумерованный список-3
+←1. нумерованный список-4
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 5, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-3'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-4'}]}]},
 → ]}]}
 
 〉¡ Нумерованный список ABC
 ←A. Верхний регистр
 ←A. Верхний регистр-2
-→ null
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterUpper', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Верхний регистр'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Верхний регистр-2'}]}]},
+→ ]}]}
+
+〉¡ Нумерованный список ABC начиная c D
+←D. Нижний регистр
+←D. Нижний регистр-2
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterUpper', start: 4, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
+→ ]}]}
 
 〉¡ Нумерованный список abc
 ←a. Нижний регистр
 ←a. Нижний регистр-2
-→ null
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterLower', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
+→ ]}]}
+
+〉¡ Нумерованный список abc начиная c w
+←w. Нижний регистр
+←a. Нижний регистр-2
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterLower', start: 23, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
+→ ]}]}
 
 〉¡ Нумерованный список IVX
 ←I. Римские цифры
 ←I. Римские цифры-2
-→ null
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'romeUpper', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры-2'}]}]},
+→ ]}]}
+
+〉¡ Нумерованный список ivx
+←i. Римские цифры
+←i. Римские цифры-2
+→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'romeLower', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры-2'}]}]},
+→ ]}]}
+
+〉 Cписок прерывается разделителем
+←1. список
+←---
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'список'}
+→       ]}]}
+→   ]},
+→   {type: 'thematicBreak'}
+→ ]}
+
+〉 Cписок прерывается кодом
+←1. foo
+←```js
+←code();
+←```
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'foo'}
+→       ]}]}
+→   ]},
+→   {type: 'code', lang: 'js', value: 'code();'}
+→ ]}
+
+〉Cписок прерывается MD заголовком
+←1. список
+←## Заголовок
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'список'}
+→       ]}]}
+→   ]},
+→   {type: 'heading', depth: 2, children: [{type: 'text', value: 'Заголовок'}]}
+→ ]}
+
+〉¡ Cписок прерывается WOM заголовком
+←1. список
+←==Заголовок
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'список'}
+→       ]}]}
+→   ]},
+→   {type: 'womHeading', depth: 1, expandable: false, children: [{type: 'text', value: 'Заголовок'}]}
+→ ]}
+
+〉Cписок с инлайн форматтером
+←1. список %%code%%
+←1. список
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'список '},
+→         {type: 'womFormatter', value: 'code'}
+→       ]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'список'}
+→       ]}]}
+→   ]}
+→ ]}
+
+〉Cписок c markdown форматтером
+←1. список
+←%%(markdown)
+←   - еще список
+←   - еще список
+←%%
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
+→       {type: 'womMarkdown', format: 'markdown',
+→         attributes: {},
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]},
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]}
+→           ]}
+→         ]
+→       }
+→     ]}
+→   ]}
+→ ]}
+
+〉Cписок c markdown форматтером
+←1. список
+←   %%(markdown)
+←   - еще список
+←   - еще список
+←   %%
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
+→       {type: 'womMarkdown', format: 'markdown',
+→         attributes: {},
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]},
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]}
+→           ]}
+→         ]
+→       }
+→     ]}
+→   ]}
+→ ]}
+
+〉Cписок c markdown форматтером
+←1. %%(markdown)
+←   - еще список
+←   - еще список
+←%%
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'womMarkdown', format: 'markdown',
+→         attributes: {},
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]},
+→             {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [
+→                 {type: 'text', value: 'еще список'}
+→               ]}]}
+→           ]}
+→         ]
+→       }
+→     ]}
+→   ]}
+→ ]}
+
+〉Cписок c катом
+←1. список
+←<{кат
+←   - пункт списка
+←   - пункт списка
+←}>
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
+→       {type: 'womCut',
+→         title: [{type: 'paragraph', children: [{type: 'text', value: 'кат'}]}],
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]},
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]}
+→           ]}
+→       ]}
+→     ]}
+→   ]}
+→ ]}
+
+〉Cписок c катом
+←1. список
+←   <{кат
+←   - пункт списка
+←   - пункт списка
+←   }>
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
+→       {type: 'womCut',
+→         title: [{type: 'paragraph', children: [{type: 'text', value: 'кат'}]}],
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]},
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]}
+→           ]}
+→       ]}
+→     ]}
+→   ]}
+→ ]}
+
+〉Cписок c катом
+←1. <{кат
+←   - пункт списка
+←   - пункт списка
+←}>
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'womCut',
+→         title: [{type: 'paragraph', children: [{type: 'text', value: 'кат'}]}],
+→         children: [
+→           {type: 'list', ordered: false, start: null, loose: false, children: [
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]},
+→               {type: 'listItem', loose: false, checked: null, children: [
+→                   {type: 'paragraph', children: [
+→                       {type: 'text', value: 'пункт списка'}
+→                   ]}]}
+→           ]}
+→       ]}
+→     ]}
+→   ]}
+→ ]}
+
+〉List after List
+←- item
+←- item
+←- item
+←
+←1. item
+←1. item
+←1. item
+←
+←---
+←
+←- item
+←- item
+←- item
+←1. item
+←1. item
+←1. item
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
+→   ]},
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
+→   ]},
+→   {type: 'thematicBreak'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
+→   ]},
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
+→  ]}
+→ ]}
+
+〉List loose
+←* hello
+←  world
+←
+←  how
+←  are
+←* you
+←
+←
+←
+←better behavior:
+←
+←* hello
+←  * world
+←    how
+←
+←    are
+←    you
+←
+←  * today
+←* hi
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'hello\nworld'}]},{type: 'paragraph', children: [{type: 'text', value: 'how\nare'}]} ]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'you'}]}]}
+→   ]},
+→   {type: 'paragraph', children: [{type: 'text', value: 'better behavior:'}]},
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'hello'}]},
+→       {type: 'list', ordered: false, start: null, loose: true, children: [
+→         {type: 'listItem', loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'world\nhow'}]},{type: 'paragraph', children: [{type: 'text', value: 'are\nyou'}]} ]},
+→         {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'today'}]}]}
+→       ]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'hi'}]}]}
+→   ]},
+→ ]}
+
+〉List and Code
+←*   This is a list item
+←
+←
+←    This is code
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'This is a list item'}]}]}]},
+→   {type: 'code', lang: null, value: 'This is code' }
+→ ]}
+
+〉List indentation 1
+←- Hello 1a
+←
+← World 1a.
+←
+←- Hello 1b
+←
+←  World 1b.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Hello 1a'}]}]}]},
+→   {type: 'paragraph', children: [{type: 'text', value: ' World 1a.'}]},
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 1b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'World 1b.'}]}]}
+→     ]}
+→ ]}
+
+〉List indentation 2
+←-  Hello 2a
+←
+←  World 2a.
+←
+←-  Hello 2b
+←
+←   World 2b.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Hello 2a'}]}]}]},
+→   {type: 'paragraph', children: [{type: 'text', value: '  World 2a.'}]},
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 2b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'World 2b.'}]}]}
+→     ]}
+→ ]}
+
+〉List indentation 3
+←-   Hello 3a
+←
+←   World 3a.
+←
+←-   Hello 3b
+←
+←    World 3b.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Hello 3a'}]}]}]},
+→   {type: 'paragraph', children: [{type: 'text', value: '   World 3a.'}]},
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 3b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'World 3b.'}]}]}
+→     ]}
+→ ]}
+
+〉List indentation 4
+←-    Hello 4a
+←
+←    World 4a.
+←
+←-    Hello 4b
+←
+←     World 4b.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Hello 4a'}]}]}]},
+→   {type: 'code', lang: null, value: 'World 4a.' },
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 4b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'World 4b.'}]}]}
+→     ]}
+→ ]}
+
+〉List indentation 5
+←-     Hello 5a
+←
+←     World 5a.
+←
+←-     Hello 5b
+←
+←      World 5b.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'code', lang: null, value: 'Hello 5a' },
+→       {type: 'paragraph', children: [{type: 'text', value: '   World 5a.'}]}]},
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'code', lang: null, value: 'Hello 5b\n\nWorld 5b.'}]}]}
+→ ]}
+
+〉ListItem with no space
+←*one
+←
+←1.two
+→ {type: 'root', children: [
+→    {type: 'paragraph', children: [{type: 'text', value: '*one'}]},
+→    {type: 'paragraph', children: [{type: 'text', value: '1.two'}]},
+→ ]}
+
+〉ListItem empty with no space
+←*
+←
+←1.
+→ {type: 'root', children: [
+→    {type: 'list', ordered: false, start: null, loose: false, children: [
+→       {type: 'listItem', loose: false, checked: null, children: []}]},
+→    {type: 'list', ordered: true, start: 1, loose: false, children: [
+→       {type: 'listItem', loose: false, checked: null, children: []}]}
+→ ]}
+
+〉ListItem starting with a blank line
+←-   Foo
+←-
+←    Bar
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'Foo'}]}]},
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: '   Bar'}]}]},
+→ ]}]}
+
+〉ListItem text
+←  * item1
+←
+←    * item2
+←
+←  text
+→ {type: 'root', children: [
+→   {type: 'list', ordered: false, start: null, loose: true, children: [
+→     {type: 'listItem', loose: true, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'item1'}]},
+→       {type: 'list', ordered: false, start: null, loose: false, children: [
+→         {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item2'}]}]}]}]}]},
+→     {type: 'paragraph', children: [{type: 'text', value: '  text'}]}
+→ ]}
+
+〉ListItem indent = 1
+←1. foo bar baz.
+←
+←<!--  -->
+←
+←99. foo bar baz.
+←
+←<!--  -->
+←
+←999. foo bar baz.
+←
+←<!--  -->
+←
+←1. foo bar baz.
+←   foo bar baz.
+←
+←<!--  -->
+←
+←99. foo bar baz.
+←    foo bar baz.
+←
+←<!--  -->
+←
+←999. foo bar baz.
+←     foo bar baz.
+←
+←<!--  -->
+←
+←- foo bar baz.
+←
+←<!--  -->
+←
+←- foo bar baz.
+←  foo bar baz.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→ ]}
+
+〉ListItem indent = tab
+←1.	foo bar baz.
+←
+←<!--  -->
+←
+←99.	foo bar baz.
+←
+←<!--  -->
+←
+←999.	foo bar baz.
+←
+←<!--  -->
+←
+←1.	foo bar baz.
+←	foo bar baz.
+←
+←<!--  -->
+←
+←99.	foo bar baz.
+←	foo bar baz.
+←
+←<!--  -->
+←
+←999.	foo bar baz.
+←	foo bar baz.
+←
+←<!--  -->
+←
+←-	foo bar baz.
+←
+←<!--  -->
+←
+←-	foo bar baz.
+←	foo bar baz.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→ ]}
+
+〉ListItem indent = mixed
+←1.  foo bar baz.
+←
+←<!--  -->
+←
+←99. foo bar baz.
+←
+←<!--  -->
+←
+←999.	foo bar baz.
+←
+←<!--  -->
+←
+←1.	foo bar baz.
+←   foo bar baz.
+←
+←<!--  -->
+←
+←99.    foo bar baz.
+←	foo bar baz.
+←
+←<!--  -->
+←
+←999. foo bar baz.
+←	foo bar baz.
+←
+←<!--  -->
+←
+←-	foo bar baz.
+←
+←<!--  -->
+←
+←-	foo bar baz.
+←	foo bar baz.
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
+→   ]},
+→   {type: 'html', value: '<!--  -->'},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
+→   ]},
+→ ]}
+
+〉¡ Нумерованный список с пропуском пунктов
+←1. нумерованный список
+←1. нумерованный список-2
+←1.#8 нумерованный список-2, с пропуском пунктов
+←3. это девятый пункт
+→ {type: 'root', children: [{type: 'list', ordered: true, orderType: 'decimal', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
+→   {type: 'listItem', number: 8, loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
+→   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'это девятый пункт'}]}]},
+→ ]}]}
 
 〉Списки с тудушками
 ←- [x] Finish my changes
@@ -640,13 +1480,43 @@
 →   ]}
 → ]}
 
-〉¡ Вложенные списки
+〉¡ Свернутые списки
+←1. раз
+←1. два
+←1.+ три, свернутый пункт
+←  * Скрытый пункт списка
+←    * Скрытый пункт списка
+←  * Скрытый пункт списка
+←1. четыре
+→ null
+
+〉Вложенные списки
 ←1. список
 ←    1. вложенный список
-←      * ещё более вложенный список
+←       * ещё более вложенный список
 ←    1. вложенный список-2
 ←2. список-2
-→ null
+→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
+→       {type: 'list', ordered: true, start: 1, loose: false, children: [
+→           {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
+→               {type: 'list', ordered: false, start: null, loose: false, children: [
+→                   {type: 'listItem', loose: false, checked: null, children: [
+→                       {type: 'paragraph', children: [{type: 'text', value: 'ещё более вложенный список'}]},
+→                   ]}
+→               ]}
+→           ]},
+→           {type: 'listItem', loose: false, checked: null, children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'вложенный список-2'}]}
+→           ]}
+→       ]}
+→     ]},
+→     {type: 'listItem', loose: false, checked: null, children: [
+→       {type: 'paragraph', children: [{type: 'text', value: 'список-2'}]}
+→     ]}
+→ ]}]}
 
 〉¡ Свернутые вложенные списки
 ←1. список

@@ -242,12 +242,12 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         ctx.cut(startSeqLen);
 
-        const props = eatFirst.call(this, ctx);
-
         const lastIndex = endSeq(ctx);
         if (lastIndex === -1) {
             return;
         }
+
+        const props = eatFirst.call(this, ctx);
 
         let requiresRawContents = rawContents;
         if (props && 'parseContents' in props) {

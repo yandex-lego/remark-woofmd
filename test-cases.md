@@ -1076,6 +1076,10 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←}>
 → {type: 'root', children: [{type: 'womCut', title: [], children: []}]}
 
+〉Незакрытый кат
+←<{
+→ {type: 'root', children: [{type: 'paragraph', children: [{type: 'text', value: '<{'}]}]}
+
 〉Код через ~
 ←~~~
 ←code

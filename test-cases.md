@@ -676,7 +676,7 @@
 ←2.
 ←3.
 ←4.
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: []},
 →     {type: 'listItem', loose: false, checked: null, children: []},
 →     {type: 'listItem', loose: false, checked: null, children: []},
@@ -687,7 +687,7 @@
 ←2. foo;
 ←3. bar;
 ←4. baz.
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 2, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 2, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo;'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'bar;'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'baz.'}]}]}
@@ -697,7 +697,7 @@
 ←2. foo;
 ←2. bar;
 ←2. baz.
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 2, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 2, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo;'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'bar;'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'baz.'}]}]}
@@ -708,7 +708,7 @@
 ←1. нумерованный список-2
 ←3. нумерованный список-3
 ←999. нумерованный список-4
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-3'}]}]},
@@ -720,57 +720,57 @@
 ←1. нумерованный список-2
 ←1. нумерованный список-3
 ←1. нумерованный список-4
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 5, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 5, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-3'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-4'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список ABC
+〉Нумерованный список ABC
 ←A. Верхний регистр
 ←A. Верхний регистр-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterUpper', start: 1, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'upper-alpha', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Верхний регистр'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Верхний регистр-2'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список ABC начиная c D
+〉Нумерованный список ABC начиная c D
 ←D. Нижний регистр
 ←D. Нижний регистр-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterUpper', start: 4, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'upper-alpha', start: 4, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список abc
+〉Нумерованный список abc
 ←a. Нижний регистр
 ←a. Нижний регистр-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterLower', start: 1, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'lower-alpha', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список abc начиная c w
+〉Нумерованный список abc начиная c w
 ←w. Нижний регистр
 ←a. Нижний регистр-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'letterLower', start: 23, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'lower-alpha', start: 23, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Нижний регистр-2'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список IVX
+〉Нумерованный список IVX
 ←I. Римские цифры
 ←I. Римские цифры-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'romeUpper', start: 1, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'upper-roman', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры-2'}]}]},
 → ]}]}
 
-〉¡ Нумерованный список ivx
+〉Нумерованный список ivx
 ←i. Римские цифры
 ←i. Римские цифры-2
-→ { type: 'root', children: [{type: 'list', ordered: true, orderType: 'romeLower', start: 1, loose: false, children: [
+→ { type: 'root', children: [{type: 'list', ordered: true, styleType: 'lower-roman', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Римские цифры-2'}]}]},
 → ]}]}
@@ -779,7 +779,7 @@
 ←1. список
 ←---
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'список'}
@@ -794,7 +794,7 @@
 ←code();
 ←```
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'foo'}
@@ -807,7 +807,7 @@
 ←1. список
 ←## Заголовок
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'список'}
@@ -820,7 +820,7 @@
 ←1. список
 ←==Заголовок
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'список'}
@@ -833,7 +833,7 @@
 ←1. список %%code%%
 ←1. список
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'список '},
@@ -853,7 +853,7 @@
 ←   - еще список
 ←%%
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
 →       {type: 'womMarkdown', format: 'markdown',
@@ -882,7 +882,7 @@
 ←   - еще список
 ←   %%
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
 →       {type: 'womMarkdown', format: 'markdown',
@@ -910,7 +910,7 @@
 ←   - еще список
 ←%%
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'womMarkdown', format: 'markdown',
 →         attributes: {},
@@ -938,7 +938,7 @@
 ←   - пункт списка
 ←}>
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
 →       {type: 'womCut',
@@ -966,7 +966,7 @@
 ←   - пункт списка
 ←   }>
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
 →       {type: 'womCut',
@@ -993,7 +993,7 @@
 ←   - пункт списка
 ←}>
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'womCut',
 →         title: [{type: 'paragraph', children: [{type: 'text', value: 'кат'}]}],
@@ -1036,7 +1036,7 @@
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
 →   ]},
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
@@ -1047,7 +1047,7 @@
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
 →   ]},
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]},
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'item'}]}]}
@@ -1212,7 +1212,7 @@
 → {type: 'root', children: [
 →    {type: 'list', ordered: false, start: null, loose: false, children: [
 →       {type: 'listItem', loose: false, checked: null, children: []}]},
-→    {type: 'list', ordered: true, start: 1, loose: false, children: [
+→    {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →       {type: 'listItem', loose: false, checked: null, children: []}]}
 → ]}
 
@@ -1278,27 +1278,27 @@
 ←- foo bar baz.
 ←  foo bar baz.
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
@@ -1346,27 +1346,27 @@
 ←-	foo bar baz.
 ←	foo bar baz.
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
@@ -1414,27 +1414,27 @@
 ←-	foo bar baz.
 ←	foo bar baz.
 → {type: 'root', children: [
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 1, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 99, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 99, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
-→   {type: 'list', ordered: true, start: 999, loose: false, children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 999, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'foo bar baz.\nfoo bar baz.'}]}]}
 →   ]},
 →   {type: 'html', value: '<!--  -->'},
@@ -1452,7 +1452,7 @@
 ←1. нумерованный список-2
 ←1.#8 нумерованный список-2, с пропуском пунктов
 ←3. это девятый пункт
-→ {type: 'root', children: [{type: 'list', ordered: true, orderType: 'decimal', start: 1, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список'}]}]},
 →   {type: 'listItem', loose: false, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2'}]}]},
 →   {type: 'listItem', number: 8, loose: true, checked: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'нумерованный список-2, с пропуском пунктов'}]}]},
@@ -1496,10 +1496,10 @@
 ←       * ещё более вложенный список
 ←    1. вложенный список-2
 ←2. список-2
-→ {type: 'root', children: [{type: 'list', ordered: true, start: 1, loose: false, children: [
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, children: [
 →       {type: 'paragraph', children: [{type: 'text', value: 'список'}]},
-→       {type: 'list', ordered: true, start: 1, loose: false, children: [
+→       {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
 →           {type: 'listItem', loose: false, checked: null, children: [
 →               {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
 →               {type: 'list', ordered: false, start: null, loose: false, children: [

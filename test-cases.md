@@ -837,7 +837,7 @@
 →   {type: 'heading', depth: 2, children: [{type: 'text', value: 'Заголовок'}]}
 → ]}
 
-〉¡ Cписок прерывается WOM заголовком
+〉Cписок прерывается WOM заголовком
 ←1. список
 ←==Заголовок
 → {type: 'root', children: [

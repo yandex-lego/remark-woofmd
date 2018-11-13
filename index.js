@@ -24,7 +24,7 @@ const list = require('./lib/tokenizers/list');
 function plugin() {
     // this.Parser.prototype.wom = {};
 
-    const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph } = this.Parser.prototype;
+    const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph, interruptList } = this.Parser.prototype;
 
     const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, inline: true });
     const womFormatter = womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, inline: true });
@@ -102,6 +102,10 @@ function plugin() {
         ['womDefinition'],
         ['womHeading'],
         ['womTable']
+    );
+
+    interruptList.push(
+        ['womHeading']
     );
 
     // blockTokenizers.womFormatter = womFormatter;

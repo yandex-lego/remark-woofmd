@@ -16,6 +16,7 @@ const womLink = require('./lib/tokenizers/link-wom');
 const womImage = require('./lib/tokenizers/image-wom');
 const womTicket = require('./lib/tokenizers/ticket-wom');
 const womBreak = require('./lib/tokenizers/break-wom');
+const womEscapeTilde = require('./lib/tokenizers/escape-tilde-wom');
 
 const patchedUrl = require('./lib/tokenizers/url');
 
@@ -57,7 +58,6 @@ function plugin() {
 
         ['womEscape', womEscape],
 
-        ['womHelp', womHelp],
         ['womTicket', womTicket],
         ['womColor', womColor],
 
@@ -68,6 +68,9 @@ function plugin() {
         inlineTokenizers[key] = fn;
     }
     injectBefore(inlineMethods, 'strong', Array.from(myInlineTokenizers.keys()));
+
+    inlineTokenizers['womEscapeTilde'] = womEscapeTilde;
+    injectBefore(inlineMethods, 'code', 'womEscapeTilde');
 
     inlineTokenizers['url'] = patchedUrl;
 
@@ -107,25 +110,6 @@ function plugin() {
     // blockTokenizers.womFormatter = womFormatter;
     // console.log(blockMethods);
 }
-
-// help#:200912039020818
-const isDigit = c => { const cc = c.charCodeAt(0); return cc >= 48 && cc <= 57; };
-const HELP_PREFIX = 'help#:';
-function womHelp(eat, value, silent) {
-    if (womHelp.locator(value, 0) !== 0 || !isDigit(value.charAt(HELP_PREFIX.length))) {
-        return false;
-    }
-    if (silent) {
-        return true;
-    }
-
-    const end = lookAhead(value, v => !isDigit(v), HELP_PREFIX.length);
-
-    const raw = value.slice(0, end);
-    // console.log(raw);
-    return eat(raw)({ type: 'womHelp', raw, value: raw.slice(6) });
-}
-womHelp.locator = (value, index) => value.indexOf(HELP_PREFIX, index);
 
 class Ctx {
     constructor(eat, value) {
@@ -181,16 +165,15 @@ function indexOfSeq (seq) {
     return ctx => ctx.value.indexOf(seq, ctx.index);
 }
 
-// function indexOfSameClosingSeq (seq) {
-//     const ch = seq.charAt(0);
-//     const closingRe = new RegExp('[^' + ch + ']' + ch + ch + '[^' + ch + ']');
-//     console.log(closingRe)
+function indexOfSameClosingSeq (seq) {
+    const ch = seq.charAt(0);
+    const closingRe = new RegExp('[^' + ch + ']' + ch + ch + '([^' + ch + ']|$)');
 
-//     return ctx => {
-//         console.log(ctx.value, ctx.value.indexOf(seq, ctx.value.search(closingRe)), ctx.value.search(closingRe));
-//         return ctx.value.indexOf(seq, ctx.value.search(closingRe));
-//     };
-// }
+    return ctx => {
+        const res = ctx.value.indexOf(seq, ctx.value.search(closingRe));
+        return ctx.index < res ? res : -1;
+    };
+}
 
 function indexOfClosingSeq (closeSeq, openSeq) {
     return ctx => {
@@ -230,7 +213,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
 function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false } = {}) {
     const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
-    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : startSeq; //indexOfSameClosingSeq(startSeq_);
+    const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : indexOfSameClosingSeq(startSeq_);
 
     const startSeqLen = startSeq_.length;
     const endSeqLen = endSeq_ !== null ? endSeq_.length : startSeqLen;
@@ -259,12 +242,12 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         ctx.cut(startSeqLen);
 
-        const props = eatFirst.call(this, ctx);
-
         const lastIndex = endSeq(ctx);
         if (lastIndex === -1) {
             return;
         }
+
+        const props = eatFirst.call(this, ctx);
 
         let requiresRawContents = rawContents;
         if (props && 'parseContents' in props) {
@@ -513,7 +496,6 @@ function womColor(eat, value, silent) {
 
 function eatFormatterProps(ctx) {
     const { index, value } = ctx;
-
     if (value.charAt(index) !== '(') {
         return null;
     }

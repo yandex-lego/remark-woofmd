@@ -255,7 +255,7 @@
 →  {type: 'text', value: ' ?'},
 → ]
 
-〉¡ Форматтер с множественными %%
+〉Форматтер с множественными %%
 ←%%
 ←Hello
 ←%%%%%%%%%%%%%%%
@@ -468,29 +468,84 @@
 →     {type: 'womFormatter', value: 'глазировка'}
 →   ]}]}
 
-〉¡ Сноски
+〉Сноски
 ←Текст, потом сноска[[*]] и вторая[[**]]
-→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '*'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '**'}]}
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '', "label": null}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*', "label": null}]}
 
-〉¡ Еще сноски
+〉Еще сноски
 ←Текст, потом цифровая сноска[[*1]] и вторая[[*2]]
-→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '*1'}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '*2'}]}
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом цифровая сноска'}, {type: 'womFootnoteReference', identifier: '1', "label": null}, {type: 'text', value: ' и вторая'}, {type: 'womFootnoteReference', identifier: '2', "label": null}]}
 
-〉¡ Расшифровка первой сноски
+〉Это [[*)) не сноска
+←Это [[*)) не сноска
+→ {type: 'paragraph', children: [{type: 'text', value: 'Это [[*)) не сноска'}]}
+
+〉Сноски в круглых скобках
+←Текст, потом сноска((*)) и цифровая сноска((*1))
+→ {type: 'paragraph', children: [{type: 'text', value: 'Текст, потом сноска'}, {type: 'womFootnoteReference', identifier: '', "label": null}, {type: 'text', value: ' и цифровая сноска'}, {type: 'womFootnoteReference', identifier: '1', "label": null}]}
+
+〉Cноска с ярлыком
+←[[*id label]] Cноска с ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteReference', identifier: 'id', "label": "label"},
+→   {type: 'text', value: ' Cноска с ярлыком'}
+→ ]}
+
+〉Cноска с ярлыком c пробелами
+←[[*id label with spaces]] Cноска с ярлыком c пробелами
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteReference', identifier: 'id', "label": "label with spaces"},
+→   {type: 'text', value: ' Cноска с ярлыком c пробелами'}
+→ ]}
+
+〉Расшифровка первой сноски
 ←[[#*]] Расшифровка первой сноски
-→ {type: 'womFootnoteDefinition', identifier: '*', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка первой сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '*', "label": null},
+→   {type: 'text', value: ' Расшифровка первой сноски'}
+→ ]}
 
-〉¡ Расшифровка второй сноски
+〉Расшифровка второй сноски
 ←[[#**]] Расшифровка второй сноски
-→ {type: 'womFootnoteDefinition', identifier: '**', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '**', "label": null},
+→   {type: 'text', value: ' Расшифровка второй сноски'}
+→ ]}
 
-〉¡ Расшифровка цифровой сноски
+〉Расшифровка цифровой сноски
 ←[[#1]] Расшифровка цифровой сноски
-→ {type: 'womFootnoteDefinition', identifier: '1', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка цифровой сноски'}]}]}
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '1', "label": null},
+→   {type: 'text', value: ' Расшифровка цифровой сноски'}
+→ ]}
 
-〉¡ Расшифровка второй цифровой сноски
-←[[#2]] Расшифровка второй цифровой сноски
-→ {type: 'womFootnoteDefinition', identifier: '2', children: [{type: 'paragraph', children: [{type: 'text', value: 'Расшифровка второй цифровой сноски'}]}]}
+〉Расшифровка сноски в круглых скобках
+←((#1)) Расшифровка сноски в круглых скобках
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '1', "label": null},
+→   {type: 'text', value: ' Расшифровка сноски в круглых скобках'}
+→ ]}
+
+〉Расшифровка сноски с ярлыком
+←[[#id label]] Расшифровка сноски с ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: 'id', "label": "label"},
+→   {type: 'text', value: ' Расшифровка сноски с ярлыком'}
+→ ]}
+
+〉Расшифровка сноски без id
+←[[#]] Расшифровка сноски без id
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '', "label": null},
+→   {type: 'text', value: ' Расшифровка сноски без id'}
+→ ]}
+
+〉Расшифровка сноски без id c ярлыком
+←[[# lab el]] Расшифровка сноски без id c ярлыком
+→ { type: 'paragraph', children: [
+→   {type: 'womFootnoteDefinition', identifier: '', "label": "lab el"},
+→   {type: 'text', value: ' Расшифровка сноски без id c ярлыком'}
+→ ]}
 
 〉Пример 2: nomark
 ←%%(python nomark)
@@ -660,10 +715,6 @@
 →       ]}
 →     ]
 →   }]}
-
-〉Тикет в help
-←help#:200912039020818
-→ {type: 'womHelp', value: '200912039020818', raw: 'help#:200912039020818'}
 
 〉Сложная ссылка с тикетом
 ←https://jira.woofmd-team.ru/QUEUE-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
@@ -934,16 +985,14 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←[[Устафф Страница про устафф]]
 → {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
 
-〉Ссылки на якорь
-←((#test)) и ((/HomePage#TOC_1))
+〉Ссылка на якорь
+←((/HomePage#TOC_1))
 → {type: 'paragraph', children: [
-→   {type: 'womLink', url: '#test', brackets: false, children: []},
-→   {type: 'text', value: ' и '},
 →   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
 → ]}
 
 ""**Жирный текст**"" → {type: 'womEscape', raw: '""**Жирный текст**""', value: '**Жирный текст**'}
-¡ ~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
+~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
 
 ¡ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
 ¡ ((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
@@ -1026,3 +1075,55 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←<{
 ←}>
 → {type: 'root', children: [{type: 'womCut', title: [], children: []}]}
+
+〉Незакрытый кат
+←<{
+→ {type: 'root', children: [{type: 'paragraph', children: [{type: 'text', value: '<{'}]}]}
+
+〉Код через ~
+←~~~
+←code
+←~~~
+→ {type: 'root', children: [{type: 'code', lang: null, value: 'code'}]}
+
+〉Тильда ~ внутри текста
+←Тильда ~ внутри текста
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Тильда ~ внутри текста'},
+→ ]}
+
+〉~~strike~~ some text ~~~ ~!!red!!
+←~~strike~~ some text ~~~ ~!!red!!
+→ {type: 'paragraph', children: [
+→   {type: 'delete', children: [{type: 'text', value: 'strike'}]},
+→   {type: 'text', value: ' some text '},
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: '~ '},
+→   {type: 'womEscape', raw: '~!!red!!', value: '!!red!!'}
+→ ]}
+
+〉~~ ~~
+←~~ ~~
+→ {type: 'paragraph', children: [
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: ' '},
+→   {type: 'womEscape', raw: '~~', value: '~'}
+→ ]}
+
+〉aa ~bb--- cc
+←aa ~bb--- cc
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'aa '},
+→   {type: 'womEscape', raw: '~bb---', value: 'bb---'},
+→   {type: 'text', value: ' cc'}
+→ ]}
+
+〉aa ~~bb--- cc
+←aa ~~bb--- cc
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'aa '},
+→   {type: 'womEscape', raw: '~~', value: '~'},
+→   {type: 'text', value: 'bb'},
+→   {type: 'womBreak', raw: '---'},
+→   {type: 'text', value: ' cc'}
+→ ]}

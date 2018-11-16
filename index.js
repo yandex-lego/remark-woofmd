@@ -19,11 +19,12 @@ const womBreak = require('./lib/tokenizers/break-wom');
 const womEscapeTilde = require('./lib/tokenizers/escape-tilde-wom');
 
 const patchedUrl = require('./lib/tokenizers/url');
+const list = require('./lib/tokenizers/list');
 
 function plugin() {
     // this.Parser.prototype.wom = {};
 
-    const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph } = this.Parser.prototype;
+    const { inlineTokenizers, inlineMethods, blockTokenizers, blockMethods, interruptParagraph, interruptList } = this.Parser.prototype;
 
     const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, inline: true });
     const womFormatter = womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, inline: true });
@@ -88,6 +89,9 @@ function plugin() {
     for (const [key, fn] of myBlockTokenizers) {
         blockTokenizers[key] = fn;
     }
+
+    blockTokenizers['list'] = list;
+
     // console.log(blockMethods);
     injectBefore(blockMethods, 'html', Array.from(myBlockTokenizers.keys()));
 
@@ -98,6 +102,10 @@ function plugin() {
         ['womDefinition'],
         ['womHeading'],
         ['womTable']
+    );
+
+    interruptList.push(
+        ['womHeading']
     );
 
     // blockTokenizers.womFormatter = womFormatter;

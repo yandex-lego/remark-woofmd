@@ -17,6 +17,7 @@ const womImage = require('./lib/tokenizers/image-wom');
 const womTicket = require('./lib/tokenizers/ticket-wom');
 const womBreak = require('./lib/tokenizers/break-wom');
 const womEscapeTilde = require('./lib/tokenizers/escape-tilde-wom');
+const womAction = require('./lib/tokenizers/action-wom');
 
 const patchedUrl = require('./lib/tokenizers/url');
 const list = require('./lib/tokenizers/list');
@@ -63,6 +64,8 @@ function plugin() {
         ['womColor', womColor],
 
         ['womStaff', womStaff],
+
+        ['womAction', womAction]
     ]);
 
     for (const [key, fn] of myInlineTokenizers) {

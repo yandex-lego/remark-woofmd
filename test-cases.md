@@ -2175,3 +2175,31 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'womBreak', raw: '---'},
 →   {type: 'text', value: ' cc'}
 → ]}
+
+〉Экшн без пробелов после открывающих и перед закрывающими скобками, с параметрами
+←{{linkstree root=HomePage levels}}
+→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }}
+
+〉Экшн без пробелов после открывающих и перед закрывающими скобками, с параметрами
+←{{ linkstree root=HomePage levels }}
+→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }}
+
+〉Экшн без пробелов после открывающих и перед закрывающими скобками, без параметров
+←{{linkstree}}
+→{type: 'womAction', name: 'linkstree', params: {}}
+
+〉Экшн без пробела после открывающих скобок и с пробелом перед закрывающими, с текстом перед ним
+←blablaska {{n root=HomePage }}
+→[{ type: 'text', value: 'blablaska ' }, {type: 'womAction', name: 'n', params: { root: 'HomePage' }}]
+
+〉Два экшена в строке через текст
+←{{a}} text {{b}}
+→[{ type: 'womAction', name: 'a', params: {} }, { type: 'text', value: ' text ' }, { type: 'womAction', name: 'b', params: {} }]
+
+〉Два экшена подряд в строке
+←{{a}}{{b}}
+→[{ type: 'womAction', name: 'a', params: {} }, { type: 'womAction', name: 'b', params: {} }]
+
+〉Экшн с параметрами с кавычками и без
+←{{iframe src="https://wiki.yandex-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
+→{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.yandex-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}

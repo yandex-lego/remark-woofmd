@@ -359,9 +359,13 @@
 → {type: 'root', children: [{type: 'womCut', title: [{type: 'paragraph', children: [{type: 'text', value: ' One-line quote '}]}], children: []}]}
 
 〉Вывод HTML как есть
-←<# <input type="text"> #>
+←Hello: <# <input type="text"> #>, — done.
 ↑ LHTML TEXT RHTML
-→ {type: 'womHtml', value: ' <input type="text"> '}
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'Hello: '},
+→   {type: 'womHtml', value: ' <input type="text"> '},
+→   {type: 'text', value: ', — done.'},
+→ ]}
 
 〉Inline HTML как препятствие
 ←ABCDEFG: <# <span style='color:gray'> #>-0 (GRAY)<# </span> #>
@@ -384,6 +388,27 @@
 →     {type: 'text', value: ']'},
 →   ]},
 → ]}
+
+〉HTML препятствия с # внутри
+←<#
+←<div style='color:#777'></div>
+←#>
+←<#
+←<div style='color:#777'></div>
+←#>
+→ [
+→   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n"},
+→   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n"},
+→ ]
+
+〉Двойные HTML препятствия с # внутри
+←<#
+←<div style='color:#777'></div>
+←<div style='color:#777'></div>
+←#>
+→ [
+→   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n<div style='color:#777'></div>\n"},
+→ ]
 
 〉Верхний индекс
 ←E=mc^^2^^
@@ -1148,7 +1173,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: ' World 1a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 1b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 1b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 1b.'}]}]}
 →     ]}
 → ]}
@@ -1167,7 +1192,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: '  World 2a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 2b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 2b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 2b.'}]}]}
 →     ]}
 → ]}
@@ -1186,7 +1211,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: '   World 3a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 3b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 3b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 3b.'}]}]}
 →     ]}
 → ]}
@@ -1205,7 +1230,7 @@
 →   {type: 'code', lang: null, value: 'World 4a.' },
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 4b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 4b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 4b.'}]}]}
 →     ]}
 → ]}
@@ -1559,7 +1584,7 @@
 ←1.#10+ два
 → {type: 'root', children: [
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'раз'}]}],
 →       children: []
 →     },
@@ -1574,11 +1599,11 @@
 →   ]},
 →   {type: 'thematicBreak'},
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'раз'}]}],
 →       children: []
 →     },
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'два'}]}],
 →       children: []
 →     },
@@ -1599,7 +1624,7 @@
 ←}>
 → {type: 'root', children: [
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'свернутый пункт'}]}],
 →       children: [{
 →           type: 'womCut',
@@ -1838,10 +1863,10 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 
 〉math outline 1
 ←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
-→ {type: 'root', children: [
+→ [
 →   {type: 'womFormatter', format: 'math', attributes: {outline: null},
 →     value: '\\int\\limits_{-\\infty}^{+\\infty} e^{-x^2/2} \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} '}
-→ ]}
+→ ]
 
 〉Греческие буквы
 ←%%(math outline)
@@ -2081,7 +2106,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →     {type: 'paragraph', children: [{type: 'text', value: 'text'}]},
 →   ]},
 →   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}
+→     {type: 'paragraph', children: [{type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}]}
 →   ]},
 →   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
 →     {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
@@ -2206,5 +2231,19 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →[{ type: 'womAction', name: 'a', params: {} }, { type: 'womAction', name: 'b', params: {} }]
 
 〉Экшн с параметрами с кавычками и без
-←{{iframe src="https://wiki.yandex-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
-→{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.yandex-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
+←{{iframe src="https://wiki.woofmd-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
+→{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
+
+〉123
+←<# <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> #> Node.js Clients:
+←* <{tracker
+←https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker
+←
+←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.
+←}>
+←* <{tracker-client
+←https://github.woofmd-team.ru/toolbox/tracker-client
+←
+←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.
+←}>
+→[]

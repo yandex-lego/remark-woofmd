@@ -1785,6 +1785,9 @@
 
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
+кто:egorova-a   → {type: 'womStaff', value: 'egorova-a', case: 'кто',   at: null}
+кто:egorova_a   → {type: 'womStaff', value: 'egorova_a', case: 'кто',   at: null}
+кто:egorova.a   → {type: 'womStaff', value: 'egorova.a', case: 'кто',   at: null}
 текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
 кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}

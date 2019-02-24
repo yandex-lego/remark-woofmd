@@ -1785,6 +1785,7 @@
 
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
+текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
 кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}
 кем:egorova   → {type: 'womStaff', value: 'egorova', case: 'кем',   at: null}
@@ -1792,6 +1793,7 @@
 staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
 egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
 @egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}
+текст текст@egorova → {type: 'text', value: 'текст текст@egorova' }
 
 〉Checking for false-positives in staff links
 ←Perfecto is real! Right, staff:johnson?

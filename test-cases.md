@@ -1791,8 +1791,10 @@
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
 кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}
 кем:egorova   → {type: 'womStaff', value: 'egorova', case: 'кем',   at: null}
+ком:egorova   → {type: 'womStaff', value: 'egorova', case: 'ком',   at: null}
 оком:egorova  → {type: 'womStaff', value: 'egorova', case: 'оком',  at: null}
 укого:egorova → {type: 'womStaff', value: 'egorova', case: 'укого', at: null}
+ского:egorova → {type: 'womStaff', value: 'egorova', case: 'ского', at: null}
 staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
 egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
 @egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}

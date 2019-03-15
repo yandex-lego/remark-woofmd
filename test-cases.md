@@ -1788,14 +1788,15 @@
 кто:egorova-a   → {type: 'womStaff', value: 'egorova-a', case: 'кто',   at: null}
 кто:egorova_a   → {type: 'womStaff', value: 'egorova_a', case: 'кто',   at: null}
 кто:egorova.a   → {type: 'womStaff', value: 'egorova.a', case: 'кто',   at: null}
-текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
 кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}
 кем:egorova   → {type: 'womStaff', value: 'egorova', case: 'кем',   at: null}
 оком:egorova  → {type: 'womStaff', value: 'egorova', case: 'оком',  at: null}
+укого:egorova → {type: 'womStaff', value: 'egorova', case: 'укого', at: null}
 staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
 egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
 @egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}
+текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 текст текст@egorova → {type: 'text', value: 'текст текст@egorova' }
 
 〉Checking for false-positives in staff links

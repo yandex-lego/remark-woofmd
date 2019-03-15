@@ -1,5 +1,5 @@
 const assert = require('assert');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 
 const isWS = require('is-whitespace-character');
 const isNotWS = (ch) => !isWS(ch);

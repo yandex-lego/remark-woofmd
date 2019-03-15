@@ -1148,7 +1148,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: ' World 1a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 1b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 1b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 1b.'}]}]}
 →     ]}
 → ]}
@@ -1167,7 +1167,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: '  World 2a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 2b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 2b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 2b.'}]}]}
 →     ]}
 → ]}
@@ -1186,7 +1186,7 @@
 →   {type: 'paragraph', children: [{type: 'text', value: '   World 3a.'}]},
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 3b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 3b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 3b.'}]}]}
 →     ]}
 → ]}
@@ -1205,7 +1205,7 @@
 →   {type: 'code', lang: null, value: 'World 4a.' },
 →   {type: 'list', ordered: false, start: null, loose: true, children: [
 →     {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
-→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 4b'}]}, 
+→       {type: 'paragraph', children: [{type: 'text', value: 'Hello 4b'}]},
 →       {type: 'paragraph', children: [{type: 'text', value: 'World 4b.'}]}]}
 →     ]}
 → ]}
@@ -1559,7 +1559,7 @@
 ←1.#10+ два
 → {type: 'root', children: [
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'раз'}]}],
 →       children: []
 →     },
@@ -1574,11 +1574,11 @@
 →   ]},
 →   {type: 'thematicBreak'},
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'раз'}]}],
 →       children: []
 →     },
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: 10,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'два'}]}],
 →       children: []
 →     },
@@ -1599,7 +1599,7 @@
 ←}>
 → {type: 'root', children: [
 →   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null, 
+→     {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
 →       title: [{type: 'paragraph', children: [{type: 'text', value: 'свернутый пункт'}]}],
 →       children: [{
 →           type: 'womCut',
@@ -1788,14 +1788,15 @@
 кто:egorova-a   → {type: 'womStaff', value: 'egorova-a', case: 'кто',   at: null}
 кто:egorova_a   → {type: 'womStaff', value: 'egorova_a', case: 'кто',   at: null}
 кто:egorova.a   → {type: 'womStaff', value: 'egorova.a', case: 'кто',   at: null}
-текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 кого:egorova  → {type: 'womStaff', value: 'egorova', case: 'кого',  at: null}
 кому:egorova  → {type: 'womStaff', value: 'egorova', case: 'кому',  at: null}
 кем:egorova   → {type: 'womStaff', value: 'egorova', case: 'кем',   at: null}
 оком:egorova  → {type: 'womStaff', value: 'egorova', case: 'оком',  at: null}
+укого:egorova → {type: 'womStaff', value: 'egorova', case: 'укого', at: null}
 staff:egorova → {type: 'womStaff', value: 'egorova', case: 'staff', at: null}
 egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suffix'}
 @egorova      → {type: 'womStaff', value: 'egorova', case: null,    at: 'prefix'}
+текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 текст текст@egorova → {type: 'text', value: 'текст текст@egorova' }
 
 〉Checking for false-positives in staff links

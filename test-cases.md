@@ -310,24 +310,20 @@
 〉Термин
 ←(?Термин Вот тут всплыло развернутое определение термина?)
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
-→ {type: 'root', children: [
-→   {type: 'womDefinition', title: 'Термин', equals: false, value: 'Вот тут всплыло развернутое определение термина'}
-→ ]}
+→ {type: 'womDefinition', title: 'Термин', equals: false, value: 'Вот тут всплыло развернутое определение термина'}
 
 〉Термин с пробелами
 ←(?Термин с пробелами==И тут тоже всплыло развернутое определение термина с пробелами?)
 ↑ LDEFINITION TEXT EQUALS TEXT RDEFINITION
-→ {type: 'root', children: [
-→   {type: 'womDefinition', title: 'Термин с пробелами', equals: true, value: 'И тут тоже всплыло развернутое определение термина с пробелами'}
-→ ]}
+→ {type: 'womDefinition', title: 'Термин с пробелами', equals: true, value: 'И тут тоже всплыло развернутое определение термина с пробелами'}
 
 〉Термины подряд разные
 ←(?Термин Описалово?)(?Еще==Еще описалово?)
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
-→ {type: 'root', children: [
+→ [
 →   {type: 'womDefinition', title: 'Термин', equals: false, value: 'Описалово'},
 →   {type: 'womDefinition', title: 'Еще', equals: true, value: 'Еще описалово'}
-→ ]}
+→ ]
 
 〉Термины в тексте
 ←Текст и тут (?Термин Описалово?), а потом еще текст и (?Еще термин==Еще описалово?). И текст в конце
@@ -396,19 +392,19 @@
 ←<#
 ←<div style='color:#777'></div>
 ←#>
-→ [
+→ {type: 'root', children: [
 →   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n"},
 →   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n"},
-→ ]
+→ ]}
 
 〉Двойные HTML препятствия с # внутри
 ←<#
 ←<div style='color:#777'></div>
 ←<div style='color:#777'></div>
 ←#>
-→ [
+→ {type: 'root', children: [
 →   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n<div style='color:#777'></div>\n"},
-→ ]
+→ ]}
 
 〉Верхний индекс
 ←E=mc^^2^^
@@ -1866,10 +1862,10 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 
 〉math outline 1
 ←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
-→ [
+→ {type: 'root', children: [
 →   {type: 'womFormatter', format: 'math', attributes: {outline: null},
 →     value: '\\int\\limits_{-\\infty}^{+\\infty} e^{-x^2/2} \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} '}
-→ ]
+→ ]}
 
 〉Греческие буквы
 ←%%(math outline)
@@ -1889,9 +1885,9 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 → {type: 'root', children: [{type: 'womFormatter', format: 'csv', attributes: {delimiter: ';', head: '1'},
 →   value: '\nПараметр;Значение;Описание;Ага!\nПучеглазость; 0,5; Показывает степень удивления\nКрасноносость; средняя; Показывает температуру за дверью;ой\n'}]}
 
-〉Тоблица из html
+〉Таблица из html
 ←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
-→ {type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}
+→ {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
 
 〉Однострочная таблица
 ←#| ||cell11|| ||cell21|| |#
@@ -2109,7 +2105,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →     {type: 'paragraph', children: [{type: 'text', value: 'text'}]},
 →   ]},
 →   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'paragraph', children: [{type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}]}
+→     {type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}
 →   ]},
 →   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
 →     {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
@@ -2237,7 +2233,7 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←{{iframe src="https://wiki.woofmd-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
 →{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
 
-〉123
+〉¡ 123
 ←<# <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> #> Node.js Clients:
 ←* <{tracker
 ←https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker
@@ -2249,4 +2245,41 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←
 ←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.
 ←}>
-→[]
+→ [
+→   {type: 'root', children: [
+→     {type: 'paragraph', children: [
+→       {type: 'womHtml', value: ' <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> '},
+→       {type: 'text', value: ' Node.js Clients:'}
+→     ]},
+→     {type: 'list', ordered: false, loose: false, children: [
+→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→         {type: 'womCut',
+→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker'}]}],
+→           children: [
+→             {type: 'paragraph', children: [{
+→               type: 'link',
+→               title: null,
+→               url: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker',
+→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker'}]
+→             }]},
+→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.'}]}
+→           ]
+→         }
+→       ]},
+→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→         {type: 'womCut',
+→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker-client'}]}],
+→           children: [
+→             {type: 'paragraph', children: [{
+→               type: 'link',
+→               title: null,
+→               url: 'https://github.woofmd-team.ru/toolbox/tracker-client',
+→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/toolbox/tracker-client'}]
+→             }]},
+→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.'}]}
+→           ]
+→         }
+→       ]}
+→     ]}
+→   ]}
+→ ]

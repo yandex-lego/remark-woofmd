@@ -82,7 +82,6 @@ function plugin() {
         ['womHtml', womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, hasInlineAlternative: true })],
         ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, hasInlineAlternative: true })],
         ['womBlockquote', womBlockGenerator('womBlockquote', '<[', ']>', { hasInlineAlternative: true })],
-        ['womDefinition', womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, rawContents: true,  hasInlineAlternative: true })],
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
 
         ['womTable', womTable],
@@ -103,7 +102,6 @@ function plugin() {
         ['womHtml'],
         ['womFormatter'],
         ['womBlockquote'],
-        ['womDefinition'],
         ['womCut'],
         ['womTable'],
         ['womHeading'],
@@ -262,12 +260,12 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
 
         const props = eatFirst.call(this, ctx);
 
-        if (hasInlineAlternative && !(props && 'parseContents' in props || props.parseContents)) {
-            const nextEOL = ctx.value.indexOf('\n', ctx.index);
-            if (nextEOL !== -1 && nextEOL > lastIndex) {
-                return;
-            }
-        }
+        // if (hasInlineAlternative && !(props && 'parseContents' in props)) {
+        //     const nextEOL = ctx.value.indexOf('\n', ctx.index);
+        //     if (nextEOL !== -1 && nextEOL > lastIndex) {
+        //         return;
+        //     }
+        // }
 
         let requiresRawContents = rawContents;
         if (props && 'parseContents' in props) {

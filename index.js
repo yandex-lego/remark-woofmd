@@ -29,6 +29,7 @@ function plugin() {
 
     const womHtml = womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, inline: true });
     const womFormatter = womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, inline: true });
+    const womBlock = womBlockGenerator('womBlock', '{[', ']}', { inline: true });
     const womBlockquote = womBlockGenerator('womBlockquote', '<[', ']>', { inline: true });
     const womDefinition = womBlockGenerator('womDefinition', '(?', '?)', { eatFirst: eatDefinitionTitle, rawContents: true, inline: true });
     const womCut = womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle, inline: true });
@@ -41,6 +42,7 @@ function plugin() {
         ['womMonospace', inlinePairedText('##', 'womMonospace')],
         ['womSmall', inlinePairedText('++', 'womSmall')],
         ['womStrike', inlinePairedText('--', 'womStrike')],
+        ['strong', inlinePairedText('**', 'strong')],
 
         ['womSuperscript', inlinePairedText('^^', 'womSuperscript')],
         ['womSubscript', inlinePairedText('vv', 'womSubscript')],
@@ -54,6 +56,7 @@ function plugin() {
 
         ['womHtml', womHtml],
         ['womFormatter', womFormatter],
+        ['womBlock', womBlock],
         ['womBlockquote', womBlockquote],
         ['womDefinition', womDefinition],
         ['womCut', womCut],
@@ -81,6 +84,7 @@ function plugin() {
     const myBlockTokenizers = new Map([
         ['womHtml', womBlockGenerator('womHtml', '<#', '#>', { rawContents: true, hasInlineAlternative: true })],
         ['womFormatter', womBlockGenerator('womFormatter', '%%', null, { eatFirst: eatFormatterProps, rawContents: true, hasInlineAlternative: true })],
+        ['womBlock', womBlockGenerator('womBlock', '{[', ']}', { hasInlineAlternative: true })],
         ['womBlockquote', womBlockGenerator('womBlockquote', '<[', ']>', { hasInlineAlternative: true })],
         ['womCut', womBlockGenerator('womCut', '<{', '}>', { eatFirst: eatCutTitle })],
 
@@ -95,7 +99,6 @@ function plugin() {
 
     blockTokenizers['list'] = list;
 
-    // console.log(blockMethods);
     injectBefore(blockMethods, 'html', Array.from(myBlockTokenizers.keys()));
 
     interruptParagraph.push(
@@ -110,16 +113,6 @@ function plugin() {
     interruptList.push(
         ['womHeading']
     );
-
-    // blockTokenizers.womFormatter = womFormatter;
-    // injectBefore(blockMethods, 'text', 'womFormatter');
-
-    // blockTokenizers.womBlockquote = womBlockquote;
-    // injectBefore(blockMethods, 'text', 'womBlockquote');
-
-    // console.log(inlineMethods);
-    // blockTokenizers.womFormatter = womFormatter;
-    // console.log(blockMethods);
 }
 
 class Ctx {
@@ -131,7 +124,6 @@ class Ctx {
 
         // Skip whitespaces
         this.index = this.lookAhead(isNotWS, 0);
-        // console.log({ SAAAAAAAAAA: this.value.slice(0, this.index) });
     }
 
     cut(size) {
@@ -156,7 +148,6 @@ class Ctx {
 
     static gen(eat, value, index) {
         if (!eat.ctx || eat.ctx.value !== value) {
-            // console.log('new ctx ', {value, index});
             eat.ctx = new Ctx(eat, value, index);
         }
         return eat.ctx;
@@ -221,7 +212,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
     };
 }
 
-function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false, hasInlineAlternative = false } = {}) {
+function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false/*, hasInlineAlternative = false*/ } = {}) {
     const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
     const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : indexOfSameClosingSeq(startSeq_);
@@ -239,8 +230,6 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
     function womBlock(eat, value, silent) {
         const ctx = Ctx.gen(eat, value);
 
-        // console.log({ctx, value, silent, q: startSeq(ctx)});
-        // console.log('YEAH', {value, silent}, startSeq(ctx));
         if (!skipSpaces && ctx.index !== 0) {
             return;
         }
@@ -282,19 +271,14 @@ function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, r
         now.offset += startSeqLen;
 
         const add = ctx.chew();
-
-        // console.log({ inner, ...ctx, w: ctx.value.slice(0, ctx.index) });
-
-        // console.log({ queue, index, });
-
-        // console.log(queue, ctx);
-
         const contentProps = {};
 
         if (requiresRawContents) {
             contentProps.value = inner;
+
         } else if (inline === true) {
             contentProps.children = this.tokenizeInline(inner, now);
+
         } else {
             const exit = this.enterBlock();
             contentProps.children = this.tokenizeBlock(inner, now);
@@ -341,7 +325,7 @@ function inlinePairedText(charPair, type, colorful = false) {
         ? (value, fromIndex) => {
             let res = fromIndex;
             do {
-                res = defaultLocator(value, res);
+                res = value.indexOf(charPair, res);
                 if (res === -1 || value.charCodeAt(res + 2) !== firstCharCode) {
                     return res;
                 }
@@ -359,30 +343,27 @@ function inlinePairedText(charPair, type, colorful = false) {
             return -1;
         }
 
+        const inner = value.slice(i, res);
+        if (!inner.trimRight() || (inner !== inner.trimRight() && inner.charCodeAt(0) === firstCharCode)) {
+            return -1;
+        }
+
         const lineBreak = value.indexOf('\n', i + 1);
         let allowedEnd = res;
-        // console.log('Calculating allowedEnd for ', {charPair, value, i})
+
         while (!isWS(value.charAt(allowedEnd + 1)) && allowedEnd < value.length) {
             allowedEnd += 1;
-            // console.log(value.charAt(allowedEnd + 1), !isWS(value.charAt(allowedEnd + 1)), allowedEnd < value.length);
         }
 
         while(i < allowedEnd) { // eslint-disable-line
-            // console.log('Ищем конец', nextPair);
             const nextI = locator(value, i + 1);
-            // console.log(String(nextI).padStart(5), i, { allowedEnd }, i !== -1 ? value.slice(i, 20) + chalk.grey('←') : null);
             if (nextI === -1 || nextI > allowedEnd) {
-                // console.log(value.charCodeAt(nextI + 2) === firstCharCode);
                 break;
             }
             i = nextI;
         }
 
         if (value.slice(i, i + 2) !== charPair) {
-            // console.log('TROUBLES HERE MR JOHNSON');
-            // console.log({charPair, i, len: value.length, found: value.slice(i, i + 2), value});
-            // console.log(value);
-            // console.log('-'.repeat(i) + '^^');
             return -1;
         }
 
@@ -400,9 +381,13 @@ function inlinePairedText(charPair, type, colorful = false) {
             return;
         }
 
-        const closestPos = locator(value, 0);
+        const closestPos = value.indexOf(charPair, 0);
         if (closestPos === -1) {
             return;
+        }
+
+        if (colorful && closestPos < value.indexOf('(') && value.charCodeAt(2) === firstCharCode) {
+            return false;
         }
 
         const nextPair = findTheEnd(value, closestPos + 2);
@@ -413,13 +398,9 @@ function inlinePairedText(charPair, type, colorful = false) {
         // Fix multiples, skip until WS or  and then decide to break or not
         // for (let x = 2; x < value.length; x += 1) {
         //     const cc = value.charCodeAt(x); // Character code
-        //     if (cc === firstCharCode) {
-        //         continue;
-        //     }
-        //     if (isWS(value.charAt(x))) {
+        //     if (cc === firstCharCode || isWS(cc)) {
         //         return false;
         //     }
-        //     break;
         // }
 
         if (silent) {

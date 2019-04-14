@@ -1964,56 +1964,27 @@
 →   ]}
 → ]}]}
 
-〉¡ 123
-←<# <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> #> Node.js Clients:
+〉Списки с катами (feat cut)
 ←* <{tracker
-←https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker
 ←
-←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.
-←}>
+←  Текст текст текст}>
 ←* <{tracker-client
-←https://github.woofmd-team.ru/toolbox/tracker-client
 ←
-←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.
-←}>
-→ [
-→   {type: 'root', children: [
-→     {type: 'paragraph', children: [
-→       {type: 'womHtml', value: ' <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> '},
-→       {type: 'text', value: ' Node.js Clients:'}
-→     ]},
-→     {type: 'list', ordered: false, loose: false, children: [
-→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→         {type: 'womCut',
-→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker'}]}],
-→           children: [
-→             {type: 'paragraph', children: [{
-→               type: 'link',
-→               title: null,
-→               url: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker',
-→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker'}]
-→             }]},
-→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.'}]}
-→           ]
-→         }
-→       ]},
-→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→         {type: 'womCut',
-→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker-client'}]}],
-→           children: [
-→             {type: 'paragraph', children: [{
-→               type: 'link',
-→               title: null,
-→               url: 'https://github.woofmd-team.ru/toolbox/tracker-client',
-→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/toolbox/tracker-client'}]
-→             }]},
-→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.'}]}
-→           ]
-→         }
-→       ]}
-→     ]}
-→   ]}
-→ ]
+←  Текст текст текст}>
+→ {type: 'root', children: [{type: 'list', ordered: false, start: null, loose: true, children: [
+→   {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
+→     {type: 'womCut',
+→       title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker'}]}],
+→       children: [
+→         {type: 'paragraph', children: [
+→           {type: 'text', value: 'Текст текст текст'}]}]}]},
+→   {type: 'listItem', loose: true, checked: null, expandable: false, restart: null, children: [
+→     {type: 'womCut',
+→       title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker-client'}]}],
+→       children: [
+→         {type: 'paragraph', children: [
+→           {type: 'text', value: 'Текст текст текст'}]}]}]},
+→ ]}]}
 
 〉Списки через цитирование и заголовки (feat blockquote, ticket, heading)
 ←<[section1]>

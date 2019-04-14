@@ -224,7 +224,7 @@ function indexOfClosingSeq (closeSeq, openSeq) {
     };
 }
 
-function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false, hasInlineAlternative = false } = {}) {
+function womBlockGenerator(type, startSeq_, endSeq_ = null, { eatFirst = null, rawContents = false, inline = false/*, hasInlineAlternative = false*/ } = {}) {
     const skipSpaces = !inline;
     const startSeq = indexOfSeq(startSeq_);
     const endSeq = endSeq_ !== null ? indexOfClosingSeq(endSeq_, startSeq_) : indexOfSameClosingSeq(startSeq_);

@@ -98,7 +98,9 @@ function* parseCases(s) {
 
         if (line.startsWith('## ')) {
             group = line.slice(3).trim();
-            if (!group) throw new Error('Empty heading');
+            if (!group) {
+                throw new Error('Empty heading');
+            }
             continue;
         }
 

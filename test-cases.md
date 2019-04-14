@@ -443,39 +443,51 @@
 
 〉Большой заголовок
 ←== Большой заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 1, expandable: false, children: [{type: 'text', value: 'Большой заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: null, expandable: false, children: [{type: 'text', value: 'Большой заголовок'}]}]}
 
 〉Большой заголовок
 ←==+ Большой раскрывающийся заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 1, expandable: true, children: [{type: 'text', value: 'Большой раскрывающийся заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: null, expandable: true, children: [{type: 'text', value: 'Большой раскрывающийся заголовок'}]}]}
+
+〉Большой заголовок с якорем
+←==(intro) Введение
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: 'intro', expandable: false, children: [{type: 'text', value: 'Введение'}]}]}
+
+〉Большой раскрывающийся заголовок с якорем
+←==+(intro) Введение
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: 'intro', expandable: true, children: [{type: 'text', value: 'Введение'}]}]}
+
+〉Большой заголовок без якоря, но со скобками в начале
+←==() Введение
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: '', expandable: false, children: [{type: 'text', value: 'Введение'}]}]}
 
 〉Заголовок поменьше
 ←=== Заголовок поменьше
-→ {type: 'root', children: [{type: 'womHeading', depth: 2, expandable: false, children: [{type: 'text', value: 'Заголовок поменьше'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 2, anchor: null, expandable: false, children: [{type: 'text', value: 'Заголовок поменьше'}]}]}
 
 〉Средний заголовок
 ←==== Средний заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 3, expandable: false, children: [{type: 'text', value: 'Средний заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 3, anchor: null, expandable: false, children: [{type: 'text', value: 'Средний заголовок'}]}]}
 
 〉Маленький заголовок
 ←===== Маленький заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 4, expandable: false, children: [{type: 'text', value: 'Маленький заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 4, anchor: null, expandable: false, children: [{type: 'text', value: 'Маленький заголовок'}]}]}
 
 〉Ну совсем маленький заголовок
 ←====== Ну совсем маленький заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 5, expandable: false, children: [{type: 'text', value: 'Ну совсем маленький заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 5, anchor: null, expandable: false, children: [{type: 'text', value: 'Ну совсем маленький заголовок'}]}]}
 
 〉Меньше некуда заголовок
 ←======= Меньше некуда заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, anchor: null, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
 
 〉Меньше некуда заголовок с равно на конце
 ←======= Меньше некуда заголовок ====================
-→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, anchor: null, expandable: false, children: [{type: 'text', value: 'Меньше некуда заголовок'}]}]}
 
 〉Меньше некуда заголовок с раскрывашкой
 ←=======+ Меньше некуда раскрывающийся заголовок
-→ {type: 'root', children: [{type: 'womHeading', depth: 6, expandable: true, children: [{type: 'text', value: 'Меньше некуда раскрывающийся заголовок'}]}]}
+→ {type: 'root', children: [{type: 'womHeading', depth: 6, anchor: null, expandable: true, children: [{type: 'text', value: 'Меньше некуда раскрывающийся заголовок'}]}]}
 
 〉Много знаков равно это тоже не заголовок
 ←======== Не заголовок

@@ -2113,6 +2113,9 @@
 ←//home/woofmd/SIDEBYSIDE-100500/yes-yes
 → {type: 'text', value: '//home/woofmd/SIDEBYSIDE-100500/yes-yes'}
 
+〉Якорь-якорек
+←[Якорь](#woofmd)
+→ {type: 'link', title: null, url: '#woofmd', children: [{type: 'text', value: 'Якорь'}]}
 
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
 кто:egorova-a   → {type: 'womStaff', value: 'egorova-a', case: 'кто',   at: null}

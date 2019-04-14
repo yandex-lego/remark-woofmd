@@ -2315,20 +2315,36 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 → ]}
 
 〉Вложенная таблица
-←#| ||  #| || xxx || |#  || |#
+←#| || 1 | #| || xxx || |# | 1 | #| || xxx || |# | 1 || |#
+//1   ↑5   ↑10  ↑15  ↑20  ↑25  ↑30  ↑35  ↑40
+//    ѳ-- ѳ----------------  5-8 9-26
 → {type: 'root', children: [
 →   {type: 'womTable', children: [
 →     {type: 'womTableRow', single: false, children: [
-→       {type: 'womTableCell', children: [
+→
+→ {type: 'womTableCell', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
+→ {type: 'womTableCell', children: [
 →   {type: 'womTable', children: [
 →     {type: 'womTableRow', single: false, children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
-→     ]} ]} ]} ]} ]} ]}
+→     ]} ]} ]},
+→ {type: 'womTableCell', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
+→ {type: 'womTableCell', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', single: false, children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
+→     ]} ]} ]},
+→ {type: 'womTableCell', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
+→
+→     ]} ]} ]}
 
-〉¡ Вложенные таблицы
+〉Вложенные таблицы
 ←#||
 ←|| cell10 | #| ||cell11.0|| |# | #| ||cell12.0|| |# | cell13 ||
-←|| cell20 | #| ||cell21.0|| |# | #| ||cell22.0|| |# | cell13 ||
+←|| cell20 | #| ||cell21.0|| |# | #| ||cell22.0|| |# | cell23 ||
 ←||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
@@ -2348,7 +2364,7 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell13 '}]}
 →       ]},
 →     ]},
-→     {type: 'womTableRow', single: false, children: [,
+→     {type: 'womTableRow', single: false, children: [
 →       {type: 'womTableCell', children: [
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell20 '}]}
 →       ]},
@@ -2366,6 +2382,48 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →     ]}
 →   ]}
 → ]}
+
+〉Очень вложенные таблицы
+←#||
+←|| cell10 | #| ||cell11.0| #| ||cell11.0.0|cell11.0.1|cell11.0.2|| |# |cell11.2|| |# | cell12 ||
+←||#
+→ {type: 'root', children: [
+→   {type: 'womTable', kind: 'layout', children: [
+→     {type: 'womTableRow', single: false, children: [
+→       {type: 'womTableCell', children: [
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell10 '}]}
+→       ]},
+→
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', children: [
+→           {type: 'womTableRow', single: false, children: [
+→             {type: 'womTableCell', children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'cell11.0'}]}
+→             ]},
+→
+→             {type: 'womTableCell', children: [
+→               {type: 'womTable', children: [
+→                 {type: 'womTableRow', single: false, children: [
+→                   {type: 'womTableCell', children: [
+→                     {type: 'paragraph', children: [{type: 'text', value: 'cell11.0.0'}]}
+→                   ]},
+→                   {type: 'womTableCell', children: [
+→                     {type: 'paragraph', children: [{type: 'text', value: 'cell11.0.1'}]}
+→                   ]},
+→                   {type: 'womTableCell', children: [
+→                     {type: 'paragraph', children: [{type: 'text', value: 'cell11.0.2'}]}
+→                   ]},
+→                 ]}]}]},
+→
+→             {type: 'womTableCell', children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'cell11.2'}]}
+→             ]},
+→           ]}]}]},
+→
+→       {type: 'womTableCell', children: [
+→         {type: 'paragraph', children: [{type: 'text', value: ' cell12 '}]}
+→       ]},
+→ ]}]}]}
 
 〉Таблица с заголовком
 ←#| Заголовок

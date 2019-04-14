@@ -2008,17 +2008,30 @@
 →   assignee: null,
 →   realm: null}
 
-〉Полная ссылка на тикет
-←QUEUE-1234[ --Важный тикет в очереди-- ]( mrtwister )
+〉Ссылка на тикет с расширенным синтаксисом (WIKI-11815)
+←QUEUE-1234[ --Важный тикет: "Сделать!"-- ]( mrtwister )
 → {type: 'womTicket',
 →   value: 'QUEUE-1234',
 →   title: [
 →     {type: 'text', value: ' '},
-→     {type: 'womStrike', children: [{type: 'text', value: 'Важный тикет в очереди'}]},
+→     {type: 'womStrike', children: [{type: 'text', value: 'Важный тикет: "Сделать!"'}]},
 →     {type: 'text', value: ' '},
 →   ],
 →   assignee: 'mrtwister',
 →   realm: null}
+
+〉Полная ссылка с realm без assignee (WIKI-11815)
+←https://st.woofmd-team.ru/QUEUE-1234[ "Важный тикет: Сделать ](  )
+→ {type: 'womTicket',
+→   value: 'QUEUE-1234',
+→   title: [
+→     {type: 'text', value: ' "Важный тикет: Сделать '},
+→   ],
+→   assignee: null,
+→   realm: 'st.woofmd-team.ru',
+→   protocol: "https://",
+→   url: "https://st.woofmd-team.ru/QUEUE-1234"
+→ }
 
 〉Встроенный в текст номер тикета не должен парситься
 ←//home/woofmd/SIDEBYSIDE-100500/yes-yes

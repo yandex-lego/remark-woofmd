@@ -538,6 +538,8 @@
 → {type: 'root', children: [{type: 'paragraph', children: [{type: 'text', value: '<{'}]}]}
 
 
+
+
 ## html
 
 〉Вывод HTML как есть
@@ -1235,6 +1237,24 @@
 →     ]}
 →   ]}
 → ]}
+
+〉Список с блоком
+←1. {[Элемент списка в котором несколько строк
+←нужно оборачивать в разметку типа «Блок»,
+←например: ##{[элемент списка]}##]}
+→ {type: 'root', children: [
+→   {type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→       {type: 'womBlock', children: [
+→         {type: 'paragraph', children: [
+→           {type: 'text', value: 'Элемент списка в котором несколько строк\nнужно оборачивать в разметку типа «Блок»,\nнапример: '},
+→           {type: 'womMonospace', children: [
+→             {type: 'womBlock', children: [
+→               {type: 'text', value: 'элемент списка'}
+→             ]}]},
+→         ]},
+→       ]}
+→     ]}]}]}
 
 〉List after List
 ←- item

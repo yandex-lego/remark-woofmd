@@ -2264,6 +2264,10 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 → {type: 'link', title: null, url: 'file:/group/gods/dog.jpg', children: [
 →   {type: 'text', value: 'file:/group/gods/dog.jpg'}]}
 
+〉Картика с file
+←100x100:file:/dog.jpg
+→ {type: 'womImage', url: 'file:/dog.jpg', width: 100, height: 100}
+
 
 
 

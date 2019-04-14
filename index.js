@@ -42,6 +42,7 @@ function plugin() {
         ['womMonospace', inlinePairedText('##', 'womMonospace')],
         ['womSmall', inlinePairedText('++', 'womSmall')],
         ['womStrike', inlinePairedText('--', 'womStrike')],
+        ['strong', inlinePairedText('**', 'strong')],
 
         ['womSuperscript', inlinePairedText('^^', 'womSuperscript')],
         ['womSubscript', inlinePairedText('vv', 'womSubscript')],
@@ -344,7 +345,7 @@ function inlinePairedText(charPair, type, colorful = false) {
         ? (value, fromIndex) => {
             let res = fromIndex;
             do {
-                res = defaultLocator(value, res);
+                res = value.indexOf(charPair, res);
                 if (res === -1 || value.charCodeAt(res + 2) !== firstCharCode) {
                     return res;
                 }
@@ -359,6 +360,11 @@ function inlinePairedText(charPair, type, colorful = false) {
     function findTheEnd(value, i) {
         let res = locator(value, i);
         if (res === -1) {
+            return -1;
+        }
+
+        const inner = value.slice(i, res);
+        if (!inner.trimRight() || (inner !== inner.trimRight() && inner.charCodeAt(0) === firstCharCode)) {
             return -1;
         }
 
@@ -403,9 +409,13 @@ function inlinePairedText(charPair, type, colorful = false) {
             return;
         }
 
-        const closestPos = locator(value, 0);
+        const closestPos = value.indexOf(charPair, 0);
         if (closestPos === -1) {
             return;
+        }
+
+        if (colorful && closestPos < value.indexOf('(') && value.charCodeAt(2) === firstCharCode) {
+            return false;
         }
 
         const nextPair = findTheEnd(value, closestPos + 2);

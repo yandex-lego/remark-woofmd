@@ -75,31 +75,31 @@
 
 〉Множественные !!
 ←Привет!!!!!!!!!!!
-→ [{type: 'text', value: 'Привет'}, {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [{type: 'text', value: '!!!!!!!'}]}]
+→ [{type: 'text', value: 'Привет!!!!!!!!!!!'}]
 
 〉Множественные ##
 ←Привет###########
-→ [{type: 'text', value: 'Привет'}, {type: 'womMonospace', children: [{type: 'text', value: '#######'}]}]
+→ [{type: 'text', value: 'Привет###########'}]
 
 〉Множественные ??
 ←Привет???????????
-→ [{type: 'text', value: 'Привет'}, {type: 'womQuestion', children: [{type: 'text', value: '???????'}]}]
+→ [{type: 'text', value: 'Привет???????????'}]
 
-〉¡ Множественные **
+〉Множественные **
 ←Привет***********
 → {type: 'text', value: 'Привет***********'}
 
 〉Множественные ++
 ←Привет+++++++++++
-→ [{type: 'text', value: 'Привет'}, {type: 'womSmall', children: [{type: 'text', value: '+++++++'}]}]
+→ [{type: 'text', value: 'Привет+++++++++++'}]
 
 〉Множественные ^^
 ←Привет^^^^^^^^^^^
-→ [{type: 'text', value: 'Привет'}, {type: 'womSuperscript', children: [{type: 'text', value: '^^^^^^^'}]}]
+→ [{type: 'text', value: 'Привет^^^^^^^^^^^'}]
 
 〉Множественные vv
 ←Приветvvvvvvvvvvv
-→ [{type: 'text', value: 'Привет'}, {type: 'womSubscript', children: [{type: 'text', value: 'vvvvvvv'}]}]
+→ [{type: 'text', value: 'Приветvvvvvvvvvvv'}]
 
 〉Начальные множественные ***
 ←***Полужирный текст******
@@ -130,14 +130,31 @@
 → {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [
 →   {type: 'text', value: '!Замечание!!!'}]}
 
-〉¡ Начальные множественные !!! с цветом
+〉Начальные множественные !!! с цветом
 ←!!!(grey)Замечание!!!!!
-→ [{type: 'text', value: '!'}, {type: 'womRemark', color: {type: 'color', value: '@red', raw: null}, children: [
-→   {type: 'text', value: 'Замечание'}]}]
+→ [
+→   {type: 'text', value: '!'},
+→   {type: 'womRemark', color: {type: 'color', value: '@gray', raw: 'grey'}, children: [
+→     {type: 'text', value: 'Замечание!!!'}
+→   ]}]
 
-〉¡ Начальные множественные !!! с вложением и соседями
-←!! !!(green)Крас!! !! !!(grey)Замечание!!!!! !!(green)Зел!! !!(yellow)Жел!!
-→ [{type: 'womRemark', children: [{type: 'text', value: ' !!(grey)Замечание!!!'}]}]
+〉Начальные множественные !!! с вложением и соседями
+←!! !!(blue)Син!! !! !!(grey)Замечание!!!!! !!(green)Зел!! !!! !!(yellow)Жел!! !!!
+→ [
+→   {type: 'text', value: '!! '},
+→   {type: 'womRemark', color: {type: 'color', value: '@blue', raw: 'blue'}, children: [
+→     {type: 'text', value: 'Син'} ]},
+→   {type: 'text', value: ' !! '},
+→   {type: 'womRemark', color: {type: 'color', value: '@gray', raw: 'grey'}, children: [
+→     {type: 'text', value: 'Замечание!!!'} ]},
+→   {type: 'text', value: ' '},
+→   {type: 'womRemark', color: {type: 'color', value: '@green', raw: 'green'}, children: [
+→     {type: 'text', value: 'Зел'} ]},
+→   {type: 'text', value: ' !!! '},
+→   {type: 'womRemark', color: {type: 'color', value: '@yellow', raw: 'yellow'}, children: [
+→     {type: 'text', value: 'Жел'} ]},
+→   {type: 'text', value: ' !!!'},
+→ ]
 
 〉Последовательные !!
 ←Короче: !!(red)Каждый!! охотник !!(yellow)желает!!! !!(green)знать!!! где !!(син)сидит!!! фазан, !!(grey)Вася!!!

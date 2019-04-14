@@ -1681,6 +1681,7 @@
 ←- [x] Finish my changes
 ←- [ ] Push my commits to GitHub
 ←- [x] Open a pull request
+←- [] Oopsie
 → {type: 'root', children: [
 →   {type: 'list', ordered: false, start: null, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: true, expandable: false, restart: null, children: [
@@ -1694,6 +1695,10 @@
 →     {type: 'listItem', loose: false, checked: true, expandable: false, restart: null, children: [
 →       {type: 'paragraph', children: [
 →         {type: 'text', value: 'Open a pull request'}
+→       ]}]},
+→     {type: 'listItem', loose: false, checked: false, expandable: false, restart: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: 'Oopsie'}
 →       ]}]},
 →   ]}
 → ]}
@@ -1956,6 +1961,61 @@
 →     ]}
 →   ]}
 → ]
+
+〉Списки через цитирование и заголовки (feat blockquote, ticket, heading)
+←<[section1]>
+←* [x] ABC-1234[ --Важная задача-- ]( arkady )
+←
+←<[section2]>
+←* [ ] ABC-1233[ Важная задача 2 ](  )
+←
+←
+←* ABC-1232[ Важная задача 3 ]( arkady ) - должно закрыться после п.1
+←
+←==== section3
+←* [] ABC-1231[ Важная задача 4 ](  )
+←
+→ {type: 'root', children: [
+→   {type: 'womBlockquote', children: [
+→     {type: 'paragraph', children: [
+→       {type: 'text', value: 'section1'}
+→     ]}]},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: true, expandable: false, restart: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'womTicket', assignee: 'arkady', realm: null, value: 'ABC-1234', title: [
+→           {type: 'text', value: ' '},
+→           {type: 'womStrike', children: [{type: 'text', value: 'Важная задача'}]},
+→           {type: 'text', value: ' '},
+→         ]}]}]}]},
+→   {type: 'womBlockquote', children: [
+→     {type: 'paragraph', children: [
+→       {type: 'text', value: 'section2'}
+→     ]}]},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: false, expandable: false, restart: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'womTicket', assignee: null, realm: null, value: 'ABC-1233', title: [
+→           {type: 'text', value: ' Важная задача 2 '}
+→         ]}]}]}]},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'womTicket', assignee: 'arkady', realm: null, value: 'ABC-1232', title: [
+→           {type: 'text', value: ' Важная задача 3 '}
+→         ]},
+→         {type: 'text', value: ' - должно закрыться после п.1'}
+→       ]}]}]},
+→   {type: 'womHeading', depth: 3, anchor: null, expandable: false, children: [
+→     {type: 'text', value: 'section3'}
+→   ]},
+→   {type: 'list', ordered: false, start: null, loose: false, children: [
+→     {type: 'listItem', loose: false, checked: false, expandable: false, restart: null, children: [
+→       {type: 'paragraph', children: [
+→         {type: 'womTicket', assignee: null, realm: null, value: 'ABC-1231', title: [
+→           {type: 'text', value: ' Важная задача 4 '}
+→         ]}]}]}]}
+→ ]}
 
 
 

@@ -13,18 +13,24 @@ const woofmd = require('..');
 const processor = remark().data('settings', { commonmark: true, footnotes: true }).use(woofmd.remark);
 const parseMd = v => processor.parse(v);
 
-describe('test-cases', () => {
-    for (const subj of parseCases(content)) {
-        // if (subj.tokens) {
-        //     it('Tokens for ' + subj.title, () => {
-        //         console.log(subj.tokens, Array.from(tokens.lexer.reset(subj.input)).map(x => x.type).join(' '));
-        //     });
-        //     // continue;
-        // } else {
-        //     continue;
-        // }
-        // {title, input, tokens, output, valid: null, line: lineNumber}
-        if (subj.valid) {
+for (const [group, subjs] of groupUp(parseCases(content))) {
+    describe(group, () => {
+        for (const subj of subjs) {
+            // if (subj.tokens) {
+            //     it('Tokens for ' + subj.title, () => {
+            //         console.log(subj.tokens, Array.from(tokens.lexer.reset(subj.input)).map(x => x.type).join(' '));
+            //     });
+            //     // continue;
+            // } else {
+            //     continue;
+            // }
+            // {title, input, tokens, output, valid: null, line: lineNumber}
+
+            if (!subj.valid) {
+                it(subj.title + ' : ' + JSON.stringify(subj.error));
+                continue;
+            }
+
             (subj.skip ? it.skip : it)(subj.title, function () {
                 const rawExpected = subj.expected();
                 if (rawExpected === null) {
@@ -38,11 +44,9 @@ describe('test-cases', () => {
                 expect(vis(actual)).to.equal(vis(expected));
                 // process.exit();
             });
-        } else {
-            it(subj.title + ' : ' + JSON.stringify(subj.error));
         }
-    }
-});
+    });
+}
 
 // const invalidCases = cases.filter(x => x.valid === false);
 
@@ -65,10 +69,21 @@ function buildup(obj) {
     return obj;
 }
 
+function groupUp(cases) {
+    const groupped = new Map();
+    for (const subj of cases) {
+        const key = subj.group || '.';
+        groupped.has(key) || groupped.set(key, []);
+        groupped.get(key).push(subj);
+    }
+    return groupped;
+}
+
 function* parseCases(s) {
     // TODO: read lines one by one?
     const lines = s.split('\n');
 
+    let group = null;
     let cursor = null, lineNumber;
     const cases = [];
     let state = 0; // enum: { none, title, input, output }
@@ -81,7 +96,14 @@ function* parseCases(s) {
             continue;
         }
 
+        if (line.startsWith('## ')) {
+            group = line.slice(3).trim();
+            if (!group) throw new Error('Empty heading');
+            continue;
+        }
+
         // legend:
+        // ## group
         //   〉 — title
         //   ← — input
         //   →  — expectation
@@ -136,7 +158,11 @@ function* parseCases(s) {
         subject.valid = true;
 
         try {
-            subject.expected = () => safeEval('module.exports = ' + subject.output);
+            if (!subject.output.trim()) {
+                subject.expected = () => { throw new Error('Empty expectation'); };
+            } else {
+                subject.expected = () => safeEval('module.exports = ' + subject.output.trim());
+            }
         } catch(e) {
             subject.valid = false;
             subject.error = { error: e, code: lines.slice(subject.line, lineNumber).join('\n') };
@@ -153,7 +179,7 @@ function* parseCases(s) {
     function newCase(title, input = '', tokens = '', output = '') {
         const skip = String(title).indexOf('¡ ') === 0;
         skip && (title = title.slice(2));
-        const newCase_ = {title, skip, input, tokens, output, valid: null, line: lineNumber};
+        const newCase_ = {group, title, skip, input, tokens, output, valid: null, line: lineNumber};
         cases.push(newCase_);
         return newCase_;
     }

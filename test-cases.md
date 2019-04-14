@@ -1,3 +1,5 @@
+## Базовые строчные элементы
+
 ←**Полужирный текст**
 ↑ STARS TEXT STARS
 → {type: 'strong', children: [{type: 'text', value: 'Полужирный текст'}]}
@@ -151,12 +153,49 @@
 →  {type: 'womRemark', color: {type: 'color', value: '@gray', raw: 'grey'}, children: [{type: 'text', value: 'Вася!'}]},
 →  ]
 
-〉Разделитель
+""**Жирный текст**"" → {type: 'womEscape', raw: '""**Жирный текст**""', value: '**Жирный текст**'}
+~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
+
+〉Верхний индекс
+←E=mc^^2^^
+↑ TEXT CARETS TEXT CARETS
+→ {type: 'paragraph', children: [{type: 'text', value: 'E=mc'}, {type: 'womSuperscript', children: [{type: 'text', value: '2'}]}]}
+
+〉Нижний индекс
+←H vv2vv O
+↑ TEXT VLETTERS TEXT VLETTERS TEXT
+→ {type: 'paragraph', children: [{type: 'text', value: 'H '}, {type: 'womSubscript', children: [{type: 'text', value: '2'}]}, {type: 'text', value: ' O'}]}
+
+〉Нижний индекс без пробелов
+←H""""vv2vv""""O
+↑ TEXT QUOTES QUOTES VLETTERS TEXT VLETTERS QUOTES QUOTES TEXT
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: 'H'},
+→   {type: 'womEscape', raw:'""""', value: ''},
+→   {type: 'womSubscript', children: [{type: 'text', value: '2'}]},
+→   {type: 'womEscape', raw:'""""', value: ''},
+→   {type: 'text', value: 'O'}
+→ ]}
+
+〉Присвоение цвета
+← #ff0000 или #F00
+↑ COLOR TEXT COLOR
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: ' '},
+→   {type: 'color', raw: '#ff0000', value: 'ff0000'},
+→   {type: 'text', value: ' или '},
+→   {type: 'color', raw: '#F00', value: 'f00'}
+→ ]}
+
+
+
+
+## Разделители (break)
+
 ←---
 ↑ HYPHENS
 → {type: 'root', children: [{type: 'thematicBreak'}]}
 
-〉Разделитель
 ←____
 ↑ LODASHES
 → {type: 'root', children: [{type: 'thematicBreak'}]}
@@ -179,7 +218,7 @@
 →   {type: 'text', value: 'нигдест'},
 → ]}
 
-〉Переводы пачкой с зачеркнутым
+〉Переводы пачкой с зачеркнутым (feat strike)
 ←тест---шмест--зарезано--да---еще
 ↑ TEXT HYPHENS TEXT HYPHENS TEXT HYPHENS TEXT
 → {type: 'paragraph', children: [
@@ -205,6 +244,10 @@
 →   {type: 'text', value: 'квест'},
 →   {type: 'womBreak', raw: '---'},
 → ]
+
+
+
+## Форматтеры и другое на базе процентиков (formatter, markdown)
 
 〉Выравнивание
 ←%%(wacko wrapper=text align=center) текст по центру %%
@@ -264,7 +307,121 @@
 ←%%
 → {type: 'root', children: [{type: 'womFormatter', value: '\nHello\n%%%%%%%%%%%%%%%\nWorld\n%%%%%%%%%%%%%%%\n'}]}
 
-〉Цитирование текста
+〉css formatter wrapper
+←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
+←.d { font-size:70% }
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', format: 'css', attributes: {nomark: null, wrapper: 'box', align: 'left', width: '270', border: '0'}, value: '\n.d { font-size:70% }\n'}]}
+
+〉javascript formatter
+←%%(javascript nomark wrapper=box border="5px dashed red")
+←alert("hooray!");
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', format: 'javascript', attributes: {nomark: null, wrapper: 'box', border: '5px dashed red'}, value: '\nalert("hooray!");\n'}]}
+
+〉css formatter
+←%%(css nomark wrapper=shade)
+←.d2 { font-size:70% }
+←%%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'css',
+→     attributes: {nomark: null, wrapper: 'shade'},
+→     value: '\n.d2 { font-size:70% }\n'}]}
+
+〉wacko text aligned
+←%%(wacko wrapper=text align=center) текст по центру %%
+→ {type: 'root', children: [
+→   {type: 'womMarkdown', format: 'wacko',
+→     attributes: {wrapper: 'text', align: 'center'},
+→     children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
+→   }]}
+
+〉wacko page wrapper
+←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
+→ {type: 'root', children: [
+→   {type: 'womMarkdown', format: 'wacko',
+→     attributes: {wrapper: 'page', wrapper_width: '200'},
+→     children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: ' этот текст не может быть шире двухсот пикселей'}
+→       ]}
+→     ]
+→   }]}
+
+〉markdown page wrapper should parse inner markdown
+←%%(markdown) `code` and **bold** %%
+→ {type: 'root', children: [
+→   {type: 'womMarkdown', format: 'markdown',
+→     attributes: {},
+→     children: [
+→       {type: 'paragraph', children: [
+→         {type: 'text', value: ' '},
+→         {type: 'inlineCode', value: 'code'},
+→         {type: 'text', value: ' and '},
+→         {type: 'strong', children: [{type: 'text', value: 'bold'}]},
+→         {type: 'text', value: ' '},
+→       ]}
+→     ]
+→   }]}
+
+〉Пример 2: nomark
+←%%(python nomark)
+←@requires_authorization
+←def somefunc(param1, param2):
+←    r'''A docstring'''
+←%%
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: 'python',
+→     attributes: {nomark: null},
+→     value: `\n@requires_authorization\ndef somefunc(param1, param2):\n    r'''A docstring'''\n`
+→   } ] }
+
+〉Cut с питон функцией
+←<{код функции
+←%%(js)
+←function is_pretty_num(n) { return 1; }
+←%%
+←}>
+→ { type: 'root', children: [ { type: 'womCut',
+→   title: [{type: 'paragraph', children: [{type: 'text', value: 'код функции'}]}],
+→   children: [
+→     { type: 'womFormatter',
+→       format: 'js',
+→       attributes: {},
+→       value: `\nfunction is_pretty_num(n) { return 1; }\n`
+→     } ] } ] }
+
+〉math outline 1
+←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
+→     value: '\\int\\limits_{-\\infty}^{+\\infty} e^{-x^2/2} \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} '}
+→ ]}
+
+〉Греческие буквы
+←%%(math outline)
+←\alpha, \beta, \gamma, \lambda, \mu, \omega, \Gamma, \Lambda, \Omega
+←%%
+→ {type: 'root', children: [
+→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
+→     value: '\n\\alpha, \\beta, \\gamma, \\lambda, \\mu, \\omega, \\Gamma, \\Lambda, \\Omega\n'}
+→ ]}
+
+〉CSV formatter
+←%%(csv delimiter=; head='1')
+←Параметр;Значение;Описание;Ага!
+←Пучеглазость; 0,5; Показывает степень удивления
+←Красноносость; средняя; Показывает температуру за дверью;ой
+←%%
+→ {type: 'root', children: [{type: 'womFormatter', format: 'csv', attributes: {delimiter: ';', head: '1'},
+→   value: '\nПараметр;Значение;Описание;Ага!\nПучеглазость; 0,5; Показывает степень удивления\nКрасноносость; средняя; Показывает температуру за дверью;ой\n'}]}
+
+
+
+## Цитирования (blockquote)
+
+〉Цитирование текста с переносами
 ←<[ Цитирование текста ,
 ←длинного,
 ←с переносами
@@ -307,6 +464,10 @@
 →   {type: 'paragraph', children: [{type: 'text', value: 'А это обычный текст'}]}
 → ]}
 
+
+
+## Термины (definition)
+
 〉Термин
 ←(?Термин Вот тут всплыло развернутое определение термина?)
 ↑ LDEFINITION TEXT WS TEXT RDEFINITION
@@ -336,6 +497,10 @@
 →   {type: 'text', value: '. И текст в конце'},
 → ]}
 
+
+
+## Врезки (cut)
+
 〉Врезка (кат)
 ←<{ Прочитать !!red!! целиком
 ←Этот текст можно увидеть, кликнув по ссылке "прочитать целиком".
@@ -353,6 +518,27 @@
 〉Однострочная врезка
 ←<{ One-line quote }>
 → {type: 'root', children: [{type: 'womCut', title: [{type: 'paragraph', children: [{type: 'text', value: ' One-line quote '}]}], children: []}]}
+
+〉Пустой кат
+←<{пустой кат
+←}>
+→ {type: 'root', children: [
+→   {type: 'womCut',
+→     title: [{type: 'paragraph', children: [{type: 'text', value: 'пустой кат'}]}],
+→     children: []
+→   }]}
+
+〉Кат без заголовка
+←<{
+←}>
+→ {type: 'root', children: [{type: 'womCut', title: [], children: []}]}
+
+〉Незакрытый кат
+←<{
+→ {type: 'root', children: [{type: 'paragraph', children: [{type: 'text', value: '<{'}]}]}
+
+
+## html
 
 〉Вывод HTML как есть
 ←Hello: <# <input type="text"> #>, — done.
@@ -406,36 +592,13 @@
 →   {type: 'womHtml', value: "\n<div style='color:#777'></div>\n<div style='color:#777'></div>\n"},
 → ]}
 
-〉Верхний индекс
-←E=mc^^2^^
-↑ TEXT CARETS TEXT CARETS
-→ {type: 'paragraph', children: [{type: 'text', value: 'E=mc'}, {type: 'womSuperscript', children: [{type: 'text', value: '2'}]}]}
+〉Таблица из html (feat html)
+←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
+→ {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
 
-〉Нижний индекс
-←H vv2vv O
-↑ TEXT VLETTERS TEXT VLETTERS TEXT
-→ {type: 'paragraph', children: [{type: 'text', value: 'H '}, {type: 'womSubscript', children: [{type: 'text', value: '2'}]}, {type: 'text', value: ' O'}]}
 
-〉Нижний индекс без пробелов
-←H""""vv2vv""""O
-↑ TEXT QUOTES QUOTES VLETTERS TEXT VLETTERS QUOTES QUOTES TEXT
-→ {type: 'paragraph', children: [
-→   {type: 'text', value: 'H'},
-→   {type: 'womEscape', raw:'""""', value: ''},
-→   {type: 'womSubscript', children: [{type: 'text', value: '2'}]},
-→   {type: 'womEscape', raw:'""""', value: ''},
-→   {type: 'text', value: 'O'}
-→ ]}
 
-〉Присвоение цвета
-← #ff0000 или #F00
-↑ COLOR TEXT COLOR
-→ {type: 'paragraph', children: [
-→   {type: 'text', value: ' '},
-→   {type: 'color', raw: '#ff0000', value: 'ff0000'},
-→   {type: 'text', value: ' или '},
-→   {type: 'color', raw: '#F00', value: 'f00'}
-→ ]}
+## Заголовки (heading)
 
 〉Один знак равно это не заголовок
 ←= Не заголовок
@@ -493,13 +656,17 @@
 ←======== Не заголовок
 → {type: 'text', value: '======== Не заголовок'}
 
-〉Заголовок с форматированием
+〉Заголовок с форматированием (feat formatter)
 ←== Библиотека %%глазировка%%
 → {type: 'root', children: [
-→   {type: 'womHeading', depth: 1, expandable: false, children: [
+→   {type: 'womHeading', depth: 1, anchor: null, expandable: false, children: [
 →     {type: 'text', value: 'Библиотека '},
 →     {type: 'womFormatter', value: 'глазировка'}
 →   ]}]}
+
+
+
+## Сноски (footnote, reference, definition)
 
 〉Сноски
 ←Текст, потом сноска[[*]] и вторая[[**]]
@@ -580,35 +747,11 @@
 →   {type: 'text', value: ' Расшифровка сноски без id c ярлыком'}
 → ]}
 
-〉Пример 2: nomark
-←%%(python nomark)
-←@requires_authorization
-←def somefunc(param1, param2):
-←    r'''A docstring'''
-←%%
-→ { type: 'root', children: [
-→   { type: 'womFormatter',
-→     format: 'python',
-→     attributes: {nomark: null},
-→     value: `\n@requires_authorization\ndef somefunc(param1, param2):\n    r'''A docstring'''\n`
-→   } ] }
 
-〉Cut с питон функцией
-←<{код функции
-←%%(js)
-←function is_pretty_num(n) { return 1; }
-←%%
-←}>
-→ { type: 'root', children: [ { type: 'womCut',
-→   title: [{type: 'paragraph', children: [{type: 'text', value: 'код функции'}]}],
-→   children: [
-→     { type: 'womFormatter',
-→       format: 'js',
-→       attributes: {},
-→       value: `\nfunction is_pretty_num(n) { return 1; }\n`
-→     } ] } ] }
 
-〉¡ Списки
+## Списки
+
+〉¡ Списки отступами
 ←Списки:
 ←  Отступ
 ←    Двойной отступ
@@ -629,7 +772,7 @@
 →     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: []},
 → ]}]}
 
-〉Ненумерованный список +
+〉Ненумерованный список через +
 ←+   One:
 ←    +   Nested one;
 ←    +   Nested two:
@@ -654,7 +797,7 @@
 →     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Three.'}]}]},
 → ]}]}
 
-〉Ненумерованный список -
+〉Ненумерованный список через -
 ←-   One:
 ←    -   Nested one;
 ←    -   Nested two:
@@ -679,7 +822,7 @@
 →     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'Three.'}]}]},
 → ]}]}
 
-〉Ненумерованный список *
+〉Ненумерованный список через *
 ←* One:
 ←    * Nested one;
 ←    * Nested two:
@@ -857,7 +1000,7 @@
 →   {type: 'code', lang: 'js', value: 'code();'}
 → ]}
 
-〉Cписок прерывается MD заголовком
+〉Cписок прерывается MD заголовком (feat heading)
 ←1. список
 ←## Заголовок
 → {type: 'root', children: [
@@ -870,7 +1013,7 @@
 →   {type: 'heading', depth: 2, children: [{type: 'text', value: 'Заголовок'}]}
 → ]}
 
-〉Cписок прерывается WOM заголовком
+〉Cписок прерывается WOM заголовком (feat heading)
 ←1. список
 ←==Заголовок
 → {type: 'root', children: [
@@ -880,10 +1023,10 @@
 →         {type: 'text', value: 'список'}
 →       ]}]}
 →   ]},
-→   {type: 'womHeading', depth: 1, expandable: false, children: [{type: 'text', value: 'Заголовок'}]}
+→   {type: 'womHeading', depth: 1, anchor: null, expandable: false, children: [{type: 'text', value: 'Заголовок'}]}
 → ]}
 
-〉Cписок с инлайн форматтером
+〉Cписок с инлайн форматтером (feat formatter)
 ←1. список %%code%%
 ←1. text %%code code code
 ←code code code code code
@@ -910,7 +1053,7 @@
 →   ]}
 → ]}
 
-〉Cписок c markdown форматтером
+〉Cписок c markdown форматтером (feat formatter)
 ←1. список
 ←%%(markdown)
 ←   - еще список
@@ -939,7 +1082,7 @@
 →   ]}
 → ]}
 
-〉Cписок c markdown форматтером
+〉Cписок c markdown форматтером (feat formatter, markdown)
 ←1. список
 ←   %%(markdown)
 ←   - еще список
@@ -968,7 +1111,7 @@
 →   ]}
 → ]}
 
-〉Cписок c markdown форматтером
+〉Cписок c markdown форматтером (feat formatter, markdown)
 ←1. %%(markdown)
 ←   - еще список
 ←   - еще список
@@ -995,7 +1138,7 @@
 →   ]}
 → ]}
 
-〉Cписок c катом
+〉Cписок c катом (feat cut)
 ←1. список
 ←<{кат
 ←   - пункт списка
@@ -1023,7 +1166,7 @@
 →   ]}
 → ]}
 
-〉Cписок c катом
+〉Cписок c катом (feat cut)
 ←1. список
 ←   <{кат
 ←   - пункт списка
@@ -1051,7 +1194,7 @@
 →   ]}
 → ]}
 
-〉Cписок c катом
+〉Cписок c катом (feat cut)
 ←1. <{кат
 ←   - пункт списка
 ←   - пункт списка
@@ -1532,6 +1675,7 @@
 →     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [{type: 'paragraph', children: [{type: 'text', value: 'это не сотый пункт'}]}]}
 →   ]}
 → ]}
+//*
 
 〉Списки с тудушками
 ←- [x] Finish my changes
@@ -1696,63 +1840,127 @@
 →     }
 →   ]}
 → ]}
+//+*
 
-〉css formatter wrapper
-←%%(css nomark wrapper=box align=left width=270 border=0 nomark)
-←.d { font-size:70% }
+〉 Сложненький список (feat formatter)
+←1. Ordered List
+←2. text %%code%% text
+←3. text %%code code code
+←code code code code code
+←code code code code code%% text
+←4.#99 text
+←5. %%(cs)
+←codecodecodecodecode
+←codecodecodecodecode
+←code code code code code
 ←%%
-→ {type: 'root', children: [{type: 'womFormatter', format: 'css', attributes: {nomark: null, wrapper: 'box', align: 'left', width: '270', border: '0'}, value: '\n.d { font-size:70% }\n'}]}
-
-〉javascript formatter
-←%%(javascript nomark wrapper=box border="5px dashed red")
-←alert("hooray!");
-←%%
-→ {type: 'root', children: [{type: 'womFormatter', format: 'javascript', attributes: {nomark: null, wrapper: 'box', border: '5px dashed red'}, value: '\nalert("hooray!");\n'}]}
-
-〉css formatter
-←%%(css nomark wrapper=shade)
-←.d2 { font-size:70% }
-←%%
-→ {type: 'root', children: [
-→   {type: 'womFormatter', format: 'css',
-→     attributes: {nomark: null, wrapper: 'shade'},
-→     value: '\n.d2 { font-size:70% }\n'}]}
-
-〉wacko text aligned
-←%%(wacko wrapper=text align=center) текст по центру %%
-→ {type: 'root', children: [
-→   {type: 'womMarkdown', format: 'wacko',
-→     attributes: {wrapper: 'text', align: 'center'},
-→     children: [{type: 'paragraph', children: [{type: 'text', value: ' текст по центру '}]}]
-→   }]}
-
-〉wacko page wrapper
-←%%(wacko wrapper=page wrapper_width=200) этот текст не может быть шире двухсот пикселей%%
-→ {type: 'root', children: [
-→   {type: 'womMarkdown', format: 'wacko',
-→     attributes: {wrapper: 'page', wrapper_width: '200'},
-→     children: [
-→       {type: 'paragraph', children: [
-→         {type: 'text', value: ' этот текст не может быть шире двухсот пикселей'}
+←6. вложенный список
+←    2.+ вложенный список, свёртнутый пункт
+←        * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
+←           * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
+←        * Скрытый пункт %%списка%%
+→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'Ordered List'}]},
+→   ]},
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→     {type: 'paragraph', children: [
+→       {type: 'text', value: 'text '},
+→       {type: 'womFormatter', value: 'code'},
+→       {type: 'text', value: ' text'}
+→     ]},
+→   ]},
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→     {type: 'paragraph', children: [
+→       {type: 'text', value: 'text '},
+→       {type: 'womFormatter', value: 'code code code\ncode code code code code\ncode code code code code'},
+→       {type: 'text', value: ' text'}
+→     ]},
+→   ]},
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: 99, children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'text'}]},
+→   ]},
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→     {type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}
+→   ]},
+→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
+→     {type: 'list', ordered: true, styleType: 'decimal', start: 2, loose: false, children: [
+→       {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
+→         title: [{type: 'paragraph', children: [{type: 'text', value: 'вложенный список, свёртнутый пункт'}]}],
+→         children: [{type: 'list', ordered: false, start: null, loose: false, children: [
+→           {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→             {type: 'womFormatter', value: 'code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code '},
+→             {type: 'list', ordered: false, start: null, loose: false, children: [
+→               {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→                 {type: 'womFormatter', value: 'codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode'}
+→               ]}
+→             ]}
+→           ]},
+→           {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→             {type: 'paragraph', children: [{type: 'text', value: 'Скрытый пункт '}, {type: 'womFormatter', value: 'списка'}]},
+→           ]}
+→         ]}
 →       ]}
-→     ]
-→   }]}
+→     ]}
+→   ]}
+→ ]}]}
 
-〉markdown page wrapper should parse inner markdown
-←%%(markdown) `code` and **bold** %%
-→ {type: 'root', children: [
-→   {type: 'womMarkdown', format: 'markdown',
-→     attributes: {},
-→     children: [
-→       {type: 'paragraph', children: [
-→         {type: 'text', value: ' '},
-→         {type: 'inlineCode', value: 'code'},
-→         {type: 'text', value: ' and '},
-→         {type: 'strong', children: [{type: 'text', value: 'bold'}]},
-→         {type: 'text', value: ' '},
+〉¡ 123
+←<# <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> #> Node.js Clients:
+←* <{tracker
+←https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker
+←
+←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.
+←}>
+←* <{tracker-client
+←https://github.woofmd-team.ru/toolbox/tracker-client
+←
+←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.
+←}>
+→ [
+→   {type: 'root', children: [
+→     {type: 'paragraph', children: [
+→       {type: 'womHtml', value: ' <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> '},
+→       {type: 'text', value: ' Node.js Clients:'}
+→     ]},
+→     {type: 'list', ordered: false, loose: false, children: [
+→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→         {type: 'womCut',
+→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker'}]}],
+→           children: [
+→             {type: 'paragraph', children: [{
+→               type: 'link',
+→               title: null,
+→               url: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker',
+→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker'}]
+→             }]},
+→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.'}]}
+→           ]
+→         }
+→       ]},
+→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
+→         {type: 'womCut',
+→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker-client'}]}],
+→           children: [
+→             {type: 'paragraph', children: [{
+→               type: 'link',
+→               title: null,
+→               url: 'https://github.woofmd-team.ru/toolbox/tracker-client',
+→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/toolbox/tracker-client'}]
+→             }]},
+→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.'}]}
+→           ]
+→         }
 →       ]}
-→     ]
-→   }]}
+→     ]}
+→   ]}
+→ ]
+
+
+
+
+## Ссылки (link, image, ticket, staff, club)
 
 〉Сложная ссылка с тикетом
 ←https://jira.woofmd-team.ru/QUEUE-1234[ --На Вики в Тесте всегда показаываются комментарии-- ]( thasonic )
@@ -1872,34 +2080,86 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 ←mailto:mail@mail.ru
 → {type: 'link', title: null, url: 'mailto:mail@mail.ru', children: [{type: 'text', value: 'mail@mail.ru'}]}
 
-〉math outline 1
-←%%(math outline)\int\limits_{-\infty}^{+\infty} e^{-x^2/2} \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} %%
-→ {type: 'root', children: [
-→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
-→     value: '\\int\\limits_{-\\infty}^{+\\infty} e^{-x^2/2} \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} '}
+〉Одинокая ссылка в круглых скобках
+←((http://www.woofmd.ru))
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: []}
+
+〉Одинокая ссылка в квадратных скобках
+←[[http://www.woofmd.ru]]
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: []}
+
+〉Ссылка с текстом в круглых скобках
+←((http://www.woofmd.ru WoofMD в круглых скобках))
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: [{type: 'text', value: 'WoofMD в круглых скобках'}]}
+
+〉Ссылка с текстом в квадратных скобках
+←[[http://www.woofmd.ru WoofMD в квадратных скобках]]
+→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: [{type: 'text', value: 'WoofMD в квадратных скобках'}]}
+
+〉Относительная ссылка в круглых скобках
+←((Устафф))
+→ {type: 'womLink', url: 'Устафф', brackets: false, children: []}
+
+〉Относительная ссылка в квадратных скобках
+←[[Устафф]]
+→ {type: 'womLink', url: 'Устафф', brackets: true, children: []}
+
+〉Относительная ссылка c описанием в круглых скобках
+←((Устафф Страница про устав))
+→ {type: 'womLink', url: 'Устафф', brackets: false, children: [{type: 'text', value: 'Страница про устав'}]}
+
+〉Относительная ссылка с описанием в квадратных скобках
+←[[Устафф Страница про устафф]]
+→ {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
+
+〉Ссылка на якорь
+←((/HomePage#TOC_1))
+→ {type: 'paragraph', children: [
+→   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
 → ]}
 
-〉Греческие буквы
-←%%(math outline)
-←\alpha, \beta, \gamma, \lambda, \mu, \omega, \Gamma, \Lambda, \Omega
-←%%
-→ {type: 'root', children: [
-→   {type: 'womFormatter', format: 'math', attributes: {outline: null},
-→     value: '\n\\alpha, \\beta, \\gamma, \\lambda, \\mu, \\omega, \\Gamma, \\Lambda, \\Omega\n'}
+¡ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
+¡ ((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
+
+〉Прямая ссылка на картинку
+←http://img.woofmd.net/i/logo95x37x8.png
+→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', children: [
+→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}
 → ]}
 
-〉CSV formatter
-←%%(csv delimiter=; head='1')
-←Параметр;Значение;Описание;Ага!
-←Пучеглазость; 0,5; Показывает степень удивления
-←Красноносость; средняя; Показывает температуру за дверью;ой
-←%%
-→ {type: 'root', children: [{type: 'womFormatter', format: 'csv', attributes: {delimiter: ';', head: '1'},
-→   value: '\nПараметр;Значение;Описание;Ага!\nПучеглазость; 0,5; Показывает степень удивления\nКрасноносость; средняя; Показывает температуру за дверью;ой\n'}]}
+〉Ссылка с элементами форматирования не должна быть отформатирована
+←https://abc.woofmd-team.ru/services/_wiki_
+→ {type: 'link', title: null, url: 'https://abc.woofmd-team.ru/services/_wiki_', children: [
+→   {type: 'text', value: 'https://abc.woofmd-team.ru/services/_wiki_'}
+→ ]}
 
-〉Таблица из html
-←<# <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> #>
-→ {type: 'root', children: [{type: 'womHtml', value: ' <table border=1> <tr><td>1</td><td>2</td></tr> <tr><td>3</td><td>4</td></tr> </table> '}]}
+〉Не должен обрезаться ) от ссылки
+←https://awaps.woofmd.ru/15/35819/(14400891/0)
+→ {type: 'link', title: null, url: 'https://awaps.woofmd.ru/15/35819/(14400891/0)', children: [
+→   {type: 'text', value: 'https://awaps.woofmd.ru/15/35819/(14400891/0)'}
+→ ]}
+
+〉Картинка с заданным размером
+←100x100:https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg
+→ {type: 'womImage', url: 'https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg', width: 100, height: 100}
+
+〉Картинка-ссылка
+←((/HomePage http://img.woofmd.net/i/logo95x37x8.png))
+→ null
+
+〉Картинка-ссылка
+←((http://img.woofmd.net/i/www/citylogos/gramota2-logo-ru.png http://img.woofmd.net/i/www/logo.png))
+→ null
+
+〉Ref
+←ref:http://img.woofmd.net/i/logo95x37x8.png
+→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: [
+→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}]}
+
+
+
+
+## Таблицы и раскладки (table)
 
 〉Однострочная таблица
 ←#| ||cell11|| ||cell21|| |#
@@ -1999,175 +2259,9 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   ]}
 → ]}
 
-〉Одинокая ссылка в круглых скобках
-←((http://www.woofmd.ru))
-→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: []}
 
-〉Одинокая ссылка в квадратных скобках
-←[[http://www.woofmd.ru]]
-→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: []}
 
-〉Ссылка с текстом в круглых скобках
-←((http://www.woofmd.ru WoofMD в круглых скобках))
-→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: [{type: 'text', value: 'WoofMD в круглых скобках'}]}
-
-〉Ссылка с текстом в квадратных скобках
-←[[http://www.woofmd.ru WoofMD в квадратных скобках]]
-→ {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: [{type: 'text', value: 'WoofMD в квадратных скобках'}]}
-
-〉Относительная ссылка в круглых скобках
-←((Устафф))
-→ {type: 'womLink', url: 'Устафф', brackets: false, children: []}
-
-〉Относительная ссылка в квадратных скобках
-←[[Устафф]]
-→ {type: 'womLink', url: 'Устафф', brackets: true, children: []}
-
-〉Относительная ссылка c описанием в круглых скобках
-←((Устафф Страница про устав))
-→ {type: 'womLink', url: 'Устафф', brackets: false, children: [{type: 'text', value: 'Страница про устав'}]}
-
-〉Относительная ссылка с описанием в квадратных скобках
-←[[Устафф Страница про устафф]]
-→ {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
-
-〉Ссылка на якорь
-←((/HomePage#TOC_1))
-→ {type: 'paragraph', children: [
-→   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
-→ ]}
-
-""**Жирный текст**"" → {type: 'womEscape', raw: '""**Жирный текст**""', value: '**Жирный текст**'}
-~**Жирный_текст** → {type: 'womEscape', raw: '~**Жирный_текст**', value: '**Жирный_текст**'}
-
-¡ https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc → null
-¡ ((https://wiki.woofmd-team.ru/wiki/vodstvo/file/.files/bobrujjsk.doc ссылка на файл)) → null
-
-〉Прямая ссылка на картинку
-←http://img.woofmd.net/i/logo95x37x8.png
-→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', children: [
-→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}
-→ ]}
-
-〉Ссылка с элементами форматирования не должна быть отформатирована
-←https://abc.woofmd-team.ru/services/_wiki_
-→ {type: 'link', title: null, url: 'https://abc.woofmd-team.ru/services/_wiki_', children: [
-→   {type: 'text', value: 'https://abc.woofmd-team.ru/services/_wiki_'}
-→ ]}
-
-〉Не должен обрезаться ) от ссылки
-←https://awaps.woofmd.ru/15/35819/(14400891/0)
-→ {type: 'link', title: null, url: 'https://awaps.woofmd.ru/15/35819/(14400891/0)', children: [
-→   {type: 'text', value: 'https://awaps.woofmd.ru/15/35819/(14400891/0)'}
-→ ]}
-
-〉Картинка с заданным размером
-←100x100:https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg
-→ {type: 'womImage', url: 'https://wiki.woofmd-team.ru/wiki/vodstvo/pictures/.files/e1.jpg', width: 100, height: 100}
-
-〉Картинка-ссылка
-←((/HomePage http://img.woofmd.net/i/logo95x37x8.png))
-→ null
-
-〉Картинка-ссылка
-←((http://img.woofmd.net/i/www/citylogos/gramota2-logo-ru.png http://img.woofmd.net/i/www/logo.png))
-→ null
-
-〉Ref
-←ref:http://img.woofmd.net/i/logo95x37x8.png
-→ {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: [
-→   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}]}
-
-〉 Сложненький список
-←1. Ordered List
-←2. text %%code%% text
-←3. text %%code code code
-←code code code code code
-←code code code code code%% text
-←4.#99 text
-←5. %%(cs)
-←codecodecodecodecode
-←codecodecodecodecode
-←code code code code code
-←%%
-←6. вложенный список
-←    2.+ вложенный список, свёртнутый пункт
-←        * %%code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code %%
-←           * %%codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode%%
-←        * Скрытый пункт %%списка%%
-→ {type: 'root', children: [{type: 'list', ordered: true, styleType: 'decimal', start: 1, loose: false, children: [
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'paragraph', children: [{type: 'text', value: 'Ordered List'}]},
-→   ]},
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'paragraph', children: [
-→       {type: 'text', value: 'text '},
-→       {type: 'womFormatter', value: 'code'},
-→       {type: 'text', value: ' text'}
-→     ]},
-→   ]},
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'paragraph', children: [
-→       {type: 'text', value: 'text '},
-→       {type: 'womFormatter', value: 'code code code\ncode code code code code\ncode code code code code'},
-→       {type: 'text', value: ' text'}
-→     ]},
-→   ]},
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: 99, children: [
-→     {type: 'paragraph', children: [{type: 'text', value: 'text'}]},
-→   ]},
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'womFormatter', format: 'cs', attributes: {}, value: '\ncodecodecodecodecode\ncodecodecodecodecode\ncode code code code code\n'}
-→   ]},
-→   {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→     {type: 'paragraph', children: [{type: 'text', value: 'вложенный список'}]},
-→     {type: 'list', ordered: true, styleType: 'decimal', start: 2, loose: false, children: [
-→       {type: 'listItem', loose: false, checked: null, expandable: true, restart: null,
-→         title: [{type: 'paragraph', children: [{type: 'text', value: 'вложенный список, свёртнутый пункт'}]}],
-→         children: [{type: 'list', ordered: false, start: null, loose: false, children: [
-→           {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→             {type: 'womFormatter', value: 'code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code code '},
-→             {type: 'list', ordered: false, start: null, loose: false, children: [
-→               {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→                 {type: 'womFormatter', value: 'codecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecodecode'}
-→               ]}
-→             ]}
-→           ]},
-→           {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→             {type: 'paragraph', children: [{type: 'text', value: 'Скрытый пункт '}, {type: 'womFormatter', value: 'списка'}]},
-→           ]}
-→         ]}
-→       ]}
-→     ]}
-→   ]}
-→ ]}]}
-
-〉Обычный кат
-←<{обычный кат
-←текст}>
-→ {type: 'root', children: [
-→   {type: 'womCut',
-→     title: [{type: 'paragraph', children: [{type: 'text', value: 'обычный кат'}]}],
-→     children: [{type: 'paragraph', children: [{type: 'text', value: 'текст'}]}]
-→   }]}
-
-〉Пустой кат
-←<{пустой кат
-←}>
-→ {type: 'root', children: [
-→   {type: 'womCut',
-→     title: [{type: 'paragraph', children: [{type: 'text', value: 'пустой кат'}]}],
-→     children: []
-→   }]}
-
-〉Кат без заголовка
-←<{
-←}>
-→ {type: 'root', children: [{type: 'womCut', title: [], children: []}]}
-
-〉Незакрытый кат
-←<{
-→ {type: 'root', children: [{type: 'paragraph', children: [{type: 'text', value: '<{'}]}]}
+## tilde-based
 
 〉Код через ~
 ←~~~
@@ -2217,6 +2311,8 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 →   {type: 'text', value: ' cc'}
 → ]}
 
+## Экшны (actions)
+
 〉Экшн без пробелов после открывающих и перед закрывающими скобками, с параметрами
 ←{{linkstree root=HomePage levels}}
 →{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }}
@@ -2244,54 +2340,3 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 〉Экшн с параметрами с кавычками и без
 ←{{iframe src="https://wiki.woofmd-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
 →{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
-
-〉¡ 123
-←<# <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> #> Node.js Clients:
-←* <{tracker
-←https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker
-←
-←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.
-←}>
-←* <{tracker-client
-←https://github.woofmd-team.ru/toolbox/tracker-client
-←
-←Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.
-←}>
-→ [
-→   {type: 'root', children: [
-→     {type: 'paragraph', children: [
-→       {type: 'womHtml', value: ' <img src="/tracker/api/.files/nodejs-logo.png" width="18" height="18" style="vertical-align:middle"> '},
-→       {type: 'text', value: ' Node.js Clients:'}
-→     ]},
-→     {type: 'list', ordered: false, loose: false, children: [
-→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→         {type: 'womCut',
-→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker'}]}],
-→           children: [
-→             {type: 'paragraph', children: [{
-→               type: 'link',
-→               title: null,
-→               url: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker',
-→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/search/interfaces/tree/master/packages/tracker'}]
-→             }]},
-→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Если вам кажется, что вас игнорируют — пишите кому:Филиппу.'}]}
-→           ]
-→         }
-→       ]},
-→       {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
-→         {type: 'womCut',
-→           title: [{type: 'paragraph', children: [{type: 'text', value: 'tracker-client'}]}],
-→           children: [
-→             {type: 'paragraph', children: [{
-→               type: 'link',
-→               title: null,
-→               url: 'https://github.woofmd-team.ru/toolbox/tracker-client',
-→               children: [{type: 'text', value: 'https://github.woofmd-team.ru/toolbox/tracker-client'}]
-→             }]},
-→             {type: 'paragraph', children: [{type: 'text', value: 'Вопросы, предложения и багрепорты заводите в виде issue в github, если хотите поучаствовать в развитии – присылайте пулл-реквесты. Все вопросы можно писать кому:Максиму.'}]}
-→           ]
-→         }
-→       ]}
-→     ]}
-→   ]}
-→ ]

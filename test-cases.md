@@ -2248,6 +2248,11 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 → {type: 'link', title: null, url: 'http://img.woofmd.net/i/logo95x37x8.png', ref: true, children: [
 →   {type: 'text', value: 'http://img.woofmd.net/i/logo95x37x8.png'}]}
 
+〉Ссылки с file
+←file:/group/gods/dog.jpg
+→ {type: 'link', title: null, url: 'file:/group/gods/dog.jpg', children: [
+→   {type: 'text', value: 'file:/group/gods/dog.jpg'}]}
+
 
 
 

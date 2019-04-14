@@ -2115,6 +2115,9 @@ egorova@      → {type: 'womStaff', value: 'egorova', case: null,    at: 'suff
 текст тексткто:egorova → {type: 'text', value: 'текст тексткто:egorova' }
 текст текст@egorova → {type: 'text', value: 'текст текст@egorova' }
 
+club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
+клуб:интернет → {type: 'womClub', value: 'интернет', case: 'клуб', at: null }
+
 〉Checking for false-positives in staff links
 ←Perfecto is real! Right, staff:johnson?
 ←

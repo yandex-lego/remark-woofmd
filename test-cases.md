@@ -2403,7 +2403,7 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 
 〉Пустые ячейки
 ←#|
-←|| Id | - |||#
+←|| Id | - ||||#
 → {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
 →   {type: 'womTableCell', children: [
 →     {type: 'paragraph', children: [{type: 'text', value: ' Id '}]}
@@ -2414,6 +2414,103 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →   {type: 'womTableCell', children: []},
 → ]}]}]}
 
+〉Битый кусок таблицы 1
+←#|
+→ {type: 'text', value: '#|'}
+
+〉Битый кусок таблицы 2
+←|#
+→ {type: 'text', value: '|#'}
+
+〉Битый кусок раскладки 1
+←#||
+→ {type: 'text', value: '#||'}
+
+〉Битый кусок раскладки 2
+←||#
+→ {type: 'text', value: '||#'}
+
+〉Битый кусок раскладка + таблица
+←#|| |#
+→ {type: 'text', value: '#|| |#'}
+
+〉Битый кусок раскладка + таблица впритык
+←#|||#
+→ {type: 'text', value: '#|||#'}
+
+〉Битый кусок раскладка + # (или таблица без данных)
+←#||#
+→ {type: 'text', value: '#||#'}
+
+〉Таблица со строкой впритык 1
+←#||| x || |#
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→ ]}]}]}
+
+〉Таблица со строкой впритык 2
+←#||| x |||#
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→ ]}]}]}
+
+// #|
+// || x ||
+// |#
+
+〉Таблица с одной строкой и двумя колонками впритык
+←#||| | x |||#
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→   {type: 'womTableCell', children: []},
+→   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→ ]}]}]}
+
+〉Таблица с двумя строками впритык
+←#|||x||||y|||#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]}]},
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'y'}]}]}]},
+→ ]}]}
+
+〉Раскладка с колонкой впритык
+←#|||| x ||||#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→ ]}]}]}
+
+〉Раскладка с двумя колонками впритык
+←#||||x||||y||||#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]}]},
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'y'}]}]}]},
+→ ]}]}
+
+〉Таблица в начале, раскладка в конце
+←#| || x || ||#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→   ]}]}]}
+
+〉Раскладка в начале, таблица в конце
+←#|| || x || |#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
+→   ]}]}]}
+
+〉Раскладка в начале, таблица в конце, с битой строкой
+←#|| || x | |#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]},
+→     {type: 'womTableCell', children: []},
+→   ]}]}]}
 
 
 

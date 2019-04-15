@@ -2117,6 +2117,32 @@
 →   url: "https://st.woofmd-team.ru/QUEUE-1234"
 → }
 
+〉Ссылка на тикет с квадратными скобками
+←QUEUE-1234[]
+→ [{type: 'womTicket', title: null, assignee: null, realm: null, value: 'QUEUE-1234'}, {type: 'text', value: '[]'}]
+
+〉Ссылка на тикет с квадратными и круглыми скобками
+←QUEUE-1234[]()
+→ [{type: 'womTicket', title: null, assignee: null, realm: null, value: 'QUEUE-1234', title: []}]
+
+〉Полная ссылка на тикет с квадратными скобками
+←https://jira.woofmd-team.ru/QUEUE-1234[]
+→ {type: 'link', title: null, url: 'https://jira.woofmd-team.ru/QUEUE-1234[]', children: [
+→   {type: 'text', value: 'https://jira.woofmd-team.ru/QUEUE-1234[]'}
+→ ]}
+
+〉Полная ссылка на тикет с круглыми скобками
+←https://jira.woofmd-team.ru/QUEUE-1234()
+→ {type: 'link', title: null, url: 'https://jira.woofmd-team.ru/QUEUE-1234()', children: [
+→   {type: 'text', value: 'https://jira.woofmd-team.ru/QUEUE-1234()'}
+→ ]}
+
+〉Полная ссылка на тикет с разными скобками
+←https://jira.woofmd-team.ru/QUEUE-1234[ ]( )
+→ {type: 'womTicket', title: null, assignee: null, realm: 'jira.woofmd-team.ru',
+→   protocol: 'https://', url: 'https://jira.woofmd-team.ru/QUEUE-1234',
+→   value: 'QUEUE-1234', title: [{type: 'text', value: ' '}]}
+
 〉Встроенный в текст номер тикета не должен парситься
 ←//home/woofmd/SIDEBYSIDE-100500/yes-yes
 → {type: 'text', value: '//home/woofmd/SIDEBYSIDE-100500/yes-yes'}

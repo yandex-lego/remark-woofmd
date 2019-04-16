@@ -2007,7 +2007,7 @@
 →   {type: 'list', ordered: false, start: null, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: true, expandable: false, restart: null, children: [
 →       {type: 'paragraph', children: [
-→         {type: 'womTicket', assignee: 'arkady', realm: null, value: 'ABC-1234', title: [
+→         {type: 'womTicket', assignee: 'arkady', realm: null, protocol: null, url: null, value: 'ABC-1234', title: [
 →           {type: 'text', value: ' '},
 →           {type: 'womStrike', children: [{type: 'text', value: 'Важная задача'}]},
 →           {type: 'text', value: ' '},
@@ -2019,13 +2019,13 @@
 →   {type: 'list', ordered: false, start: null, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: false, expandable: false, restart: null, children: [
 →       {type: 'paragraph', children: [
-→         {type: 'womTicket', assignee: null, realm: null, value: 'ABC-1233', title: [
+→         {type: 'womTicket', assignee: null, realm: null, protocol: null, url: null, value: 'ABC-1233', title: [
 →           {type: 'text', value: ' Важная задача 2 '}
 →         ]}]}]}]},
 →   {type: 'list', ordered: false, start: null, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: null, expandable: false, restart: null, children: [
 →       {type: 'paragraph', children: [
-→         {type: 'womTicket', assignee: 'arkady', realm: null, value: 'ABC-1232', title: [
+→         {type: 'womTicket', assignee: 'arkady', realm: null, protocol: null, url: null, value: 'ABC-1232', title: [
 →           {type: 'text', value: ' Важная задача 3 '}
 →         ]},
 →         {type: 'text', value: ' - должно закрыться после п.1'}
@@ -2036,7 +2036,7 @@
 →   {type: 'list', ordered: false, start: null, loose: false, children: [
 →     {type: 'listItem', loose: false, checked: false, expandable: false, restart: null, children: [
 →       {type: 'paragraph', children: [
-→         {type: 'womTicket', assignee: null, realm: null, value: 'ABC-1231', title: [
+→         {type: 'womTicket', assignee: null, realm: null, protocol: null, url: null, value: 'ABC-1231', title: [
 →           {type: 'text', value: ' Важная задача 4 '}
 →         ]}]}]}]}
 → ]}
@@ -2090,7 +2090,7 @@
 →   value: 'QUEUE-1234',
 →   title: null,
 →   assignee: null,
-→   realm: null}
+→   realm: null, protocol: null, url: null}
 
 〉Ссылка на тикет с расширенным синтаксисом (WIKI-11815)
 ←QUEUE-1234[ --Важный тикет: "Сделать!"-- ]( mrtwister )
@@ -2102,7 +2102,7 @@
 →     {type: 'text', value: ' '},
 →   ],
 →   assignee: 'mrtwister',
-→   realm: null}
+→   realm: null, protocol: null, url: null}
 
 〉Полная ссылка с realm без assignee (WIKI-11815)
 ←https://st.woofmd-team.ru/QUEUE-1234[ "Важный тикет: Сделать ](  )
@@ -2116,6 +2116,69 @@
 →   protocol: "https://",
 →   url: "https://st.woofmd-team.ru/QUEUE-1234"
 → }
+
+〉Битая ссылка на тикет с одной квадратной скобкой
+←QUEUE-1234[
+→ [{type: 'womTicket', title: null, assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'},
+→  {type: 'text', value: '['}]
+
+〉Битая ссылка на тикет с квадратными скобками
+←QUEUE-1234[]
+→ [{type: 'womTicket', title: null, assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'},
+→  {type: 'text', value: '[]'}]
+
+〉Битая ссылка на тикет с одной квадратной скобкой
+←QUEUE-1234[](
+//)
+→ [{type: 'womTicket', title: null, assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'},
+→  {type: 'text', value: '[]('}]
+//)
+
+〉Пустая ссылка на тикет с квадратными и круглыми скобками
+←QUEUE-1234[]()
+→ [{type: 'womTicket', title: [], assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'}]
+
+〉Ссылка на тикет должна парситься, даже если есть большие буквы перед ссылкой
+←UPPERCASE some text QUEUE-1234
+→ [{type: 'text', value: 'UPPERCASE some text '},
+→  {type: 'womTicket', title: null, assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'}]
+
+〉Ссылка на тикет должна парситься, даже если есть большие буквы и перед ссылкой, и после
+←UPPERCASE some text QUEUE-1234 yes yes
+→ [{type: 'text', value: 'UPPERCASE some text '},
+→  {type: 'womTicket', title: null, assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'},
+→  {type: 'text', value: ' yes yes'},
+→  ]
+
+〉Ссылка на тикет должна парситься даже если одна большая буква
+←textA QUEUE-1234[ text ]()
+→ [{type: 'text', value: 'textA '},
+→  {type: 'womTicket', title: [{type: 'text', value: ' text '}], assignee: null, realm: null, protocol: null, url: null, value: 'QUEUE-1234'}]
+
+〉Битая полная ссылка на тикет с квадратными скобками
+←https://jira.woofmd-team.ru/QUEUE-1234[]
+→ {type: 'link', title: null, url: 'https://jira.woofmd-team.ru/QUEUE-1234[]', children: [
+→   {type: 'text', value: 'https://jira.woofmd-team.ru/QUEUE-1234[]'}
+→ ]}
+
+〉Битая полная ссылка на тикет с круглыми скобками
+←https://jira.woofmd-team.ru/QUEUE-1234()
+→ {type: 'link', title: null, url: 'https://jira.woofmd-team.ru/QUEUE-1234()', children: [
+→   {type: 'text', value: 'https://jira.woofmd-team.ru/QUEUE-1234()'}
+→ ]}
+
+〉Полная ссылка с пустыми полями на тикет с разными скобками
+←https://jira.woofmd-team.ru/QUEUE-1234[ ]( )
+→ {type: 'womTicket', title: null, assignee: null, realm: 'jira.woofmd-team.ru',
+→   protocol: 'https://', url: 'https://jira.woofmd-team.ru/QUEUE-1234',
+→   value: 'QUEUE-1234', title: [{type: 'text', value: ' '}]}
+
+〉Полная ссылка на тикет без протокола
+←jira.woofmd-team.ru/QUEUE-1234[ Summary  ]( )
+→ {type: 'womTicket',
+→   assignee: null, realm: 'jira.woofmd-team.ru',
+→   protocol: null, url: 'jira.woofmd-team.ru/QUEUE-1234',
+→   value: 'QUEUE-1234', title: [{type: 'text', value: ' Summary  '}]}
 
 〉Встроенный в текст номер тикета не должен парситься
 ←//home/woofmd/SIDEBYSIDE-100500/yes-yes
@@ -2215,7 +2278,7 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←[[Устафф Страница про устафф]]
 → {type: 'womLink', url: 'Устафф', brackets: true, children: [{type: 'text', value: 'Страница про устафф'}]}
 
-〉Ссылка на якорь
+〉Битая ссылка на якорь
 ←((/HomePage#TOC_1))
 → {type: 'paragraph', children: [
 →   {type: 'womLink', url: '/HomePage#TOC_1', brackets: false, children: []}
@@ -2263,6 +2326,10 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←file:/group/gods/dog.jpg
 → {type: 'link', title: null, url: 'file:/group/gods/dog.jpg', children: [
 →   {type: 'text', value: 'file:/group/gods/dog.jpg'}]}
+
+〉Картика с file
+←100x100:file:/dog.jpg
+→ {type: 'womImage', url: 'file:/dog.jpg', width: 100, height: 100}
 
 
 

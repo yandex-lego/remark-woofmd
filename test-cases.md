@@ -2709,28 +2709,28 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 
 〉Экшн без пробелов после открывающих и перед закрывающими скобками, с параметрами
 ←{{linkstree root=HomePage levels}}
-→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }}
+→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }, "sourceText":"{{linkstree root=HomePage levels}}"}
 
 〉Экшн без пробелов после открывающих и перед закрывающими скобками, с параметрами
 ←{{ linkstree root=HomePage levels }}
-→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null }}
+→{type: 'womAction', name: 'linkstree', params: { root: 'HomePage', levels: null },"sourceText":"{{ linkstree root=HomePage levels }}"}
 
 〉Экшн без пробелов после открывающих и перед закрывающими скобками, без параметров
 ←{{linkstree}}
-→{type: 'womAction', name: 'linkstree', params: {}}
+→{type: 'womAction', name: 'linkstree', params: {},"sourceText":"{{linkstree}}"}
 
 〉Экшн без пробела после открывающих скобок и с пробелом перед закрывающими, с текстом перед ним
 ←blablaska {{n root=HomePage }}
-→[{ type: 'text', value: 'blablaska ' }, {type: 'womAction', name: 'n', params: { root: 'HomePage' }}]
+→[{ type: 'text', value: 'blablaska ' }, {type: 'womAction', name: 'n', params: { root: 'HomePage' }, "sourceText":"{{n root=HomePage }}"}]
 
 〉Два экшена в строке через текст
 ←{{a}} text {{b}}
-→[{ type: 'womAction', name: 'a', params: {} }, { type: 'text', value: ' text ' }, { type: 'womAction', name: 'b', params: {} }]
+→[{ type: 'womAction', name: 'a', params: {}, "sourceText":"{{a}} text {{b}}" }, { type: 'text', value: ' text ' }, { type: 'womAction', name: 'b', params: {}, "sourceText":"{{b}}" }]
 
 〉Два экшена подряд в строке
 ←{{a}}{{b}}
-→[{ type: 'womAction', name: 'a', params: {} }, { type: 'womAction', name: 'b', params: {} }]
+→[{ type: 'womAction', name: 'a', params: {}, "sourceText":"{{a}}{{b}}" }, { type: 'womAction', name: 'b', params: {}, "sourceText":"{{b}}"}]
 
 〉Экшн с параметрами с кавычками и без
 ←{{iframe src="https://wiki.woofmd-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
-→{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
+→{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }, "sourceText":"{{iframe src=\"https://wiki.woofmd-team.ru\" frameborder=0 width=700px height=600px scrolling=no}}"}

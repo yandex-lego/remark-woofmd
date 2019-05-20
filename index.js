@@ -499,7 +499,7 @@ function eatFormatterProps(ctx) {
         return null;
     }
 
-    const keyValueRE = /([a-z]\w+)(?:=\s*('[^']+'|"[^"]+"|[^\s)]+))?\s*/;
+    const keyValueRE = /([A-Za-z]\w+)(?:=\s*('[^']+'|"[^"]+"|[^\s)]+))?\s*/;
     const chunks = [];
     let i = index + 1;
     while (i < value.length) {

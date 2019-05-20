@@ -394,6 +394,21 @@
 →     value: `\n@requires_authorization\ndef somefunc(param1, param2):\n    r'''A docstring'''\n`
 →   } ] }
 
+
+〉Пример 3: язык с заглавной буквы
+←%%(Python)
+←fronm django.contrib.auth.models import Group, Permission
+←different_users = Group(name='Different Users')
+←different_users.save()
+←%% 
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: 'Python',
+→     attributes: {},
+→     value: `\nfronm django.contrib.auth.models import Group, Permission\ndifferent_users = Group(name='Different Users')\ndifferent_users.save()\n`
+→   } ] }
+
+
 〉Cut с питон функцией
 ←<{код функции
 ←%%(js)

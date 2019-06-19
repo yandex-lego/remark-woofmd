@@ -2749,3 +2749,7 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 〉Экшн с параметрами с кавычками и без
 ←{{iframe src="https://wiki.woofmd-team.ru" frameborder=0 width=700px height=600px scrolling=no}}
 →{type: 'womAction', name: 'iframe', params: { src: 'https://wiki.woofmd-team.ru', frameborder: '0', width: '700px', height: '600px', scrolling: 'no' }}
+
+〉Заголовок со ссылкой
+←===((https://ya.ru Yandex))
+→{"type":"root","children":[{"type":"womHeading","depth":2,"anchor":null,"expandable":false,"children":[{"type":"womLink","url":"https://ya.ru","brackets":false,"children":[{"type":"text","value":"Yandex"}]}]}]}

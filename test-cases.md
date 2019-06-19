@@ -2203,6 +2203,10 @@
 ←[Якорь](#woofmd)
 → {type: 'link', title: null, url: '#woofmd', children: [{type: 'text', value: 'Якорь'}]}
 
+〉кто:egorova\nq@q
+←кто:egorova
+←q@q
+→[{type: 'womStaff', value: 'egorova', case: 'кто',   at: null}, { type: 'text', value: '\nq@q' }]
 кто:egorova   → {type: 'womStaff', value: 'egorova', case: 'кто',   at: null}
 кто:egorova-a   → {type: 'womStaff', value: 'egorova-a', case: 'кто',   at: null}
 кто:egorova_a   → {type: 'womStaff', value: 'egorova_a', case: 'кто',   at: null}

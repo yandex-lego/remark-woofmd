@@ -734,6 +734,9 @@
 →     {type: 'womFormatter', value: 'глазировка'}
 →   ]}]}
 
+〉Заголовок со ссылкой
+←===((https://ya.ru Yandex))
+→{"type":"root","children":[{"type":"womHeading","depth":2,"anchor":null,"expandable":false,"children":[{"type":"womLink","url":"https://ya.ru","brackets":false,"children":[{"type":"text","value":"Yandex"}]}]}]}
 
 
 ## Сноски (footnote, reference, definition)

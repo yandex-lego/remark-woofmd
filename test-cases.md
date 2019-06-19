@@ -408,6 +408,42 @@
 →     value: `\nfronm django.contrib.auth.models import Group, Permission\ndifferent_users = Group(name='Different Users')\ndifferent_users.save()\n`
 →   } ] }
 
+〉Пример 4: небуквенный символ в языке
+←%%(c++)
+←fronm django.contrib.auth.models import Group, Permission
+←different_users = Group(name='Different Users')
+←different_users.save()
+←%% 
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: 'c++',
+→     attributes: {},
+→     value: `\nfronm django.contrib.auth.models import Group, Permission\ndifferent_users = Group(name='Different Users')\ndifferent_users.save()\n`
+→   } ] }
+
+〉Пример 5: язык из одного символа
+←%%(c)
+←fronm django.contrib.auth.models import Group, Permission
+←different_users = Group(name='Different Users')
+←different_users.save()
+←%% 
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: 'c',
+→     attributes: {},
+→     value: `\nfronm django.contrib.auth.models import Group, Permission\ndifferent_users = Group(name='Different Users')\ndifferent_users.save()\n`
+→   } ] }
+
+〉Пример 6: язык из цифр
+←%%(123)
+←value
+←%% 
+→ { type: 'root', children: [
+→   { type: 'womFormatter',
+→     format: '123',
+→     attributes: {},
+→     value: `\nvalue\n`
+→   } ] }
 
 〉Cut с питон функцией
 ←<{код функции

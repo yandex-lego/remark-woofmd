@@ -690,6 +690,10 @@
 ←==+(intro) Введение
 → {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: 'intro', expandable: true, children: [{type: 'text', value: 'Введение'}]}]}
 
+〉Раскрывающийся заголовок после якоря
+←==(intro)+ Введение
+→ {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: 'intro', expandable: true, children: [{type: 'text', value: 'Введение'}]}]}
+
 〉Большой заголовок без якоря, но со скобками в начале
 ←==() Введение
 → {type: 'root', children: [{type: 'womHeading', depth: 1, anchor: '', expandable: false, children: [{type: 'text', value: 'Введение'}]}]}

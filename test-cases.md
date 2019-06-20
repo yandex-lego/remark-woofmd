@@ -2406,10 +2406,10 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←#| ||cell11|| ||cell21|| |#
 → {type: 'root', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]}
 →     ]},
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]}
 →     ]}
 →   ]}
@@ -2422,12 +2422,12 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←|#
 → {type: 'root', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]},
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12'}]}]},
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell13'}]}]}
 →     ]},
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]},
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22'}]}]},
 →     ]}
@@ -2438,10 +2438,10 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←#|| ||cell11|| ||cell21|| ||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11'}]}]}
 →     ]},
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21'}]}]}
 →     ]}
 →   ]}
@@ -2453,26 +2453,48 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 //    ѳ-- ѳ----------------  5-8 9-26
 → {type: 'root', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →
 → {type: 'womTableCell', children: [
 →   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
 → {type: 'womTableCell', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
 →     ]} ]} ]},
 → {type: 'womTableCell', children: [
 →   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
 → {type: 'womTableCell', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' xxx '}]}]}
 →     ]} ]} ]},
 → {type: 'womTableCell', children: [
 →   {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]} ]},
 →
 →     ]} ]} ]}
+
+〉Вложенная раскладка
+←#|
+←||ячейка-строка|
+←#||
+←  ||ячейка во вложенной таблице||
+←||#
+←||
+←|#
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [
+→         {type: 'paragraph', children: [{type: 'text', value: 'ячейка-строка'}]}
+→       ]},
+→       {type: 'womTableCell', children: [
+→         {type: 'womTable', kind: 'layout', children: [{type: 'womTableRow', children: [
+→           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'ячейка во вложенной таблице'}]} ]}]}]}
+→       ]}
+→     ]}
+→   ]}
+→ ]}
 
 〉Вложенные таблицы
 ←#||
@@ -2481,32 +2503,32 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell10 '}]}
 →       ]},
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
 →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell11.0'}]} ]}]}]}
 →       ]},
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
 →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell12.0'}]} ]}]}]}
 →       ]},
 →       {type: 'womTableCell', children: [
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell13 '}]}
 →       ]},
 →     ]},
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell20 '}]}
 →       ]},
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
 →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell21.0'}]} ]}]}]}
 →       ]},
 →       {type: 'womTableCell', children: [
-→         {type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→         {type: 'womTable', children: [{type: 'womTableRow', children: [
 →           {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'cell22.0'}]} ]}]}]}
 →       ]},
 →       {type: 'womTableCell', children: [
@@ -2522,21 +2544,21 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←||#
 → {type: 'root', children: [
 →   {type: 'womTable', kind: 'layout', children: [
-→     {type: 'womTableRow', single: false, children: [
+→     {type: 'womTableRow', children: [
 →       {type: 'womTableCell', children: [
 →         {type: 'paragraph', children: [{type: 'text', value: ' cell10 '}]}
 →       ]},
 →
 →       {type: 'womTableCell', children: [
 →         {type: 'womTable', children: [
-→           {type: 'womTableRow', single: false, children: [
+→           {type: 'womTableRow', children: [
 →             {type: 'womTableCell', children: [
 →               {type: 'paragraph', children: [{type: 'text', value: 'cell11.0'}]}
 →             ]},
 →
 →             {type: 'womTableCell', children: [
 →               {type: 'womTable', children: [
-→                 {type: 'womTableRow', single: false, children: [
+→                 {type: 'womTableRow', children: [
 →                   {type: 'womTableCell', children: [
 →                     {type: 'paragraph', children: [{type: 'text', value: 'cell11.0.0'}]}
 →                   ]},
@@ -2558,60 +2580,165 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →       ]},
 → ]}]}]}
 
-〉Таблица с заголовком
-←#| Заголовок
-←|| 1 | 2 | 3 ||
+〉¡ Таблица с пустыми ячейками в строках
+←#| ||1||3|| |||5|6|| ||7|8||| |#
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '1'}]}]},
+→       {type: 'womTableCell', children: []},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '3'}]}]},
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: []},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '5'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '6'}]}]},
+→     ]},
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '7'}]}]},
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: '8'}]}]},
+→       {type: 'womTableCell', children: []},
+→     ]},
+→   ]}]}
+
+〉Таблица с жирной строкой-заголовком
+←#|
+←**||Column 1|Column 2||**
+←|| | ||
 ←|#
 → {type: 'root', children: [
 →   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: true, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [
-→           {type: 'text', value: ' Заголовок'}
-→         ]}]}]},
-→     {type: 'womTableRow', single: false, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [
-→           {type: 'text', value: ' 1 '}
-→         ]}]},
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [
-→           {type: 'text', value: ' 2 '}
-→         ]}]},
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [
-→           {type: 'text', value: ' 3 '}
-→         ]}]},
-→     ]}]}]}
-
-〉Таблица с кучей заголовков в строку
-←#| Заголовок 1 || 1 || Заголовок 2 || 2 || Заголовок 3 || 3 || |#
-→ {type: 'root', children: [
-→   {type: 'womTable', children: [
-→     {type: 'womTableRow', single: true, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' Заголовок 1 '}]}]}]},
-→     {type: 'womTableRow', single: false, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' 1 '}]}]}]},
-→     {type: 'womTableRow', single: true, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' Заголовок 2 '}]}]}]},
-→     {type: 'womTableRow', single: false, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' 2 '}]}]}]},
-→     {type: 'womTableRow', single: true, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' Заголовок 3 '}]}]}]},
-→     {type: 'womTableRow', single: false, children: [
-→       {type: 'womTableCell', children: [
-→         {type: 'paragraph', children: [{type: 'text', value: ' 3 '}]}]}]},
+→           {type: 'womTableRow', children: [
+→             {type: 'womTableCell', children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'Column 1'}]} ]},
+→             {type: 'womTableCell', children: [
+→               {type: 'paragraph', children: [{type: 'text', value: 'Column 2'}]} ]},
+→           ]},
+→           {type: 'womTableRow', children: [
+→             {type: 'womTableCell', children: [
+→           ]},
+→           {type: 'womTableCell', children: [
+→           ]}]}
 → ]}]}
+
+〉Таблица со стилизованной строкой в центре
+←#|
+←|| 1 | 2 ||
+←**!!//||Column 1|Column 2||//!!**
+←|| 3 | 4 ||
+←|#
+→{type: 'root', children: [
+→  {type: 'womTable', children: [
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: ' 1 '}]}]},
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: ' 2 '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: 'Column 1'}]}]},
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: 'Column 2'}]}]}
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: ' 3 '}]}]},
+→      {type: 'womTableCell', children: [
+→        {type: 'paragraph', children: [
+→          {type: 'text', value: ' 4 '}]}]}
+→  ]}]}]}
+
+〉¡ Таблица с по разному стилизованными строками
+←#|
+←**|| 1a | 1b ||**
+←//|| 1a | 1b ||//
+←__|| 1a | 1b ||__
+←##|| 1a | 1b ||##
+←++|| 1a | 1b ||++
+←--|| 1a | 1b ||--
+←??|| 1a | 1b ||??
+←!!|| 1a | 1b ||!!
+←|#
+→{type: 'root', children: [
+→  {type: 'womTable', children: [
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→  ]},
+→]}
+
+〉Таблица с разноцветными строками
+←#|
+←!!(крас)|| 1a | 1b ||!!
+←!!(зел)|| 1a | 1b ||!!
+←!!(син)|| 1a | 1b ||!!
+←!!(grey)|| 1a | 1b ||!!
+←!!(yellow)|| 1a | 1b ||!!
+←|#
+→{type: 'root', children: [
+→  {type: 'womTable', children: [
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]},
+→    {type: 'womTableRow', children: [
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1a '}]}]},
+→      {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' 1b '}]}]},
+→    ]}
+→  ]},
+→]}
 
 〉Пустые ячейки
 ←#|
 ←|| Id | - ||||#
-→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
 →   {type: 'womTableCell', children: [
 →     {type: 'paragraph', children: [{type: 'text', value: ' Id '}]}
 →   ]},
@@ -2619,6 +2746,34 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →     {type: 'paragraph', children: [{type: 'text', value: ' - '}]}
 →   ]},
 →   {type: 'womTableCell', children: []},
+→ ]}]}]}
+
+〉Пустая таблица
+←#| |#
+→ {type: 'text', value: '#| |#'}
+
+〉Пустая таблица с внутренностями
+←#| **//** |#
+→ {type: 'paragraph', children: [
+→   {type: 'text', value: '#| '},
+→   {type: 'strong', children: [ {type: 'text', value: '//'}]},
+→   {type: 'text', value: ' |#'}
+→ ]}
+
+〉Некорректые символы в начале таблице
+←#| абв**||ячейка|| |#
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
+→   {type: 'womTableCell', children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'ячейка'}]}
+→   ]}
+→ ]}]}]}
+
+〉Некорректые символы в конце таблице
+←#| ||ячейка|| абв**|#
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
+→   {type: 'womTableCell', children: [
+→     {type: 'paragraph', children: [{type: 'text', value: 'ячейка'}]}
+→   ]}
 → ]}]}]}
 
 〉Битый кусок таблицы 1
@@ -2651,23 +2806,19 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 
 〉Таблица со строкой впритык 1
 ←#||| x || |#
-→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
 →   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
 → ]}]}]}
 
 〉Таблица со строкой впритык 2
 ←#||| x |||#
-→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
 →   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
 → ]}]}]}
 
-// #|
-// || x ||
-// |#
-
 〉Таблица с одной строкой и двумя колонками впритык
 ←#||| | x |||#
-→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', single: false, children: [
+→ {type: 'root', children: [{type: 'womTable', children: [{type: 'womTableRow', children: [
 →   {type: 'womTableCell', children: []},
 →   {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
 → ]}]}]}
@@ -2675,51 +2826,318 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 〉Таблица с двумя строками впритык
 ←#|||x||||y|||#
 → {type: 'root', children: [{type: 'womTable', children: [
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]}]},
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'y'}]}]}]},
+→ ]}]}
+
+〉Раскладка с двумя строками впритык
+←#||||c1|c2||||c3|c4||||#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c1'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c2'}]}]},
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c3'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c4'}]}]},
+→   ]},
 → ]}]}
 
 〉Раскладка с колонкой впритык
-←#|||| x ||||#
+←#|| || x ||||#
 → {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
 → ]}]}]}
 
-〉Раскладка с двумя колонками впритык
-←#||||x||||y||||#
+〉Не раскладка с колонкой впритык
+←#|||| x ||||#
 → {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]},
+→ ]}]}]}
+
+〉Раскладка с двумя колонками впритык
+←#|| ||x||||y||||#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]}]},
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'y'}]}]}]},
 → ]}]}
 
+〉Не раскладка с двумя колонками впритык
+←#||||x||||y||||#
+→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]},
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'y'}]}]},
+→   ]},
+→ ]}]}
+
 〉Таблица в начале, раскладка в конце
-←#| || x || ||#
-→ {type: 'root', children: [{type: 'womTable', children: [
-→   {type: 'womTableRow', single: false, children: [
-→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
-→   ]}]}]}
+←#||| x ||||#abcdef
+→ {type: 'root', children: [
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]},
+→       {type: 'womTableCell', children: []},
+→     ]}]},
+→   {type: 'paragraph', children: [{type: 'text', value: 'abcdef'}]},
+→ ]}
 
 〉Раскладка в начале, таблица в конце
 ←#|| || x || |#
 → {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
-→   {type: 'womTableRow', single: false, children: [
+→   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]}
 →   ]}]}]}
 
 〉Раскладка в начале, таблица в конце, с битой строкой
 ←#|| || x | |#
-→ {type: 'root', children: [{type: 'womTable', kind: 'layout', children: [
-→   {type: 'womTableRow', single: false, children: [
-→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' x '}]}]},
-→     {type: 'womTableCell', children: []},
-→   ]}]}]}
+→ {type: 'text', value: '#|| || x | |#'}
 
+〉Таблица с незакрытой строкой (WIKI-11913)
+←#| ||a|| || |#
+←#| ||b|| |#
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: '#| ||a|| || |#'}]},
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→     ]}]}
+→ ]}
 
+〉Таблица с неправильно закрытой строкой (WIKI-11913)
+←#|
+←||a|b||
+←||a|b|
+←|#
+←#| ||b|| |#
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: '#|\n||a|b||\n||a|b|\n|#'}]},
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→     ]}]}
+→ ]}
+
+〉Таблица с неоткрытой строкой (WIKI-11913)
+←#|
+←||a|b||
+←a|b||
+←|#
+←#| ||b|| |#
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: '#|\n||a|b||\na|b||\n|#'}]},
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→     ]}]}
+→ ]}
+
+〉Таблица с неправильно открытой строкой (WIKI-11913)
+←#|
+←||a|b||
+←|a|b||
+←|#
+←#| ||b|| |#
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [{type: 'text', value: '#|\n||a|b||\n|a|b||\n|#'}]},
+→   {type: 'womTable', children: [
+→     {type: 'womTableRow', children: [
+→       {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→     ]}]}
+→ ]}
+
+〉Не ломаемся на #| 1 | ##||# (WIKI-11913)
+←#| 1 | ##||#
+→ {type: 'text', value: '#| 1 | ##||#'}
+
+〉Таблица с womColor в ячейке
+←#|
+←|| a | b ||
+←|| c | #ddd ||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' a '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' b '}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' c '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' '}, {type: 'color', raw: '#ddd', value: 'ddd'}, {type: 'text', value: ' '}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с womMonospace в ячейке
+←#|
+←|| a | b ||
+←|| c | ##monospace## ||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' a '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' b '}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' c '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' '}, {type: 'womMonospace', children: [{type: 'text', value: 'monospace'}]}, {type: 'text', value: ' '}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с битой вложенной таблицей
+←#|
+←|| #| ||a| |# | b ||
+←|| c | d ||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' #| ||a| |# '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' b '}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' c '}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' d '}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с битой вложенной таблицей 2
+←#|
+←||a| #| |b ||
+←||c|d||
+←|#
+→ {type: 'text', value: '#|\n||a| #| |b ||\n||c|d||\n|#'}
+
+〉Таблица c текстом вокруг
+←lalala #|
+←||a|b||
+←||c|d||
+←|# lalala
+→ {type: 'root', children: [
+→   {type: 'paragraph', children: [
+→     {type: 'text', value: 'lalala '},
+→     {type: 'womTable', children: [
+→       {type: 'womTableRow', children: [
+→         {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→         {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→       ]},
+→       {type: 'womTableRow', children: [
+→         {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→         {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→       ]}
+→     ]},
+→     {type: 'text', value: ' lalala'}
+→   ]}]}
+
+〉Таблица с экранированием (\) внутри
+←#|
+←||a| \#| |b||
+←||c|d||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [
+→       {type: 'text', value: ' '},
+→       {type: 'text', value: '#'},
+→       {type: 'text', value: '| '},
+→     ]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с экранированием (~) внутри
+←#|
+←||a| ~#|||w|||# |b||
+←||c|d||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [
+→       {type: 'text', value: ' '},
+→       {type: 'womEscape', raw: '~#|||w|||#', value: '#|||w|||#'},
+→       {type: 'text', value: ' '},
+→     ]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с экранированием (~) внутри 2
+←#|
+←||a| ~#| |b||
+←||c|d||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [
+→       {type: 'text', value: ' '},
+→       {type: 'womEscape', raw: '~#|', value: '#|'},
+→       {type: 'text', value: ' '},
+→     ]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с экранированием ("") внутри
+←#|
+←||a| ""#| || escaped || |#"" |b||
+←||c|d||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [
+→       {type: 'text', value: ' '},
+→       {type: 'womEscape', raw: '""#| || escaped || |#""', value: '#| || escaped || |#'},
+→       {type: 'text', value: ' '},
+→     ]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с экранированием ("") внутри 2
+←#|
+←||a| ""#| || escaped"" |b||
+←||c|d||
+←|#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [
+→       {type: 'text', value: ' '},
+→       {type: 'womEscape', raw: '""#| || escaped""', value: '#| || escaped'},
+→       {type: 'text', value: ' '},
+→     ]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]}
+→   ]},
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'd'}]}]}
+→   ]}
+→ ]}]}
 
 ## tilde-based
 

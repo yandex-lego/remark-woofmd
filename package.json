@@ -1,6 +1,6 @@
 {
   "name": "remark-woofmd",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Wiki OO formatter",
   "main": "index.js",
   "runkitExampleFilename": "runkit-example.js",

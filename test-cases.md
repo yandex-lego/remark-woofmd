@@ -2312,6 +2312,10 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 ←((http://www.woofmd.ru))
 → {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: []}
 
+〉Множество скобок перед ссылками
+←(((((((http://www.woofmd.ru)))
+→[{type: 'text', value: '(((((' }, {type: 'womLink', url: 'http://www.woofmd.ru', brackets: false, children: []}, {type: 'text', value: ')' }]
+
 〉Одинокая ссылка в квадратных скобках
 ←[[http://www.woofmd.ru]]
 → {type: 'womLink', url: 'http://www.woofmd.ru', brackets: true, children: []}

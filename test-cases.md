@@ -2650,7 +2650,7 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →          {type: 'text', value: ' 4 '}]}]}
 →  ]}]}]}
 
-〉¡ Таблица с по разному стилизованными строками
+〉Таблица с по разному стилизованными строками
 ←#|
 ←**|| 1a | 1b ||**
 ←//|| 1a | 1b ||//
@@ -2983,6 +2983,15 @@ club:internet → {type: 'womClub', value: 'internet', case: 'club', at: null }
 →   {type: 'womTableRow', children: [
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' c '}]}]},
 →     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: ' '}, {type: 'womMonospace', children: [{type: 'text', value: 'monospace'}]}, {type: 'text', value: ' '}]}]}
+→   ]}
+→ ]}]}
+
+〉Таблица с womMonospace впритык
+←#| ||ячейка1|##ячейка2 - моноширинная##|| |#
+→ {type: 'root', children: [{type: 'womTable', children: [
+→   {type: 'womTableRow', children: [
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'text', value: 'ячейка1'}]}]},
+→     {type: 'womTableCell', children: [{type: 'paragraph', children: [{type: 'womMonospace', children: [{type: 'text', value: 'ячейка2 - моноширинная'}]}]}]}
 →   ]}
 → ]}]}
 

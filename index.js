@@ -68,7 +68,8 @@ function plugin() {
 
         ['womStaff', womStaff],
 
-        ['womAction', womAction]
+        ['womAction', womAction],
+        ['womTable', womTable]
     ]);
 
     for (const [key, fn] of myInlineTokenizers) {

@@ -19,7 +19,7 @@
     "parser"
   ],
   "author": "Alexey Yaroshevich <zxqfox@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "MPL-2.0",
   "dependencies": {
     "is-whitespace-character": "^1.0.2"
   },
